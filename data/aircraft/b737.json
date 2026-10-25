@@ -1,0 +1,42 @@
+{
+  "family": "b737",
+  "familyCn": "波音 737 家族",
+  "variants": [
+    {
+      "id": "b738",
+      "name": "737-800",
+      "cnName": "波音 737-800",
+      "length": 39.47,
+      "span": 35.79,
+      "height": 12.55,
+      "winglet": "blended",
+      "engines": "CFM56-7B",
+      "engineCount": 2,
+      "seats": 162,
+      "cruise": "M0.785",
+      "range": 5765,
+      "mtow": 79.0,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "CZ", "HU", "MF", "ZH", "SC", "FU"]
+    },
+    {
+      "id": "b38m",
+      "name": "737 MAX 8",
+      "cnName": "波音 737 MAX 8",
+      "length": 39.52,
+      "span": 35.92,
+      "height": 12.3,
+      "winglet": "forked",
+      "engines": "LEAP-1B",
+      "engineCount": 2,
+      "seats": 178,
+      "cruise": "M0.79",
+      "range": 6570,
+      "mtow": 82.2,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "MF", "ZH"]
+    }
+  ]
+}

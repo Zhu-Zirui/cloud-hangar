@@ -367,3 +367,124 @@ button { font-family: inherit; }
   .page-head h1 { font-size: 24px; }
   .page-head h1 .en { display: block; margin: 6px 0 0; }
 }
+
+/* ---------- 15. 机型查看页(P1) ---------- */
+.viewer-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 336px;
+  gap: 18px;
+  padding-top: 22px;
+  padding-bottom: 30px;
+}
+.viewer-main {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 150px);
+}
+.viewer-main #v-3d { position: absolute; inset: 0; }
+.viewer-main #v-3d canvas { display: block; }
+
+.v-loading {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  color: var(--ink-dim); font-size: 14px; letter-spacing: 2px;
+}
+.v-loading .ring {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 3px solid rgba(56,189,248,0.18);
+  border-top-color: var(--accent);
+  animation: vSpin 0.9s linear infinite;
+}
+@keyframes vSpin { to { transform: rotate(360deg); } }
+
+.v-topbar {
+  position: absolute; top: 12px; left: 14px; right: 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  pointer-events: none; z-index: 5;
+}
+.v-topbar > * { pointer-events: auto; }
+.v-title {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(6,14,26,0.72);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+.v-title .t-en { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: 2px; }
+.v-title h2 { font-size: 19px; letter-spacing: 2px; line-height: 1.3; }
+.v-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+.v-chip {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 1px;
+  color: var(--ink-dim);
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(6,14,26,0.66);
+  border: 1px solid var(--line);
+  cursor: default;
+}
+.v-chip.btn-like { cursor: pointer; transition: color .2s, border-color .2s; }
+.v-chip.btn-like:hover, .v-chip.btn-like.on { color: var(--accent); border-color: rgba(56,189,248,0.55); }
+
+.v-bottom {
+  position: absolute; left: 14px; right: 14px; bottom: 12px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  z-index: 5;
+}
+.v-bottom .btn { backdrop-filter: blur(8px); }
+.v-bottom .spacer { flex: 1; }
+.v-reserved { display: flex; gap: 8px; flex-wrap: wrap; }
+.v-reserved .btn { opacity: .45; cursor: not-allowed; }
+
+.v-side { display: flex; flex-direction: column; gap: 16px; }
+.v-card { padding: 18px 18px 16px; }
+.v-card h3 {
+  font-size: 13px; letter-spacing: 3px; color: var(--accent);
+  font-family: var(--mono); margin-bottom: 12px;
+}
+.param-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.param-table td { padding: 5px 2px; border-bottom: 1px dashed var(--line); }
+.param-table td:last-child { text-align: right; color: var(--ink); font-family: var(--mono); font-size: 12.5px; }
+.param-table td:first-child { color: var(--ink-dim); }
+.v-note { margin-top: 10px; font-size: 12px; color: var(--warn); line-height: 1.6; }
+
+.anim-list { display: flex; flex-direction: column; gap: 4px; }
+.switch {
+  display: flex; align-items: center; gap: 12px;
+  padding: 7px 4px; font-size: 13.5px; cursor: pointer;
+  color: var(--ink-dim); transition: color .2s;
+  user-select: none;
+}
+.switch:hover { color: var(--ink); }
+.switch input { display: none; }
+.switch .slider {
+  position: relative; width: 38px; height: 20px; flex-shrink: 0;
+  border-radius: 999px; background: rgba(120,140,165,0.25);
+  border: 1px solid var(--line-strong);
+  transition: background .25s, border-color .25s;
+}
+.switch .slider::after {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--ink-dim);
+  transition: transform .25s, background .25s;
+}
+.switch input:checked + .slider { background: rgba(56,189,248,0.35); border-color: var(--accent); }
+.switch input:checked + .slider::after { transform: translateX(18px); background: var(--accent); }
+.switch.on-label { color: var(--ink); }
+
+.cam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cam-grid .btn { padding: 8px 4px; font-size: 12.5px; letter-spacing: 0; }
+
+.v-tip { font-size: 12px; color: var(--ink-faint); line-height: 1.7; }
+.v-tip b { color: var(--ink-dim); font-weight: 600; }
+
+.viewer-error {
+  max-width: 520px; margin: 90px auto; text-align: center; padding: 48px 36px;
+}
+.viewer-error h2 { margin-bottom: 10px; letter-spacing: 2px; }
+
+@media (max-width: 1080px) {
+  .viewer-wrap { grid-template-columns: 1fr; }
+  .viewer-main { min-height: 62vh; }
+  .v-side { flex-direction: row; flex-wrap: wrap; }
+  .v-side .v-card { flex: 1 1 260px; }
+}
