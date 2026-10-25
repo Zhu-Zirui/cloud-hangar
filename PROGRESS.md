@@ -16,6 +16,7 @@
 | P0 | 站点基座:路由 / 设计系统 / 3D 场景基座 / 机库首页(占位机)/ 占位页 | 2026-10-25 |
 | P1 | 参数化建模引擎 → 全量真实 GLB 模型(参数化退役,9 变体) | 2026-10-25 |
 | P2 | 涂装引擎(定稿:真实涂装 GLB 整体换装;初稿 Canvas 贴面方案废弃) | 2026-10-25 |
+| P7 | 部署上线 GitHub Pages(运行时资产全量入库方案) | 2026-10-25 |
 
 ## 待办
 
@@ -34,6 +35,26 @@
 - 特殊彩绘(熊猫号/联合梦想号等 8 款已核实真实存在)暂无现成贴图,未实现。
 
 ## 会话记录
+
+### 2026-10-25 · P7 部署上线 GitHub Pages
+
+- **所用模型**:GLM-5.3
+- **关键决策(用户拍板)**:
+  - **运行时资产全量入库**:参数化兜底已退役,纯代码部署线上 3D 必挂;铁律 5 修订——运行时 GLB(20 个,39.8MB)与航司 LOGO(18 个)随 git 仓部署,`_src/_tools/photos/*.glb.bak/.probe` 仍不入库;仓库体积预算由 <20MB 上调至 ~42MB(GitHub 上限 1GB,单文件最大 16MB 远低于 100MB 红线);
+  - **不装 gh CLI**,按 P7 预案走手动三步(网页建仓 → 我 remote add/push → 网页开 Pages)。
+- **本次完成项**:
+  - 部署前体检:25 个 JS `node --check` 全过;本地服务全资源 HTTP 200(含涂装 GLB/LOGO);jsdelivr 的 three@0.160.0 与 three-mesh-bvh@0.7.6 均 200,importmap 维持 jsdelivr 不换 npmmirror;
+  - `.gitignore` 修订 + 资产入库 commit `eee93d2`(39 文件);剔除 junction 探针残留 `.probe`;
+  - 远程 `origin = github.com/Zhu-Zirui/cloud-hangar`,6 个 commit 全量推送(main 已跟踪 origin/main);
+  - GitHub Pages 开启(main 分支 / root);线上地址 **https://zhu-zirui.github.io/cloud-hangar/** 已写入页脚与本账本;
+  - 路径审计:代码全相对路径 + hash 路由,子路径 `/cloud-hangar/` 下无障碍。
+- **改动文件**:`.gitignore`、`index.html`(页脚线上地址)、`PROGRESS.md`、入库 `assets/models/**`(20 GLB)、`assets/logos/**`、`assets/CREDITS.md`
+- **给下一会话的建议(部署纪律)**:
+  - 会话纪律第 6 条在 git commit 后**必须再 `git push`**,否则线上看不到新效果;
+  - 新增涂装:GLB 放 `assets/models/<变体>/` 并在 `data/liveries.json` 登记,`git add -A` 自动带上;转换源只放 `models/_src/`(被忽略,不误入);
+  - 若线上某模型 404:先查该文件是否已 commit+push;若浏览器报 three 加载失败:按总纲 §2 整体换 npmmirror 镜像后重新 push;
+  - 本机 push 凭据已由 Git Credential Manager 记住,后续 push 无需再登录。
+- **遗留问题**:线上首屏 3D 渲染与涂装切换的浏览器人工验收待用户完成(Pages 构建在每次 push 后约需 1 分钟)。
 
 ### 2026-10-25 · P2 涂装引擎(定稿:真实涂装 GLB 整体换装)
 
