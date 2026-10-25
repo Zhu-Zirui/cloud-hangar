@@ -5,5 +5,10 @@ desktop.ini
 *.log
 *.tmp
 
-# 二进制素材实体在 U 盘(junction),不入 git
-/assets
+# 二进制素材(P7 批准 2026-10-25):运行时 GLB 模型与 LOGO 随仓部署到 GitHub Pages,
+# 转换源/工具/照片等非运行时内容仍留在 U 盘(junction)不入库
+/assets/models/_src/
+/assets/_tools/
+/assets/photos/
+*.glb.bak
+/assets/models/.probe
