@@ -1,0 +1,232 @@
+{
+  "airlines": {
+    "boeing": {
+      "cn": "波音",
+      "en": "BOEING",
+      "color": "#12356e",
+      "logo": "assets/logos/boeing.png"
+    },
+    "airbus": {
+      "cn": "空客",
+      "en": "AIRBUS",
+      "color": "#2b5797",
+      "logo": "assets/logos/airbus.png"
+    },
+    "ca": {
+      "cn": "中国国际航空",
+      "en": "AIR CHINA",
+      "color": "#B01E28",
+      "logo": "assets/logos/ca.png"
+    },
+    "mu": {
+      "cn": "中国东方航空",
+      "en": "CHINA EASTERN",
+      "color": "#2E4F8A",
+      "logo": "assets/logos/mu.png"
+    },
+    "cz": {
+      "cn": "中国南方航空",
+      "en": "CHINA SOUTHERN",
+      "color": "#1467A8",
+      "logo": "assets/logos/cz.png"
+    },
+    "hu": {
+      "cn": "海南航空",
+      "en": "HAINAN",
+      "color": "#D6001C",
+      "logo": "assets/logos/hu.png"
+    },
+    "3u": {
+      "cn": "四川航空",
+      "en": "SICHUAN AIRLINES",
+      "color": "#C7000B",
+      "logo": "assets/logos/3u.png"
+    },
+    "mf": {
+      "cn": "厦门航空",
+      "en": "XIAMENAIR",
+      "color": "#005BAC",
+      "logo": "assets/logos/mf.png"
+    },
+    "zh": {
+      "cn": "深圳航空",
+      "en": "SHENZHEN AIRLINES",
+      "color": "#D0021B",
+      "logo": "assets/logos/zh.png"
+    },
+    "sc": {
+      "cn": "山东航空",
+      "en": "SHANDONG AIRLINES",
+      "color": "#0E4C96",
+      "logo": "assets/logos/sc.png"
+    },
+    "fu": {
+      "cn": "福州航空",
+      "en": "FUZHOU AIRLINES",
+      "color": "#1B3C73",
+      "logo": "assets/logos/fu.png"
+    },
+    "ho": {
+      "cn": "吉祥航空",
+      "en": "JUNEYAO AIR",
+      "color": "#C9A24B",
+      "logo": "assets/logos/ho.png"
+    },
+    "9c": {
+      "cn": "春秋航空",
+      "en": "Spring Airlines",
+      "color": "#00584A",
+      "logo": "assets/logos/9c.png"
+    },
+    "afr": {
+      "cn": "法国航空",
+      "en": "AIR FRANCE",
+      "color": "#002157",
+      "logo": "assets/logos/afr.png"
+    },
+    "baw": {
+      "cn": "英国航空",
+      "en": "BRITISH AIRWAYS",
+      "color": "#075AAA"
+    },
+    "ual": {
+      "cn": "美国联合航空",
+      "en": "UNITED",
+      "color": "#1414a0",
+      "logo": "assets/logos/ual.png"
+    },
+    "ana": {
+      "cn": "全日空",
+      "en": "ANA",
+      "color": "#13448f"
+    }
+  },
+  "liveries": [
+    {
+      "id": "b788-house",
+      "variant": "b788",
+      "airline": "boeing",
+      "name": "波音原厂涂装",
+      "model": "assets/models/b788/b788.glb"
+    },
+    {
+      "id": "b788-hu",
+      "variant": "b788",
+      "airline": "hu",
+      "name": "海南航空",
+      "model": "assets/models/b788/b788-hu.glb"
+    },
+    {
+      "id": "b788-cz",
+      "variant": "b788",
+      "airline": "cz",
+      "name": "中国南方航空",
+      "model": "assets/models/b788/b788-cz.glb"
+    },
+    {
+      "id": "b788-mf",
+      "variant": "b788",
+      "airline": "mf",
+      "name": "厦门航空",
+      "model": "assets/models/b788/b788-mf.glb"
+    },
+    {
+      "id": "b788-ca",
+      "variant": "b788",
+      "airline": "ca",
+      "name": "中国国际航空",
+      "model": "assets/models/b788/b788-ca.glb"
+    },
+    {
+      "id": "b788-boe",
+      "variant": "b788",
+      "airline": "boeing",
+      "name": "波音演示涂装",
+      "model": "assets/models/b788/b788-boe.glb"
+    },
+    {
+      "id": "b788-afr",
+      "variant": "b788",
+      "airline": "afr",
+      "name": "法国航空",
+      "model": "assets/models/b788/b788-afr.glb"
+    },
+    {
+      "id": "b788-baw",
+      "variant": "b788",
+      "airline": "baw",
+      "name": "英国航空",
+      "model": "assets/models/b788/b788-baw.glb"
+    },
+    {
+      "id": "b788-ual",
+      "variant": "b788",
+      "airline": "ual",
+      "name": "美国联合航空",
+      "model": "assets/models/b788/b788-ual.glb"
+    },
+    {
+      "id": "b788-ana",
+      "variant": "b788",
+      "airline": "ana",
+      "name": "全日空",
+      "model": "assets/models/b788/b788-ana.glb"
+    },
+    {
+      "id": "b789-house",
+      "variant": "b789",
+      "airline": "boeing",
+      "name": "波音原厂涂装",
+      "model": "assets/models/b789/b789.glb"
+    },
+    {
+      "id": "b738-house",
+      "variant": "b738",
+      "airline": "boeing",
+      "name": "波音原厂涂装",
+      "model": "assets/models/b738/b738.glb"
+    },
+    {
+      "id": "a20n-house",
+      "variant": "a20n",
+      "airline": "airbus",
+      "name": "空客原厂涂装",
+      "model": "assets/models/a20n/a20n.glb"
+    },
+    {
+      "id": "a21n-house",
+      "variant": "a21n",
+      "airline": "airbus",
+      "name": "空客原厂涂装",
+      "model": "assets/models/a21n/a21n.glb"
+    },
+    {
+      "id": "a332-house",
+      "variant": "a332",
+      "airline": "airbus",
+      "name": "空客原厂涂装",
+      "model": "assets/models/a332/a332.glb"
+    },
+    {
+      "id": "a333-house",
+      "variant": "a333",
+      "airline": "airbus",
+      "name": "空客原厂涂装",
+      "model": "assets/models/a333/a333.glb"
+    },
+    {
+      "id": "a359-house",
+      "variant": "a359",
+      "airline": "airbus",
+      "name": "空客原厂涂装",
+      "model": "assets/models/a359/a359.glb"
+    },
+    {
+      "id": "b748-house",
+      "variant": "b748",
+      "airline": "boeing",
+      "name": "波音原厂涂装",
+      "model": "assets/models/b748/b748.glb"
+    }
+  ]
+}

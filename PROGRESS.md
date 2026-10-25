@@ -14,11 +14,13 @@
 | 阶段 | 内容 | 完成日期 |
 | ---- | ---- | -------- |
 | P0 | 站点基座:路由 / 设计系统 / 3D 场景基座 / 机库首页(占位机)/ 占位页 | 2026-10-25 |
+| P1 | 参数化建模引擎 → 全量真实 GLB 模型(参数化退役,9 变体) | 2026-10-25 |
+| P2 | 涂装引擎(定稿:真实涂装 GLB 整体换装;初稿 Canvas 贴面方案废弃) | 2026-10-25 |
 
 ## 待办
 
 - [ ] P1 参数化建模引擎 + 机型查看页(替换占位机,数据迁入 data/aircraft/)
-- [ ] P2 Canvas 涂装贴图引擎(airlines liveries)
+- [x] P2 涂装引擎(真实涂装 GLB 方案)
 - [ ] P3 部件知识卡(parts)
 - [ ] P4 舱内场景(驾驶舱 / 客舱)
 - [ ] P5 机场图鉴
@@ -27,9 +29,62 @@
 
 ## 遗留问题
 
-- 暂无。
+- 涂装覆盖:b788 有 10 款(海航/南航/厦航/国航 + 波音演示 + 法/英/美/日航司),其余变体仅原厂涂装;737NG 东航 CES、A320 系国航等贴图已定位未转换(见"给下一会话的建议")。
+- FG 涂装模型(FlightGear 787-8)为低多边形且起落架姿态/取景基线与 FR24 模型不同,换装后观感与取景待调优;换装功能本身已可用(色卡/下拉/品牌联动/seenLiveries)。
+- 特殊彩绘(熊猫号/联合梦想号等 8 款已核实真实存在)暂无现成贴图,未实现。
 
 ## 会话记录
+
+### 2026-10-25 · P2 涂装引擎(定稿:真实涂装 GLB 整体换装)
+
+- **所用模型**:GLM-5.3
+- **方案演变(重要,经用户三次指示)**:
+  1. 初稿按 P2 提示词做 Canvas 贴面引擎(three-mesh-bvh 射线采样贴片 + 反查烘焙舷窗 + 尾徽贴片),b738 上已渲染出国航腰带/标题/注册号/垂尾 LOGO,但存在硬伤:盖不住整机(发动机/机翼/烘焙原厂涂装仍在)、特殊彩绘只能矢量近似;
+  2. 用户质疑"网上没有现成的涂装成品吗",经查证:FGMEMBERS(FlightGear)生态有整套真实航司涂装贴图(787:海航 CHH/南航 CSN/厦航 CXA/国航 B-2727/波音 BOE/法航 AFR/英航 BAW/美联航 UAL/全日空 ANA;737-800:东航 CES;A319:国航 CCA),许可同为 GPL-2.0;
+  3. 用户定稿:有现成真实涂装的全用现成的,中国航司没有的补著名国外航司,弃用纯贴面方案。
+- **新增 `D:\云端机库-assets\_toolsc2glb.py`(自研 AC3D→glTF2 转换器,无需 Blender)**:
+  - 解析 AC3Db 文本格式(MATERIAL/OBJECT/loc/rot/texture/numvert/SURF/refs,层级 kids 变换累积);
+  - refs 扇形三角化,UV v 翻转(AC3D 左下原点 → glTF 左上),`--livery` 整套换贴图,`--drop-tex` 丢座舱内部;
+  - 材质:双面 + metallic 0.12/roughness 0.78,灯光贴图自发光,trimesh 导出 GLB;
+  - 产出 `models/b788/b788-{hu,cz,mf,ca,boe,afr,baw,ual,ana}.glb` ×9(约 1.3-1.6MB/个)。
+- **engine/gltfModel.js**:`loadGltfTemplate` 改直取 URL(涂装 GLB 任意路径),新增 `buildGltfAircraftUrl`;**修复纵轴判定 bug**:787 翼展>机长,"最长轴=纵轴"启发式判错,改为按权威数据 length 差值判轴。
+- **engine/livery.js 重写为纯数据模块**(getAllLiveries/liveriesForVariant),Canvas 贴面实现移除;**data/liveries.json 定稿 v2**:每条 = {id, variant, airline, name, model}。
+- **ui/viewer.js 换装通道**:色卡(航司底色+LOGO)横排 + 下拉,点击整体换装 GLB(remove→dispose→build→add),换装后按新模型包围盒重校取景基线;机库环境品牌联动(setBrand)、`cav3d.seenLiveries` 浏览记录、"切换涂装"按钮滚动定位。修复换装期间引入的段丢失(参照物/初始相机/夜灯绑定误删已还原)与 cH 重复声明。
+- **真实 LOGO**:11 家中国航司 + 法航/美联航(960px),经维基百科 Special:FilePath 下载;福州航空全网最大仅 293×340;春秋用 Commons PD 版放大;英航/全日空无可分发标志文件(色卡仅底色)。
+- **验证**:机库卡片涂装数量角标(787-8 ×11);b788 默认 FR24 波音 Dreamliner 渲染正常;切换海航涂装成功(整机换装 + 品牌柱联动);IAB 浏览器 WebGL 上下文经多次重载后耗尽导致截图通道超时,新开标签页恢复——后续测试注意少开新 context。
+- **遗留问题**:见"遗留问题"节;取景基线/FG 模型贴合度待下轮调优。
+- **给下一会话的建议**:
+  - 737NG 东航:clone FGMEMBERS/737NG,解析 Models/738.xml 装配多部件 .ac(737-800.ac/LWing/RWing/HorzStab/VertStab/nosegear 等,部件顶点已在整机坐标系),ac2glb.py 需支持多文件合并 + Liveries-800/CES-800.png;
+  - A320 系国航:FGMEMBERS/A320-family 仅 A319-CCA(A319),若接受 A319 替代 A320neo 展示可转;
+  - 取景:换装后可同时微调相机距离(当前仅 target.y);
+  - IAB 测试节制重载,WebGL context 上限约十余次。
+
+### 2026-10-25 · 查看页默认环境:航空公司维修机库内景 + 品牌系统
+
+- **所用模型**:GLM-5.3
+- **新增 `engine/hangarEnv.js`(程序化室内大机库)**:
+  - 内部 120m 宽 × 156m 深 × 34m 高(容 747-8 有余):环氧地坪(伸缩缝/机位框/牵引中线/警示带/工位编号)、肋板墙、门式刚架柱列 + 檩条(InstancedMesh)、后墙 72m 大门(门板横条 + 底部黄黑警示条)、天窗带 + 20 组灯具阵;
+  - 昼/夜两态:白天靠天窗带自发光(hemisphere+sun 照常),夜间灯具全亮 + 6 盏 PointLight(1600cd,不投影),门楣色带夜间微光;与查看页"夜间模式"开关联动;
+  - **墙体/屋面全部单面(法线朝内)**:外部/俯视相机穿透形成剖面展示效果,不挡 6 个相机预设(俯视在屋面之上、前视在 156m 之外都能看到整机);
+  - 品牌件:后墙大门上方 26×6.5m 品牌面板(LOGO + 中英文厂名)、4 根柱幅(品牌色底 + 白色 LOGO 剪影 + 竖排厂名)、门楣色带;
+  - **品牌 API(P2 涂装接入点)**:`HANGAR_BRANDS` 注册表 + `registerHangarBrand(def)` + `env.setBrand(key)`;查看页默认按机型厂商挂 `boeing`/`airbus`(变体 ID 前缀判定),P2 切换涂装时改调 `hangar.setBrand(航司)` 即可联动;
+  - dispose 完整(贴图/材质/几何),挂在 scene 基座的统一 dispose 链上。
+- **真实 LOGO(经用户同意上网获取)**:Wikimedia Commons 取 Boeing full logo 与 Airbus Logo 2017(SVG→PNG 1200px 透明底)存 `D:\云端机库-assets\logos\`,来源与商标声明已记入 CREDITS.md;深色柱幅用 canvas `source-in` 重绘成白色剪影。下载当日 Wikimedia 曾被墙,后解封;jsdelivr/raw.githubusercontent 为备选渠道。
+- **改动文件**:engine/hangarEnv.js(新)、ui/viewer.js(import + 环境/品牌/夜间联动)、assets/CREDITS.md、D:\云端机库-assets\logos\*(U 盘)
+- **验证**:node --check 通过;HTTP 200(logos、hangarEnv);IAB 内 b789 页重载后画布/标题/△14,186 正常。IAB 截图通道对 WebGL 页持续超时("surface preparation timed out"),机库观感与波音/空客 LOGO 待用户浏览器内人工复核。
+- **遗留问题**:
+  - 夜间点光 1600cd 为保守初值,明暗观感待复核后调;
+  - 机库首页(hangar hero)仍是室外停机坪,未换机库内景(可后续复用 hangarEnv);
+  - P2 涂装引擎需注册各航司 brand(logoUrl + 主色)并接线。
+
+### 2026-10-25 · 修复 b738/b789 直立渲染(Z-up 轴系未转换)
+
+- **所用模型**:GLM-5.3
+- **问题**:b738/b789 在查看页整机沿机身轴线直立(机头朝天)。根因:FR24 源 dae 声明 `<up_axis>Z_UP</up_axis>`,pycollada 不自动应用 up_axis,上一轮转换把 Z-up 坐标原样写入 glTF(Y-up),飞机横滚 90° 立起;`normalizeAircraft` 只绕 Y 轴转(处理机头朝向),救不了横滚。
+- **修复**:直接在两个 GLB 的场景图插入根节点旋转四元数 `[0, √2/2, √2/2, 0]`(绕 (0,1,1) 轴 180°:高度 Z→+Y、机鼻 +Y→+Z、翼展 X→−X),网格/贴图数据零改动。实测 trimesh 世界坐标:b738 X=35.7(翼展)/Y=12.1(高)/Z=39.4(机长),b789 X=59.6/Y=14.9/Z=65.9,机鼻均 +Z,与 b748 等正常变体同惯例。原文件备份为 `*.glb.bak`。
+- **排查要点(供后续转换复用)**:GLB accessor min/max 是网格局部坐标,不可用于判断整机朝向;须用 trimesh 加载后取世界系顶点,以"长度轴两端的高度的均值"判机头(机头端低、尾翼端高)。
+- **改动文件**:D:\云端机库-assets\models\b738\b738.glb、b789\b789.glb(根节点补旋转)、PROGRESS.md
+- **遗留问题**:浏览器内渲染复核由用户完成(若缓存顽固按惯例换端口)。
 
 ### 2026-10-25 · P1 检查点 4(全量切换真实模型,参数化退役)完成
 

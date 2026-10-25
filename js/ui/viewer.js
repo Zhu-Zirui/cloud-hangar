@@ -7,8 +7,11 @@
 import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
 import { buildAircraft, loadVariant, VARIANT_ORDER } from '../engine/aircraft.js';
-import { GLB_VARIANTS, buildGltfAircraft } from '../engine/gltfModel.js';
+import { GLB_VARIANTS, buildGltfAircraft, buildGltfAircraftUrl } from '../engine/gltfModel.js';
+import { storeUpdate } from '../core/store.js';
+import { buildHangarEnv, registerHangarBrand } from '../engine/hangarEnv.js';
 import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/details.js';
+import { getAllLiveries, liveriesForVariant } from '../engine/livery.js';
 
 /* 部件命名表(P1 提示词 30 项)中文对照 */
 const PART_NAMES = {
@@ -107,13 +110,19 @@ export function render(container, params) {
           <a class="btn btn-ghost btn-sm" href="#/aircraft/${nextId}">下一架 ▶</a>
           <span class="spacer"></span>
           <div class="v-reserved">
-            <button class="btn btn-ghost btn-sm" disabled title="P2 上线">切换涂装</button>
+            <button class="btn btn-ghost btn-sm" id="btn-livery" title="打开涂装面板">切换涂装</button>
             <button class="btn btn-ghost btn-sm" disabled title="P3 上线">部件图鉴</button>
             <button class="btn btn-ghost btn-sm" disabled title="P4 上线">进入舱内</button>
           </div>
         </div>
       </div>
       <aside class="v-side">
+        <section class="v-card glass-card" id="livery-card">
+          <h3>涂装 <span class="v-chip" id="lv-count">…</span></h3>
+          <div class="lv-swatches" id="lv-swatches"></div>
+          <select class="lv-select" id="lv-select" aria-label="选择涂装"></select>
+          <p class="v-tip">涂装切换 = 整套真实贴图模型换装(FlightGear 系 GPL 素材经转换),切换不刷新页面。中国航司涂装覆盖不全的机型暂仅原厂涂装。</p>
+        </section>
         <section class="v-card glass-card hud-frame">
           <h3>机型参数</h3>
           <table class="param-table">
@@ -165,6 +174,21 @@ export function render(container, params) {
     });
     run(() => base.dispose());
 
+    /* 机库内景:默认按机型厂商挂波音/空客厂房品牌(P2 涂装切换时改为 hangar.setBrand(航司)) */
+    const hangar = buildHangarEnv(base.scene, base.renderer);
+    hangar.setBrand(variantId.startsWith('a') ? 'airbus' : 'boeing');
+    run(() => hangar.dispose());
+
+    /* P2 涂装库:航司品牌注册进机库环境(切换涂装时机库厂房品牌联动) */
+    let LV_LIST = [], ALL_LV = { airlines: {} };
+    try {
+      ALL_LV = await getAllLiveries();
+      for (const [key, a] of Object.entries(ALL_LV.airlines)) {
+        registerHangarBrand({ key, factoryCn: a.cn, factoryEn: a.en, logoUrl: a.logo, primary: a.color, panelBg: '#f5f8fc' });
+      }
+      LV_LIST = liveriesForVariant(ALL_LV, variantId);
+    } catch (err) { console.warn('[viewer] 涂装库加载失败:', err); }
+
     /* 双通道:有真实 GLB(铁律 §4 修订)走模型,否则参数化引擎 */
     let ac = null, P = null;
     if (GLB_VARIANTS[variantId]) {
@@ -184,9 +208,80 @@ export function render(container, params) {
     base.scene.add(ac.root);
     base.addTick((dt, t) => ac.update(dt, t));
 
-    /* 参照物:人形剪影 / 客梯车 / 标尺(默认隐藏,可开关) */
+    /* ---------- P2:涂装切换(真实涂装 GLB 整体换装) ---------- */
+    const acRef = { ac };
+    base.addTick((dt, t) => acRef.ac.update(dt, t));
+    const swWrap = container.querySelector('#lv-swatches');
+    const lvSelect = container.querySelector('#lv-select');
+    const lvCount = container.querySelector('#lv-count');
+    let lvBusy = false;
+    if (lvCount) lvCount.textContent = `${LV_LIST.length} 款`;
+    for (const def of LV_LIST) {
+      const opt = document.createElement('option');
+      opt.value = def.id;
+      opt.textContent = def.name;
+      lvSelect.appendChild(opt);
+      const b = document.createElement('button');
+      b.className = 'lv-swatch';
+      b.type = 'button';
+      b.title = def.name;
+      b.dataset.id = def.id;
+      const meta = ALL_LV.airlines[def.airline] || {};
+      b.style.setProperty('--lv', meta.color || '#5b6b7c');
+      if (meta.logo) {
+        const img = document.createElement('img');
+        img.src = meta.logo; img.alt = '';
+        b.appendChild(img);
+      }
+      b.addEventListener('click', () => applyLivery(def));
+      swWrap.appendChild(b);
+      if (def.model.endsWith('/' + variantId + '/' + variantId + '.glb')) b.classList.add('on');
+    }
+    async function applyLivery(def) {
+      if (lvBusy || !def || def.model === acRef.model) return;
+      lvBusy = true;
+      swWrap.classList.add('busy');
+      lvSelect.value = def.id;
+      swWrap.querySelectorAll('.lv-swatch').forEach((el) => el.classList.toggle('on', el.dataset.id === def.id));
+      try {
+        base.scene.remove(acRef.ac.root);
+        acRef.ac.dispose();
+        acRef.ac = await buildGltfAircraftUrl(def.model, base.renderer, {
+          length: v.length, span: v.span, height: v.height,
+        });
+        acRef.model = def.model;
+        base.scene.add(acRef.ac.root);
+        // 新模型起落架姿态不同,重校取景基线
+        const bb2 = new THREE.Box3().setFromObject(acRef.ac.root);
+        if (!bb2.isEmpty()) base.controls.target.y = bb2.getCenter(new THREE.Vector3()).y;
+        if (window.__CH_DEBUG) window.__CH_DEBUG.root = acRef.ac.root;
+        const tri = acRef.ac.triCount();
+        const triEl = container.querySelector('#v-tri');
+        if (triEl) triEl.textContent = `△ ${tri.toLocaleString()}`;
+        hangar.setBrand(def.airline || (variantId.startsWith('a') ? 'airbus' : 'boeing'));
+        storeUpdate('seenLiveries', (arr) => { const set = new Set(arr || []); set.add(def.id); return [...set]; }, []);
+        toast(`涂装:${def.name}`);
+      } catch (err) {
+        console.error('[viewer] 涂装加载失败:', err);
+        toast('涂装加载失败:' + err.message, 'danger');
+      }
+      swWrap.classList.remove('busy');
+      lvBusy = false;
+    }
+    lvSelect.addEventListener('change', () => applyLivery(LV_LIST.find((d) => d.id === lvSelect.value)));
+    const btnLivery = container.querySelector('#btn-livery');
+    if (btnLivery) {
+      btnLivery.addEventListener('click', () => {
+        container.querySelector('#livery-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        swWrap.classList.remove('flash');
+        void swWrap.offsetWidth;
+        swWrap.classList.add('flash');
+      });
+    }
+
+    /* ---------- 参照物与初始相机 ---------- */
     const L = v.length, SP = v.span;
-    const bodyR = P ? P.fuselage.maxR : v.height * 0.13;   // GLB 通道按机高估机身半径
+    const bodyR = P ? P.fuselage.maxR : v.height * 0.13;
     const standee = buildHumanStandee();
     standee.position.set(bodyR + 4.2, 0, L * 0.3);
     base.scene.add(standee);
@@ -200,13 +295,15 @@ export function render(container, params) {
     ruler.visible = false;
     base.scene.add(ruler);
 
-    /* 初始相机按整机尺寸取景 */
-    const cH = P ? P.centerH : v.height * 0.28;
-    const d = Math.max(L * 0.95, 16);
-    base.camera.position.set(d * 0.72, cH + L * 0.2, d * 0.95);
-    base.controls.target.set(0, cH * 0.6, 0);
+    /* 初始相机按整机尺寸取景;取景基线 = 实际包围盒中心(FG/FR24 模型起落架姿态不同) */
+    const _bb = new THREE.Box3().setFromObject(ac.root);
+    const _bc = _bb.getCenter(new THREE.Vector3());
+    const cH = _bb.isEmpty() ? v.height * 0.28 : _bc.y;
+    const dCam = Math.max(L * 0.95, 16);
+    base.camera.position.set(dCam * 0.72, cH + L * 0.18, dCam * 0.95);
+    base.controls.target.set(0, cH * 0.8, 0);
 
-    /* 三角形计数 */
+    /* 三角形计数(换涂装时由 applyLivery 刷新) */
     const tri = ac.triCount();
     const triEl = container.querySelector('#v-tri');
     if (triEl) triEl.textContent = `△ ${tri.toLocaleString()}`;
@@ -220,7 +317,7 @@ export function render(container, params) {
       el.addEventListener('change', h);
       run(() => el.removeEventListener('change', h));
     };
-    bind('#tg-night', (on) => { ac.setNight(on); base.setNight(on); });
+    bind('#tg-night', (on) => { acRef.ac.setNight(on); base.setNight(on); hangar.setNight(on); });
 
     const rulerBtn = container.querySelector('#v-ruler');
     const onRuler = () => {
@@ -231,7 +328,6 @@ export function render(container, params) {
     run(() => rulerBtn.removeEventListener('click', onRuler));
 
     /* ---------- 交互:相机预设(平滑过渡) ---------- */
-    // GLB 通道无精确参数,按权威数据估算(发动机站位/垂尾高等)
     const finH = P ? P.fin.height : v.height * 0.36;
     const engWX = P ? P.engines[0].pos.x : SP * 0.18;
     const engWY = P ? P.engines[0].pos.y + cH : cH - v.height * 0.22;
@@ -249,7 +345,7 @@ export function render(container, params) {
       engine: { pos: [engWX + engFanD * 2.6, engWY + engFanD * 1.1, engWZ + engFanD * 4.2],
                 tgt: [engWX, engWY, engWZ] },
       gear:   { pos: [mainGx + 7.5, 1.7, mainGz + 8.5], tgt: [mainGx * 0.7, 1.3, mainGz] },
-      tail:   { pos: [-SP * 0.42, cH + finH * 0.7, zTail - d * 0.34],
+      tail:   { pos: [-SP * 0.42, cH + finH * 0.7, zTail - dCam * 0.34],
                 tgt: [0, cH + finH * 0.55, zTail + finH * 1.2] },
     };
 
@@ -292,7 +388,7 @@ export function render(container, params) {
       ptr.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
       ray.setFromCamera(ptr, base.camera);
       const meshes = [];
-      ac.root.traverse((o) => { if ((o.isMesh || o.isInstancedMesh) && o.userData.partId) meshes.push(o); });
+      acRef.ac.root.traverse((o) => { if ((o.isMesh || o.isInstancedMesh) && o.userData.partId) meshes.push(o); });
       const hit = ray.intersectObjects(meshes, false)[0];
       if (hit) {
         const id = hit.object.userData.partId;
@@ -307,8 +403,11 @@ export function render(container, params) {
       base.renderer.domElement.removeEventListener('pointerup', onUp);
     });
 
+    /* 调试通道(控制台可查几何上下文) */
+    window.__CH_DEBUG = { root: ac.root, variantId, camera: base.camera, controls: base.controls, scene: base.scene };
+
     /* 换机型时释放整机资源 */
-    run(() => ac.dispose());
+    run(() => acRef.ac.dispose());
   })().catch((err) => {
     console.error('[viewer] 初始化失败:', err);
     if (!disposed) toast('查看页初始化失败:' + err.message, 'danger');

@@ -34,7 +34,7 @@ export function loadGltfTemplate(assetId) {
   if (!cache.has(assetId)) {
     const p = new Promise((resolve, reject) => {
       new GLTFLoader().load(
-        `assets/models/${assetId}/${assetId}.glb`,
+        assetId,
         (gltf) => {
           const scene = gltf.scene;
           scene.traverse((o) => {
@@ -69,9 +69,11 @@ export function normalizeAircraft(scene, dims) {
   const center = new THREE.Vector3();
   box.getCenter(center);
 
-  // 2) 最长轴视为纵轴,重定向到 +Z(机头方向按校准表,FR24 模型机鼻朝 -Z)
+  // 2) 纵轴判定:与权威数据 length 差值小者为纵轴(787 等翼展>机长,不能按最长轴)
   let sizeZ = size.z, sizeX = size.x, sizeY = size.y;
-  if (size.x >= size.z) { // 纵轴在 X:转 90°
+  const errZ = Math.abs(size.z - dims.length);
+  const errX = Math.abs(size.x - dims.length);
+  if (errX < errZ) { // 纵轴在 X:转 90°
     inner.rotation.y = Math.PI / 2;
     [sizeZ, sizeX] = [sizeX, sizeZ];
   }
@@ -97,10 +99,10 @@ export function normalizeAircraft(scene, dims) {
 /**
  * 真实模型通道:返回与 buildAircraft 兼容的接口。
  * 动画:GLB 自带动画则播放(风扇/舵面),否则静态;开关面板仅夜间模式生效。
+ * @param {string} url GLB 地址(变体基础模型或涂装模型)
  */
-export async function buildGltfAircraft(variantId, renderer, dims) {
-  const assetId = GLB_VARIANTS[variantId];
-  if (!assetId) throw new Error(`变体 ${variantId} 无真实模型通道`);
+export async function buildGltfAircraftUrl(url, renderer, dims) {
+  const assetId = url;
   const scene = await loadGltfTemplate(assetId);
   const root = normalizeAircraft(scene, dims);
 
@@ -150,4 +152,10 @@ export async function buildGltfAircraft(variantId, renderer, dims) {
       });
     },
   };
+}
+
+export async function buildGltfAircraft(variantId, renderer, dims) {
+  const assetId = GLB_VARIANTS[variantId];
+  if (!assetId) throw new Error(`变体 ${variantId} 无真实模型通道`);
+  return buildGltfAircraftUrl(`assets/models/${assetId}/${assetId}.glb`, renderer, dims);
 }

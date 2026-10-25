@@ -488,3 +488,46 @@ button { font-family: inherit; }
   .v-side { flex-direction: row; flex-wrap: wrap; }
   .v-side .v-card { flex: 1 1 260px; }
 }
+
+/* ============================================================
+   §16 P2 涂装面板与机库角标
+   ============================================================ */
+.lv-swatches {
+  display: flex; flex-wrap: nowrap; gap: 8px;
+  overflow-x: auto; padding: 4px 2px 8px;
+  scrollbar-width: thin;
+}
+.lv-swatches.busy { opacity: .55; pointer-events: none; }
+.lv-swatches.flash { animation: lvFlash .9s ease; }
+@keyframes lvFlash {
+  0%, 100% { box-shadow: none; }
+  30% { box-shadow: 0 0 0 2px var(--accent, #38bdf8); border-radius: 10px; }
+}
+.lv-swatch {
+  position: relative; flex: 0 0 46px; width: 46px; height: 46px;
+  border-radius: 10px; border: 2px solid rgba(255, 255, 255, .14);
+  background: var(--lv, #5b6b7c);
+  cursor: pointer; display: grid; place-items: center;
+  padding: 5px; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.lv-swatch img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+.lv-swatch:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, .45); }
+.lv-swatch.on { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, .45); }
+.lv-swatch .lv-star {
+  position: absolute; top: -7px; right: -5px;
+  font-style: normal; font-size: 13px; color: #ffd24a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+}
+.lv-select {
+  width: 100%; margin-top: 8px; padding: 8px 10px;
+  background: rgba(10, 22, 40, .7); color: var(--text, #e8eef6);
+  border: 1px solid rgba(255, 255, 255, .16); border-radius: 8px;
+  font: inherit; font-size: 13px;
+}
+.livery-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 11px; color: #9fd8ff;
+  background: rgba(10, 22, 40, .55); border: 1px solid rgba(56, 189, 248, .35);
+  border-radius: 999px; padding: 2px 9px;
+}
+.ac-card { position: relative; }

@@ -1,17 +1,23 @@
 /**
- * engine/livery.js — Canvas 涂装引擎(P2 实现,P1 仅留接口)
- * P2 契约:
- *   makeLiveryTextures(airlineDef, variantId) → { fuselage, tail } 两个 CanvasTexture
- *   机身贴图按 materials.js 头注的 UV 契约绘制(圆周 u / 纵向 s / flipY=false)。
- *   listLiveries(variantId) → 该变体可选涂装定义数组(P2 读 data/liveries.json)。
+ * engine/livery.js — 涂装数据模块(P2 定稿方案:真实涂装 GLB 整体切换)
+ *
+ * 定稿路线(经用户批准):涂装切换 = 换装整套真实贴图的 GLB 模型
+ * (FlightGear/FGMEMBERS 生态的航司涂装,经 _tools/ac2glb.py 转换,GPL-2.0 同源),
+ * 不再使用 P2 初稿的 Canvas 贴面/贴图重绘方案(该实现已移除)。
+ * 中国航司贴图未覆盖的机型仅保留原厂涂装;著名国外航司涂装作补充。
  */
-
-/** P1:返回 null → 总装器回退到素色涂装 */
-export function makeLiveryTextures(_airlineDef, _variantId) {
-  return null;
+let liveryDataCache = null;
+export function getAllLiveries() {
+  if (!liveryDataCache) {
+    liveryDataCache = fetch('data/liveries.json').then((res) => {
+      if (!res.ok) throw new Error(`liveries.json HTTP ${res.status}`);
+      return res.json();
+    });
+  }
+  return liveryDataCache;
 }
 
-/** P1:无涂装可选 */
-export function listLiveries(_variantId) {
-  return [];
+/** 该变体的涂装列表(含原厂入口,按 json 顺序) */
+export function liveriesForVariant(all, variantId) {
+  return all.liveries.filter((d) => d.variant === variantId);
 }
