@@ -84,6 +84,8 @@
   - 详情页跑道图可加机场真实构型特调(如 PKX 放射五指廊俯视),当前为通用程序化布局;
   - 18 座之外扩容只需在 data/airports.json 追加,UI 无需改码。
 - **遗留问题**:跑道图两组跑道簇(如 PKX 01 系与 17 系)按簇心横移排布,交叉观感为示意级;approx 字段待用户核对后去标记。
+- **同日追加(用户指示)**:基地航司 LOGO 补全与白底——新下载 kn(中国联合航空)/eu(成都航空)/pn(西部航空)/8l(祥鹏航空)/gj(浙江长龙航空)真实标志(en.wikipedia Special:FilePath,来源已记 assets/CREDITS.md),登记入 data/liveries.json airlines(现 22 家);`.ap-hub img` 统一纯白底(#fff,18px)。已验:PKX/CTU/CKG/KMG/HGH 五页徽标全部加载且白底生效。
+  - 注意:kn/eu/pn/8l/gj 的色块主色为按标志目测取的近似值;8l.png 仅 168×97、pn.png 292×96,已是全网可得最高清晰度,chip 内 18px 显示无碍。
 
 ### 2026-10-25 · P7 部署上线 GitHub Pages
 

@@ -78,6 +78,36 @@
       "color": "#00584A",
       "logo": "assets/logos/9c.png"
     },
+    "kn": {
+      "cn": "中国联合航空",
+      "en": "CHINA UNITED",
+      "color": "#C40D6E",
+      "logo": "assets/logos/kn.png"
+    },
+    "eu": {
+      "cn": "成都航空",
+      "en": "CHENGDU AIRLINES",
+      "color": "#D9A036",
+      "logo": "assets/logos/eu.png"
+    },
+    "pn": {
+      "cn": "西部航空",
+      "en": "WEST AIR",
+      "color": "#7A3E9A",
+      "logo": "assets/logos/pn.png"
+    },
+    "8l": {
+      "cn": "祥鹏航空",
+      "en": "LUCKY AIR",
+      "color": "#CF0A2C",
+      "logo": "assets/logos/8l.png"
+    },
+    "gj": {
+      "cn": "浙江长龙航空",
+      "en": "LOONGAIR",
+      "color": "#E60012",
+      "logo": "assets/logos/gj.png"
+    },
     "afr": {
       "cn": "法国航空",
       "en": "AIR FRANCE",

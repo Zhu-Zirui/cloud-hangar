@@ -721,6 +721,9 @@ button { font-family: inherit; }
   border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px 3px 6px;
 }
 .ap-hub i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
-.ap-hub img { width: 16px; height: 16px; object-fit: contain; border-radius: 3px; background: rgba(255, 255, 255, .85); }
+.ap-hub img {
+  width: 18px; height: 18px; object-fit: contain; border-radius: 3px;
+  background: #ffffff; padding: 1px;   /* 用户要求:基地航司 LOGO 统一白底 */
+}
 .ap-dim { color: var(--ink-faint); }
 .ap-facts .pc-row span { color: #d7e5f2; }

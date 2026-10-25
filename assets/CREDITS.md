@@ -77,3 +77,12 @@ Special:FilePath 下载(960px)。baw/ana 暂无可分发标志文件,色卡仅�
 ## 转换工具 `_tools/ac2glb.py`
 
 自研脚本(本项目产出,GPL-2.0 同源随项目分发),解析 AC3D 格式并经 trimesh 导出 glTF2。
+
+## 航司标志补录 `logos/`(P5 机场图鉴"基地航司"用,2026-10-26)
+
+kn.png(中国联合航空,File:China United Airlines logo.svg → 960px PNG)、
+eu.png(成都航空,File:Chengdu Airlines logo.png)、pn.png(西部航空,
+File:West Air (China) Logo.png)、8l.png(祥鹏航空,File:Lucky Air New Logo 2015.png)、
+gj.png(浙江长龙航空,File:LoongAir logo.png):均取自 en.wikipedia
+Special:FilePath 服务(2026-10-26 下载,原始分辨率 168–960px)。
+与上节一致:全部标志为各航司注册商标,本项目为非商业爱好者图鉴的标识性引用,不再分发。
