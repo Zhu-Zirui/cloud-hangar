@@ -13,18 +13,19 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { getEnvMap } from './materials.js';
 
-/** 有真实 GLB(glTF2)的变体 → 资产 ID(与 data/aircraft 的 variantId 对应) */
+/** 真实 GLB 变体表(经用户批准:只保留有真实模型的机型,无模型的舍弃) */
 export const GLB_VARIANTS = {
-  a20n: 'a20n',   // FlightAirMap glTF2 A320(ceo 世代,鲨鳍差异见 CREDITS)
-  a21n: 'a21n',   // 同上
+  b738: 'b738',   // FlightGear 737-800 源(dae)转换,波音白机+招牌涂装贴图
+  b789: 'b789',   // FlightGear 787-900 源(dae)转换
+  a20n: 'a20n',   // FlightAirMap glTF2 A320(空客屋涂装)
+  a21n: 'a21n',
   a332: 'a332',
   a333: 'a333',
-  a359: 'a359',   // A350(A350.glb)
-  b748: 'b748',
   b788: 'b788',
-  // b738/b789:FR24 的 glb 是 glTF1(r160 不认),待由 dae 源转换
-  // b38m / c919 / a35k:免费模型未找到,参数化引擎
+  a359: 'a359',
+  b748: 'b748',
 };
+/* 已舍弃(无免费可分发真实模型):b38m 737 MAX 8 / c919 / a35k A350-1000 */
 
 const cache = new Map(); // assetId → Promise<THREE.Group>(克隆模板)
 

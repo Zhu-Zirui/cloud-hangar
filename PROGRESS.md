@@ -31,6 +31,27 @@
 
 ## 会话记录
 
+### 2026-10-25 · P1 检查点 4(全量切换真实模型,参数化退役)完成
+
+- **所用模型**:GLM-5.3
+- **重要变更——按用户指示"不要参数化的了,有真实模型全部换成真实模型,没有的就舍弃"**:
+  - **参数化通道退役**:GLB_VARIANTS 扩至 9 变体,VARIANT_ORDER = Object.keys(GLB_VARIANTS),页面不再走参数化兜底;
+  - **舍弃变体**:b38m(737 MAX 8)、c919、a35k(A350-1000)——无免费可分发真实模型,按指示从机库移除(共 9 机型在册);
+  - **b738/b789 转换成功**:FR24 源 zip 内 dae(Collada)+ 贴图 → pycollada 解析材质链(effect.diffuse→Map→sampler→surface→image)→ trimesh PBRMaterial(baseColorTexture, metallic 0/roughness 0.92)→ glTF2 glb。b738 1.3MB(21 贴图件/144 mesh)、b789 3.1MB(110 贴图件/152 mesh),转换源留存 `D:\云端机库-assets\models\_src\`;
+  - **动画开关移除**:核查全部 9 个 GLB,animations 均为 0(FlightGear 动画未随模型分发),起落架/襟翼/客舱灯切换无数据支撑,按指示删除;查看页动画面板仅保留夜间模式,附说明"停放姿态,无收放动画";
+  - **起落架贴地保障**:normalizeAircraft 以包围盒 min.y=0 归一,真实模型自带停放姿态起落架,不存在悬空;
+  - **涂装即原厂**:GLB 自带 Boeing/Airbus house 涂装(737 白蓝经典、A320neo 空客屋、787 白色原厂),发动机品牌真实(GEnx 锯齿短舱+GE 标)。
+- **改动文件**:engine/gltfModel.js(9 变体映射)、engine/aircraft.js(VARIANT_ORDER)、ui/viewer.js(动画面板精简)、ui/hangar.js(CARD_DESC 9 机型)、assets/CREDITS.md(转换溯源)、D:\云端机库-assets\models\b738|b789(新 glb)
+- **验证**:9/9 GLB 经 HTTP(junction)200 全通;全部 ES 模块 node --check 通过;dev-server.py 8022 端口 no-store
+- **遗留问题**:
+  - b738/b789 的 dae 转换贴图质量(737 舷窗带、787 涂装文字)待浏览器内人工复核;
+  - a20n/a21n 仍为 A320ceo 世代模型(免费库无 neo 世代);
+  - IAB 内置浏览器自动化工具本会话不可用(node_repl 未挂载),页面渲染复核由用户在浏览器完成。
+- **给下一会话的建议**:
+  - 若 737/787 贴图不佳:FR24 的 dae 贴图分辨率有限,可考虑换 FGMEMBERS 原始 XML/ac3d 源走 Blender headless 转换;
+  - P2 涂装引擎恢复时,直接做 GLB 贴图覆盖方案(house 涂装 → 各航司涂装);
+  - 测试用 `python dev-server.py 8022`(no-store),改码不生效就换端口。
+
 ### 2026-10-25 · P1 检查点 2+3(真实模型双通道 + 12 变体全量)完成
 
 - **所用模型**:GLM-5.3

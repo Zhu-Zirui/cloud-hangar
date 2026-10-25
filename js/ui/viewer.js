@@ -129,13 +129,10 @@ export function render(container, params) {
           ${v.notes ? `<p class="v-note">※ ${v.notes}</p>` : ''}
         </section>
         <section class="v-card glass-card">
-          <h3>动画开关</h3>
+          <h3>展示开关</h3>
           <div class="anim-list">
-            <label class="switch on-label"><input type="checkbox" id="tg-fan" checked><span class="slider"></span>风扇转动</label>
-            <label class="switch on-label"><input type="checkbox" id="tg-gear" checked><span class="slider"></span>起落架放下</label>
-            <label class="switch"><input type="checkbox" id="tg-flap"><span class="slider"></span>襟翼·缝翼放下</label>
-            <label class="switch on-label"><input type="checkbox" id="tg-strobe" checked><span class="slider"></span>灯光频闪</label>
             <label class="switch"><input type="checkbox" id="tg-night"><span class="slider"></span>夜间模式</label>
+            <p class="v-tip" style="margin-top:8px">当前机型为真实 3D 模型,起落架/襟翼为停放姿态,无收放动画(免费模型未含动画数据)。</p>
           </div>
         </section>
         <section class="v-card glass-card">
@@ -152,7 +149,7 @@ export function render(container, params) {
         <section class="v-card glass-card">
           <h3>操作提示</h3>
           <p class="v-tip"><b>拖拽</b>旋转 · <b>滚轮</b>缩放 · <b>右键</b>平移<br>
-            <b>点击机身部件</b>:控制台打印 <b>partId</b>,并显示部件中文名(P3 热点系统将复用)。</p>
+            地面<b>米数标尺</b>与 1.8m 人形/客梯车为真实比例参照(P3 部件热点将在此基础上加注)。</p>
         </section>
       </aside>
     </div>`;
@@ -215,7 +212,7 @@ export function render(container, params) {
     if (triEl) triEl.textContent = `△ ${tri.toLocaleString()}`;
     if (tri > 150000) toast(`三角形数超预算:${tri.toLocaleString()} > 150,000`, 'warn');
 
-    /* ---------- 交互:动画开关 ---------- */
+    /* ---------- 交互:展示开关 ---------- */
     const bind = (sel, fn) => {
       const el = container.querySelector(sel);
       if (!el) return;
@@ -223,10 +220,6 @@ export function render(container, params) {
       el.addEventListener('change', h);
       run(() => el.removeEventListener('change', h));
     };
-    bind('#tg-fan', (on) => ac.setFan(on));
-    bind('#tg-gear', (on) => ac.setGear(on));
-    bind('#tg-flap', (on) => ac.setFlaps(on));
-    bind('#tg-strobe', (on) => ac.setStrobes(on));
     bind('#tg-night', (on) => { ac.setNight(on); base.setNight(on); });
 
     const rulerBtn = container.querySelector('#v-ruler');

@@ -19,6 +19,8 @@ import { b787Family, tuneB787 } from './families/b787.js';
 import { a350Family, tuneA350 } from './families/a350.js';
 import { b747Family, tuneB747 } from './families/b747.js';
 
+import { GLB_VARIANTS } from './gltfModel.js';
+
 /* 家族注册表 */
 const FAMILIES = [
   { meta: b737Family, tune: tuneB737 },
@@ -30,8 +32,8 @@ const FAMILIES = [
   { meta: b747Family, tune: tuneB747 },
 ];
 
-/** 12 变体固定顺序(机库卡片 / viewer 上一架下一架) */
-export const VARIANT_ORDER = FAMILIES.flatMap((f) => f.meta.variants);
+/** 展示变体顺序:以真实 GLB 模型为准(无真实模型的机型已舍弃,经用户批准) */
+export const VARIANT_ORDER = Object.keys(GLB_VARIANTS);
 const BY_VARIANT = new Map(FAMILIES.flatMap((f) => f.meta.variants.map((id) => [id, f])));
 
 /* 机型 JSON 缓存(会话内 fetch 一次) */
