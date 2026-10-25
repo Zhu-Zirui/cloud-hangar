@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云端机库 · 中国民航 3D 图鉴</title>
+  <meta name="description" content="面向中国民航爱好者的 3D 图鉴平台：高精度参数化机型、涂装切换、部件知识与机场图鉴。">
+  <!-- 图标:内联 SVG data URI,无二进制资源文件 -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230b1526' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Cpath d='M16 5 L18 14 L27 18 L27 20 L18 18 L17.5 24 L21 26 L21 27.5 L16 26 L11 27.5 L11 26 L14.5 24 L14 18 L5 20 L5 18 L14 14 Z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- three r160 版本锁死,仅允许按总纲 §2 整体切换为 npmmirror 镜像 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/hangar">
+        <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+          <path d="M16 5 L18 14 L27 18 L27 20 L18 18 L17.5 24 L21 26 L21 27.5 L16 26 L11 27.5 L11 26 L14.5 24 L14 18 L5 20 L5 18 L14 14 Z" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">云端机库</span>
+        <span class="brand-sub">中国民航 3D 图鉴</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="主导航">
+        <a href="#/hangar" data-route="hangar">机库</a>
+        <a href="#/airports" data-route="airports">机场</a>
+        <a href="#/wiki" data-route="wiki">百科</a>
+        <a href="#/game" data-route="game">成就</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer class="site-footer">
+    <p>云端机库 · 民航爱好者非商业项目 ｜ 机型几何与涂装均为程序化矢量近似再现,数据仅供参考</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
