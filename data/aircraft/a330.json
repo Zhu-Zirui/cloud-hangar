@@ -1,0 +1,42 @@
+{
+  "family": "a330",
+  "familyCn": "空客 A330 家族",
+  "variants": [
+    {
+      "id": "a332",
+      "name": "A330-200",
+      "cnName": "空客 A330-200",
+      "length": 58.82,
+      "span": 60.3,
+      "height": 17.39,
+      "winglet": "sharklet",
+      "engines": "Trent 700",
+      "engineCount": 2,
+      "seats": 247,
+      "cruise": "M0.82",
+      "range": 13450,
+      "mtow": 242.0,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "3U"]
+    },
+    {
+      "id": "a333",
+      "name": "A330-300",
+      "cnName": "空客 A330-300",
+      "length": 63.69,
+      "span": 60.3,
+      "height": 17.39,
+      "winglet": "sharklet",
+      "engines": "Trent 700",
+      "engineCount": 2,
+      "seats": 277,
+      "cruise": "M0.82",
+      "range": 11750,
+      "mtow": 242.0,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "3U"]
+    }
+  ]
+}

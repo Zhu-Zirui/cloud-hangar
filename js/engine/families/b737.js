@@ -21,14 +21,14 @@ export function tuneB737(v) {
   const L = v.length;
   const isMax = v.id === 'b38m';
   const fanD = isMax ? 1.98 : 1.55;             // LEAP-1B 风扇 1.98m,CFM56-7B 1.55m
-  const nacR = fanD / 2 * 1.08;
+  const podR = fanD / 2 * 1.42;                 // 短舱外径(含整流罩)
 
   // 发动机站位:翼展 29% 处,短舱中心前伸至翼 LE 之前
   const engX = 0.29 * (v.span / 2);
-  const engT = 0.29;
   const engLE = 0.06 * L + (-1.1);              // rootLE + le(0.29)
   const engZ = engLE + 1.55;
-  const engY = isMax ? -1.85 : -1.78;           // MAX 短舱更大,略上移保离地间隙
+  // 737 短舱离地极低是家族特征:CFM56 ~0.46m,MAX LEAP 更"贴地" ~0.25m
+  const engY = (isMax ? 0.25 : 0.46) + podR - 3.05;
   const wingBotY = -1.15 + Math.tan(6 * Math.PI / 180) * engX - 0.5;
 
   return {
@@ -39,7 +39,8 @@ export function tuneB737(v) {
       tailEndR: 0.1, radomeFrac: 0.055, stationSteps: 18,
       windshield: { perSide: 2, sCenter: 0.052, uCenter: 0.132, du: 0.05, w: 0.6, h: 0.56, rake: 20 },
       windows: { start: 0.135, end: 0.83, pitch: 0.58, uCenter: 0.215 },
-      doors: { positions: [0.115, 0.485, 0.875], w: 0.86, h: 1.85 },
+      // 737-800:前/后客舱门 2 对 + 翼上应急出口 2 对,无中舱门
+      doors: { positions: [0.115, 0.875], w: 0.86, h: 1.85, exits: [0.485] },
     },
     wing: {
       halfSpan: v.span / 2,
@@ -56,13 +57,14 @@ export function tuneB737(v) {
     fin: {
       rootZ: -0.36 * L, rootY: 1.35, height: 8.0,
       rootChord: 5.4, tipChord: 2.1, sweep: 33,
+      dorsal: { len: L * 0.062, rise: 0.62 },    // 737 家族大背鳍(剪影特征)
     },
     hstab: {
       rootZ: -0.455 * L, rootY: 0.35, halfSpan: 6.4,
       rootChord: 3.2, tipChord: 1.2, sweep: 30, dihedral: 7,
     },
     engines: [{
-      fanD, nacelleLen: isMax ? 4.4 : 3.5,
+      fanD, nacelleLen: isMax ? 4.6 : 3.7,
       pos: { x: engX, y: engY, z: engZ },
       pylon: { topY: wingBotY, topZ1: engLE + 0.3, topZ2: engLE - 3.6 },
     }],
@@ -70,6 +72,5 @@ export function tuneB737(v) {
       nose: { z: 0.364 * L, pivotY: -1.5, wheelR: 0.46 },
       mains: [{ x: 2.9, z: 0.05 * L, pivotY: -1.4, wheelR: 0.55, axles: 1 }],
     },
-    // MAX 的 APU 舱与天线同款,略去差异
   };
 }

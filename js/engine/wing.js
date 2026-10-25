@@ -234,6 +234,21 @@ function buildOneWingSide(W, mats) {
     const sp = spoilerPlate(0.14 + i * 0.1, W, mats, i);
     side.add(sp); controls.spoilers.push(sp);
   }
+
+  // 襟翼滑轨整流罩("独木舟"):后缘下侧 3 个长鼓包,真机标志性轮廓
+  for (const t of [0.13, 0.27, 0.41]) {
+    const chord = interp(W.sections, t, 'c');
+    const x = t * W.halfSpan;
+    const y = W.rootY + Math.tan(THREE.MathUtils.degToRad(W.dihedral)) * x
+      - interp(W.sections, t, 'th') * 0.55;
+    const z = W.rootLE + interp(W.sections, t, 'le') - chord * 0.52;
+    const fair = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), mats.wing);
+    fair.scale.set(chord * 0.09, chord * 0.075, chord * 0.42);
+    fair.position.set(x, y, z);
+    fair.userData.partId = 'flap';
+    fair.castShadow = true;
+    side.add(fair);
+  }
   return { side, controls };
 }
 
@@ -261,10 +276,39 @@ export function buildWingAssembly(W, mats) {
 /* ---------- 垂尾(复用翼型 loft,沿 +Y 展开) ---------- */
 
 /**
- * @param {object} T { rootZ, rootY, height, rootChord, tipChord, sweep, mats 对应 }
+ * @param {object} T { rootZ, rootY, height, rootChord, tipChord, sweep, dorsal:{len, rise?} }
  */
 export function buildFinAssembly(T, mats) {
   const group = new THREE.Group();
+
+  // 背鳍(dorsal fin):垂尾前缘根部向前的三角形楔,真机剪影的关键特征
+  if (T.dorsal) {
+    const dLen = T.dorsal.len;
+    const dRise = T.dorsal.rise ?? 0.55;
+    const zF = T.rootZ + dLen;                  // 背鳍前端
+    const zR = T.rootZ;                         // 垂尾前缘根部
+    const yB = T.rootY - 0.9;                   // 沉入机身,避免悬空缝
+    const yT = T.rootY + dRise;
+    const halfW0 = 0.16, halfW1 = T.rootChord * 0.07;
+    const v = [
+      -halfW0, yB, zF,  halfW0, yB, zF,         // 前端底
+      -halfW1 * 1.2, yB, zR,  halfW1 * 1.2, yB, zR, // 后端底
+      0, yT, zR,                                 // 顶脊(垂尾前缘处)
+    ];
+    const idx = [
+      0, 1, 4,  1, 3, 4,  3, 2, 4,  2, 0, 4,     // 四面楔体
+      0, 2, 3,  0, 3, 1,                         // 底面(藏于机身)
+    ];
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(v, 3));
+    geo.setIndex(idx);
+    geo.computeVertexNormals();
+    const dorsal = new THREE.Mesh(geo, mats.wing);
+    dorsal.userData.partId = 'vertical_stabilizer';
+    dorsal.castShadow = true;
+    group.add(dorsal);
+  }
+
   const stations = [];
   const steps = 8;
   for (let i = 0; i <= steps; i++) {

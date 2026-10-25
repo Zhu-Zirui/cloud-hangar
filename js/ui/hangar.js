@@ -1,26 +1,27 @@
 /**
  * ui/hangar.js — 机库首页(#/hangar)
  * hero 区:文案 + 3D 场景(场景基座 + 占位验证机 + 1.8m 人形剪影立牌)
- * 机队区:12 个机型卡片栅格(数据本阶段写死,P1 改读 data/aircraft/*.json)
+ * 机队区:12 个机型卡片栅格(读 data/aircraft/*.json,P1 迁移完成)
  */
 import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
+import { loadAllVariants } from '../engine/aircraft.js';
 
-/* 机型卡片数据(P0 写死占位;P1 迁入 data/aircraft/<family>.json) */
-const AIRCRAFT_VARIANTS = [
-  { id: 'b737-800',   family: 'b737', familyName: '波音 737 NG',   name: '737-800',   desc: '波音 737NG 系列中坚,国内航线最常见的窄体机之一。' },
-  { id: 'b737-max-8', family: 'b737', familyName: '波音 737 MAX',  name: '737 MAX 8', desc: '737 家族最新世代,换装 LEAP-1B 发动机与双叉式小翼。' },
-  { id: 'a320neo',    family: 'a320', familyName: '空客 A320neo',  name: 'A320neo',   desc: '空客窄体销量王牌,鲨鳍小翼与大直径发动机一眼可辨。' },
-  { id: 'a321neo',    family: 'a320', familyName: '空客 A320neo',  name: 'A321neo',   desc: '窄体加长旗舰,国内干线和热点商务航线的主力机型。' },
-  { id: 'c919',       family: 'c919', familyName: '中国商飞',      name: 'C919',      desc: '中国自主研制的干线客机,国产大飞机,2023 年投入商业运营。' },
-  { id: 'a330-200',   family: 'a330', familyName: '空客 A330',     name: 'A330-200',  desc: '中远程宽体双发,航程突出,长期服务洲际航线。' },
-  { id: 'a330-300',   family: 'a330', familyName: '空客 A330',     name: 'A330-300',  desc: 'A330 加长客运型,国内区域宽体与客改货市场的常客。' },
-  { id: 'b787-8',     family: 'b787', familyName: '波音 787',      name: '787-8',     desc: '梦想客机首发型号,复合材料机身与超大舷窗是标志。' },
-  { id: 'b787-9',     family: 'b787', familyName: '波音 787',      name: '787-9',     desc: '787 加长型,国内航司洲际航线的主力宽体之一。' },
-  { id: 'a350-900',   family: 'a350', familyName: '空客 A350',     name: 'A350-900',  desc: '空客新一代宽体,XWB 复合机翼与"墨镜"式风挡醒目。' },
-  { id: 'a350-1000',  family: 'a350', familyName: '空客 A350',     name: 'A350-1000', desc: 'A350 系列最大型号,高客流量远程航线的优选。' },
-  { id: 'b747-8',     family: 'b747', familyName: '波音 747',      name: '747-8',     desc: '珍宝巨机最新一代,国内当前以货机型号为主。' },
-];
+/* 机型卡片:数据来自 data/aircraft/*.json(loadAllVariants),卡片描述用简短文案映射 */
+const CARD_DESC = {
+  b738: '波音 737NG 系列中坚,国内航线最常见的窄体机之一。',
+  b38m: '737 家族最新世代,换装 LEAP-1B 发动机与分叉式小翼。',
+  a20n: '空客窄体销量王牌,鲨鳍小翼与大直径发动机一眼可辨。',
+  a21n: '窄体加长旗舰,国内干线和热点商务航线的主力机型。',
+  c919: '中国自主研制的干线客机,国产大飞机,2023 年投入商业运营。',
+  a332: '中远程宽体双发,航程突出,长期服务洲际航线。',
+  a333: 'A330 加长客运型,国内区域宽体与客改货市场的常客。',
+  b788: '梦想客机首发型号,复合材料机身与超大舷窗是标志。',
+  b789: '787 加长型,国内航司洲际航线的主力宽体之一。',
+  a359: '空客新一代宽体,XWB 复合机翼与"墨镜"式风挡醒目。',
+  a35k: 'A350 系列最大型号,高客流量远程航线的优选。',
+  b748: '珍宝巨机最新一代,国内当前以国航客机为主。',
+};
 
 /* 机型卡顶部:自绘民航客机俯视剪影(内联 SVG) */
 const SILHOUETTE_SVG = `
@@ -190,21 +191,30 @@ export function render(container) {
 
     <section id="fleet">
       <h2 class="section-title">机队图鉴
-        <span class="sub">FLEET · 12 VARIANTS · 点击卡片进入机库(P1 开放)</span>
+        <span class="sub">FLEET · 12 VARIANTS · 点击卡片进入机库</span>
       </h2>
-      <div class="grid grid-cards">
-        ${AIRCRAFT_VARIANTS.map((v, i) => `
-        <article class="ac-card glass-card anim-fade-up anim-delay-${(i % 3) + 1}">
-          <div class="collect-badge" title="涂装收集进度(P6 启用)"><span class="dot"></span>收集 --</div>
-          <div class="ac-family">${v.familyName}</div>
-          <h3>${v.name}</h3>
-          <div class="ac-art">${SILHOUETTE_SVG}</div>
-          <p class="ac-desc">${v.desc}</p>
-          <a class="btn btn-ghost btn-sm" href="#/aircraft/${v.id}">进入机库 →</a>
-        </article>`).join('')}
+      <div class="grid grid-cards" id="fleet-cards">
+        <div class="v-loading" style="grid-column:1/-1;position:static;padding:40px 0"><div class="ring"></div>加载机型数据…</div>
       </div>
     </section>
   </div>`;
+
+  /* 机队卡片:异步读全量变体 JSON */
+  let disposed = false;
+  loadAllVariants().then((variants) => {
+    if (disposed) return;
+    const wrap = container.querySelector('#fleet-cards');
+    if (!wrap) return;
+    wrap.innerHTML = variants.map((v, i) => `
+      <article class="ac-card glass-card anim-fade-up anim-delay-${(i % 3) + 1}">
+        <div class="collect-badge" title="涂装收集进度(P6 启用)"><span class="dot"></span>收集 --</div>
+        <div class="ac-family">${v.familyCn}</div>
+        <h3>${v.cnName.replace(/^空客 |^波音 |^中国商飞 /, '')}</h3>
+        <div class="ac-art">${SILHOUETTE_SVG}</div>
+        <p class="ac-desc">${CARD_DESC[v.id] || ''}</p>
+        <a class="btn btn-ghost btn-sm" href="#/aircraft/${v.id}">进入机库 →</a>
+      </article>`).join('');
+  }).catch((err) => console.error('[hangar] 机型数据加载失败:', err));
 
   /* 3D 场景:基座 + 占位验证机 + 剪影立牌 + 悬浮标签 */
   const stageEl = container.querySelector('#hero-3d');
@@ -239,6 +249,7 @@ export function render(container) {
 
   // 清理:移除 DOM 监听 + 完整释放 3D 场景(防内存泄漏)
   return () => {
+    disposed = true;
     btn.removeEventListener('click', onGoFleet);
     base.dispose();
   };

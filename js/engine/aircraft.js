@@ -12,10 +12,22 @@ import { buildEnginePod } from './enginePod.js';
 import { buildNoseGear, buildMainGear } from './gear.js';
 import { buildAntennas, buildNoseSensors, buildWingExitMarks, buildLights } from './details.js';
 import { b737Family, tuneB737 } from './families/b737.js';
+import { a320Family, tuneA320 } from './families/a320.js';
+import { c919Family, tuneC919 } from './families/c919.js';
+import { a330Family, tuneA330 } from './families/a330.js';
+import { b787Family, tuneB787 } from './families/b787.js';
+import { a350Family, tuneA350 } from './families/a350.js';
+import { b747Family, tuneB747 } from './families/b747.js';
 
-/* 家族注册表(检查点 2 追加其余 6 家) */
+/* 家族注册表 */
 const FAMILIES = [
   { meta: b737Family, tune: tuneB737 },
+  { meta: a320Family, tune: tuneA320 },
+  { meta: c919Family, tune: tuneC919 },
+  { meta: a330Family, tune: tuneA330 },
+  { meta: b787Family, tune: tuneB787 },
+  { meta: a350Family, tune: tuneA350 },
+  { meta: b747Family, tune: tuneB747 },
 ];
 
 /** 12 变体固定顺序(机库卡片 / viewer 上一架下一架) */

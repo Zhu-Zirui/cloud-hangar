@@ -1,0 +1,42 @@
+{
+  "family": "a350",
+  "familyCn": "空客 A350 家族",
+  "variants": [
+    {
+      "id": "a359",
+      "name": "A350-900",
+      "cnName": "空客 A350-900",
+      "length": 66.8,
+      "span": 64.75,
+      "height": 17.05,
+      "winglet": "raked",
+      "engines": "Trent XWB-84",
+      "engineCount": 2,
+      "seats": 325,
+      "cruise": "M0.85",
+      "range": 15000,
+      "mtow": 283.0,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "3U"]
+    },
+    {
+      "id": "a35k",
+      "name": "A350-1000",
+      "cnName": "空客 A350-1000",
+      "length": 73.79,
+      "span": 64.75,
+      "height": 17.08,
+      "winglet": "raked",
+      "engines": "Trent XWB-97",
+      "engineCount": 2,
+      "seats": 366,
+      "cruise": "M0.85",
+      "range": 16100,
+      "mtow": 319.0,
+      "doors": 6,
+      "notes": "国内尚未交付运营,页面为前瞻示意。",
+      "operators": ["CA", "MU", "CZ", "3U"]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "family": "a320",
+  "familyCn": "空客 A320 家族",
+  "variants": [
+    {
+      "id": "a20n",
+      "name": "A320neo",
+      "cnName": "空客 A320neo",
+      "length": 37.57,
+      "span": 35.8,
+      "height": 11.76,
+      "winglet": "sharklet",
+      "engines": "LEAP-1A",
+      "engineCount": 2,
+      "seats": 165,
+      "cruise": "M0.78",
+      "range": 6500,
+      "mtow": 79.0,
+      "doors": 4,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "3U", "HO", "9C"]
+    },
+    {
+      "id": "a21n",
+      "name": "A321neo",
+      "cnName": "空客 A321neo",
+      "length": 44.51,
+      "span": 35.8,
+      "height": 11.76,
+      "winglet": "sharklet",
+      "engines": "LEAP-1A",
+      "engineCount": 2,
+      "seats": 200,
+      "cruise": "M0.78",
+      "range": 7400,
+      "mtow": 97.0,
+      "doors": 4,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "3U", "HO", "9C"]
+    }
+  ]
+}

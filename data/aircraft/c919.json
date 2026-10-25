@@ -1,0 +1,24 @@
+{
+  "family": "c919",
+  "familyCn": "中国商飞 C919",
+  "variants": [
+    {
+      "id": "c919",
+      "name": "C919",
+      "cnName": "中国商飞 C919",
+      "length": 38.9,
+      "span": 35.8,
+      "height": 11.95,
+      "winglet": "blended",
+      "engines": "LEAP-1C",
+      "engineCount": 2,
+      "seats": 164,
+      "cruise": "M0.785",
+      "range": 5555,
+      "mtow": 72.5,
+      "doors": 4,
+      "notes": "亦可选装国产长江 CJ-1000A 涡扇发动机。",
+      "operators": ["CA", "MU", "CZ"]
+    }
+  ]
+}

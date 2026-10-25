@@ -28,7 +28,7 @@ function nacelleProfile(R, L) {
  * @returns { {group, fan} } fan 为旋转动画用的风扇组
  */
 export function buildEnginePod(E, mats) {
-  const R = E.fanD / 2 * 1.08;      // 短舱最大半径略大于风扇
+  const R = E.fanD / 2 * 1.42;      // 真实短舱外径 ≈ 风扇直径 ×1.4(CFM56: 2.3/1.55, LEAP: 2.66/1.98)
   const L = E.nacelleLen;
   const group = new THREE.Group();
   group.position.set(E.pos.x, E.pos.y, E.pos.z);

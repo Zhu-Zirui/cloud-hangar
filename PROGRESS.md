@@ -31,6 +31,36 @@
 
 ## 会话记录
 
+### 2026-10-25 · P1 检查点 2+3(真实模型双通道 + 12 变体全量)完成
+
+- **所用模型**:GLM-5.3
+- **重要变更——项目铁律修订(经用户批准)**:
+  - 原"禁止任何二进制资源"条款撤销:允许引用 .glb/.gltf 模型与图片;
+  - 素材实体存移动硬盘 `D:\云端机库-assets\`,junction `cloud-hangar/assets` 引用,`/assets` 已入 .gitignore;
+  - 来源与许可记录于 `assets/CREDITS.md`(当前:Flightradar24/fr24-3d-models 与 Ysurac/FlightAirMap-3dmodels,均 GPL-2.0);
+  - **P2(涂装引擎)按用户指示暂停**,优先 P1 逼真性。
+- **本次完成项**:
+  - 真实模型通道 `engine/gltfModel.js`:GLTFLoader 加载 + 包围盒自动归一(米制/机鼻+Z/轮底贴地)+ 环境反射注入 + 动画混入器透出;
+  - 下载 9 个真实机型模型入 U 盘(约 19MB):glTF2 版 a20n/a21n/a332/a333/a359/b748/b788(FlightAirMap),glTF1 版 b738/b789(r160 不认,待转换);
+  - viewer 双通道:GLB 优先(7 变体)、参数化兜底(5 变体),相机预设按统一尺寸估算兼容两通道;
+  - 参数化逼真性改造:超椭圆机身截面(n=2.2 冠部饱满)、短舱外径修正为风扇×1.42(CFM56 2.3m/LEAP 2.66m 实测比例)、背鳍整流片、襟翼滑轨整流罩×3、737 门位修正(2 对门+翼上出口)、A350 墨镜风挡面罩;
+  - 7 家族模块全部注册 + 7 份权威数据 JSON(a320/c919/a330/b787/a350/b747),b747 四发(内/外发双站位)+上凸 hump+4 组主起;
+  - hangar 卡片改读 JSON(loadAllVariants),删除写死常量;
+  - 新增 `dev-server.py`(no-store 本地服务器):python http.server 的启发式浏览器缓存导致改码不生效,踩坑后自制;
+  - 相机预设重校:侧/前/俯视取 ~2 倍机长远距,压小透视畸变(观感接近三视图);
+  - 实测:12/12 变体渲染成功、控制台零报错、三角形最大 42,552(a359)≤15 万;hangar 12 卡片来自 JSON。
+- **改动文件**:engine/gltfModel.js(新)、engine/families/a320|c919|a330|b787|a350|b747.js(新)、data/aircraft/*.json ×6(新)、dev-server.py(新)、engine/aircraft.js、fuselage.js、wing.js、enginePod.js、families/b737.js、ui/viewer.js、ui/hangar.js、民航图鉴-提示词包/00-项目总纲.md(铁律修订)、D:\云端机库-assets\*(U 盘,不入 git)
+- **遗留问题**:
+  - b738/b789 仍参数化(FR24 的 glb 为 glTF1 旧格式,r160 GLTFLoader 报 "Legacy binary file detected";待由 source/*.zip 的 dae 转 glTF2,或继续找现成 glTF2);
+  - b38m 用 b737 参数(MAX 差异仅小翼/短舱)、c919/a35k 参数化;免费可分发的 MAX 8/C919/A350-1000 模型未找到;
+  - GLB 模型自带 house 涂装(A320 空客屋、747 灰白),P2 涂装引擎恢复后可做贴图覆盖或保留;
+  - a20n/a21n 用 A320ceo 世代模型(鲨鳍小翼一致,发动机细节差);
+  - 参数化机型的舷窗列近景偏淡、发动机内涵黑区偏长(下轮细调)。
+- **给下一会话的建议**:
+  - P2 恢复时:先做 GLB 变体的涂装方案(贴图叠加或材质染色)再考虑参数化机身的 Canvas 贴图;
+  - b738/b789 转换:试 `pip install trimesh pycollada` 走 dae→glb,或 Blender headless;转换后放入 D:\云端机库-assets\models\b738\b738.glb 并在 GLB_VARIANTS 恢复映射即可;
+  - 测试时若改码不生效:换 dev-server 端口(8021→8022…),IAB webview 磁盘缓存对旧端口条目顽固。
+
 ### 2026-10-25 · P1 检查点 1(通用件 + b737 家族 + b738 可看)
 
 - **所用模型**:GLM-5.3

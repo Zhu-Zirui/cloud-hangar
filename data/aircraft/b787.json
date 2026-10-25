@@ -1,0 +1,42 @@
+{
+  "family": "b787",
+  "familyCn": "波音 787 家族",
+  "variants": [
+    {
+      "id": "b788",
+      "name": "787-8",
+      "cnName": "波音 787-8 梦想客机",
+      "length": 56.72,
+      "span": 60.12,
+      "height": 16.92,
+      "winglet": "raked",
+      "engines": "Trent 1000",
+      "engineCount": 2,
+      "seats": 248,
+      "cruise": "M0.85",
+      "range": 13530,
+      "mtow": 227.9,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "CZ", "HU", "MF"]
+    },
+    {
+      "id": "b789",
+      "name": "787-9",
+      "cnName": "波音 787-9 梦想客机",
+      "length": 62.81,
+      "span": 60.12,
+      "height": 17.02,
+      "winglet": "raked",
+      "engines": "Trent 1000",
+      "engineCount": 2,
+      "seats": 290,
+      "cruise": "M0.85",
+      "range": 14140,
+      "mtow": 254.0,
+      "doors": 6,
+      "notes": "",
+      "operators": ["CA", "MU", "CZ", "HU", "MF", "HO"]
+    }
+  ]
+}

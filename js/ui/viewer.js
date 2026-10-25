@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
 import { buildAircraft, loadVariant, VARIANT_ORDER } from '../engine/aircraft.js';
+import { GLB_VARIANTS, buildGltfAircraft } from '../engine/gltfModel.js';
 import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/details.js';
 
 /* 部件命名表(P1 提示词 30 项)中文对照 */
@@ -163,23 +164,38 @@ export function render(container, params) {
       cameraPos: [30, 8, 34],
       target: [0, 4, 0],
       minDistance: 5,
-      maxDistance: 260,
+      maxDistance: 600,
     });
     run(() => base.dispose());
 
-    const ac = await buildAircraft(variantId, base.renderer);
+    /* 双通道:有真实 GLB(铁律 §4 修订)走模型,否则参数化引擎 */
+    let ac = null, P = null;
+    if (GLB_VARIANTS[variantId]) {
+      try {
+        ac = await buildGltfAircraft(variantId, base.renderer, {
+          length: v.length, span: v.span, height: v.height,
+        });
+      } catch (err) {
+        console.warn('[viewer] GLB 通道失败,回退参数化引擎:', err);
+      }
+    }
+    if (!ac) {
+      ac = await buildAircraft(variantId, base.renderer);
+      P = ac.params;
+    }
     if (disposed) { ac.dispose(); return; }
     base.scene.add(ac.root);
     base.addTick((dt, t) => ac.update(dt, t));
 
     /* 参照物:人形剪影 / 客梯车 / 标尺(默认隐藏,可开关) */
     const L = v.length, SP = v.span;
+    const bodyR = P ? P.fuselage.maxR : v.height * 0.13;   // GLB 通道按机高估机身半径
     const standee = buildHumanStandee();
-    standee.position.set(ac.params.fuselage.maxR + 4.2, 0, L * 0.3);
+    standee.position.set(bodyR + 4.2, 0, L * 0.3);
     base.scene.add(standee);
 
     const truck = buildStairTruck();
-    truck.position.set(ac.params.fuselage.maxR + 3.6, 0, L * (0.5 - 0.115));
+    truck.position.set(bodyR + 3.6, 0, L * (0.5 - 0.115));
     truck.rotation.y = -Math.PI / 2;
     base.scene.add(truck);
 
@@ -188,8 +204,8 @@ export function render(container, params) {
     base.scene.add(ruler);
 
     /* 初始相机按整机尺寸取景 */
-    const cH = ac.params.centerH;
-    const d = Math.max(L * 0.72, 16);
+    const cH = P ? P.centerH : v.height * 0.28;
+    const d = Math.max(L * 0.95, 16);
     base.camera.position.set(d * 0.72, cH + L * 0.2, d * 0.95);
     base.controls.target.set(0, cH * 0.6, 0);
 
@@ -222,19 +238,24 @@ export function render(container, params) {
     run(() => rulerBtn.removeEventListener('click', onRuler));
 
     /* ---------- 交互:相机预设(平滑过渡) ---------- */
-    const finH = ac.params.fin.height;
-    const eng = ac.params.engines[0];
-    const engWX = eng.pos.x, engWY = eng.pos.y + cH, engWZ = eng.pos.z;
-    const mainG = ac.params.gear.mains[0];
+    // GLB 通道无精确参数,按权威数据估算(发动机站位/垂尾高等)
+    const finH = P ? P.fin.height : v.height * 0.36;
+    const engWX = P ? P.engines[0].pos.x : SP * 0.18;
+    const engWY = P ? P.engines[0].pos.y + cH : cH - v.height * 0.22;
+    const engWZ = P ? P.engines[0].pos.z : L * 0.1;
+    const engFanD = P ? P.engines[0].fanD : v.height * 0.16;
+    const mainGx = P ? P.gear.mains[0].x : SP * 0.16;
+    const mainGz = P ? P.gear.mains[0].z : 0;
     const zTail = -L / 2;
 
     const PRESETS = {
-      side:   { pos: [d * 0.62, cH + L * 0.1, L * 0.08], tgt: [0, cH * 0.72, 0] },
-      front:  { pos: [L * 0.06, cH * 0.9, L / 2 + d * 0.6], tgt: [0, cH * 0.8, 0] },
-      top:    { pos: [0.01, d * 1.25, 0.01], tgt: [0, 0, 0] },
-      engine: { pos: [engWX + eng.fanD * 2.6, engWY + eng.fanD * 1.1, engWZ + eng.fanD * 4.2],
+      // 侧/前/俯视取远距(≈2 倍机长),压小透视畸变,观感接近三视图
+      side:   { pos: [L * 2.0, cH + L * 0.05, L * 0.02], tgt: [0, cH * 0.95, 0] },
+      front:  { pos: [L * 0.02, cH + L * 0.03, L + L * 1.1], tgt: [0, cH * 0.9, 0] },
+      top:    { pos: [0.01, L * 1.6, 0.01], tgt: [0, 0, 0] },
+      engine: { pos: [engWX + engFanD * 2.6, engWY + engFanD * 1.1, engWZ + engFanD * 4.2],
                 tgt: [engWX, engWY, engWZ] },
-      gear:   { pos: [mainG.x + 7.5, 1.7, mainG.z + 8.5], tgt: [mainG.x * 0.7, 1.3, mainG.z] },
+      gear:   { pos: [mainGx + 7.5, 1.7, mainGz + 8.5], tgt: [mainGx * 0.7, 1.3, mainGz] },
       tail:   { pos: [-SP * 0.42, cH + finH * 0.7, zTail - d * 0.34],
                 tgt: [0, cH + finH * 0.55, zTail + finH * 1.2] },
     };
