@@ -1,0 +1,373 @@
+{
+  "note": "中国主要民用机场数据 · P5。字段 approx:true 表示近似值,待核对;coord 为 [经度,纬度](机场基准点近似)。跑道数据以 meters 计。",
+  "updated": "2026-10-26",
+  "airports": [
+    {
+      "iata": "PEK", "icao": "ZBAA", "cn": "北京首都国际机场", "en": "Beijing Capital International Airport",
+      "city": "北京", "pinyin": "beijing shoudu",
+      "opened": 1958, "elevationM": 35,
+      "terminals": [
+        { "name": "T1", "role": "国内(部分航司)", "opened": 1980, "approx": true },
+        { "name": "T2", "role": "国内/国际", "opened": 1999 },
+        { "name": "T3", "role": "国内/国际主楼", "opened": 2008, "note": "2008 奥运前启用,曾为全球最大单体航站楼之一" }
+      ],
+      "runways": [
+        { "id": "18R/36L", "length": 3800, "width": 60 },
+        { "id": "01/19", "length": 3800, "width": 60 },
+        { "id": "18L/36R", "length": 3800, "width": 60 }
+      ],
+      "hubs": [ { "id": "ca", "cn": "中国国际航空" } ],
+      "facts": [
+        "1958 年通航,是新中国第一座大型民用枢纽机场,见证了中国民航从苏式里-2 到宽体机时代。",
+        "T3 于 2008 年北京奥运前启用,由 Norman Foster 主创设计,红色立柱取意“龙”的意象。",
+        "大兴机场启用后,首都机场仍与大兴形成“一城两场”格局,国航主基地保留于此。"
+      ],
+      "coord": [116.60, 40.08]
+    },
+    {
+      "iata": "PKX", "icao": "ZBAD", "cn": "北京大兴国际机场", "en": "Beijing Daxing International Airport",
+      "city": "北京", "pinyin": "beijing daxing",
+      "opened": 2019, "elevationM": 30,
+      "terminals": [
+        { "name": "主航站楼(T1)", "role": "国内/国际", "opened": 2019, "note": "凤凰展翅造型,放射状五指廊" }
+      ],
+      "runways": [
+        { "id": "01L/19R", "length": 3400, "width": 45, "approx": true },
+        { "id": "01R/19L", "length": 3800, "width": 60, "approx": true },
+        { "id": "17L/35R", "length": 3800, "width": 60, "approx": true },
+        { "id": "17R/35L", "length": 3400, "width": 45, "approx": true }
+      ],
+      "hubs": [ { "id": "cz", "cn": "中国南方航空" }, { "id": "mu", "cn": "中国东方航空" }, { "id": "kn", "cn": "中国联合航空" } ],
+      "facts": [
+        "2019 年 9 月通航,被英国《卫报》评为“新世界七大奇迹”之首。",
+        "主航站楼由扎哈·哈迪德事务所担纲设计,五条放射指廊让旅客步行距离控制在 600 米级。",
+        "南航、东航两大机队整体转场入驻,开启中国首次枢纽机场间的大规模航司转场。"
+      ],
+      "coord": [116.41, 39.51]
+    },
+    {
+      "iata": "SHA", "icao": "ZSSS", "cn": "上海虹桥国际机场", "en": "Shanghai Hongqiao International Airport",
+      "city": "上海", "pinyin": "shanghai hongqiao",
+      "opened": 1921, "elevationM": 3,
+      "terminals": [
+        { "name": "T1", "role": "国际/地区(改造后)", "opened": 1971, "approx": true },
+        { "name": "T2", "role": "国内主力", "opened": 2010 }
+      ],
+      "runways": [
+        { "id": "18L/36R", "length": 3300, "width": 60, "approx": true },
+        { "id": "18R/36L", "length": 3400, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mu", "cn": "中国东方航空(含上海航空)" }, { "id": "ho", "cn": "吉祥航空" }, { "id": "9c", "cn": "春秋航空" } ],
+      "facts": [
+        "1921 年即已建成使用,是国内少有的紧贴市区的百年机场。",
+        "T2 与虹桥高铁站“零换乘”一体设计,航空+高铁同框,是国内空铁联运的标杆。",
+        "受城市环境限制,夜间执行严格的噪音减载程序,部分航班“红眼”时段受限。"
+      ],
+      "coord": [121.34, 31.19]
+    },
+    {
+      "iata": "PVG", "icao": "ZSPD", "cn": "上海浦东国际机场", "en": "Shanghai Pudong International Airport",
+      "city": "上海", "pinyin": "shanghai pudong",
+      "opened": 1999, "elevationM": 4,
+      "terminals": [
+        { "name": "T1", "role": "国际/国内", "opened": 1999 },
+        { "name": "T2", "role": "国际/国内", "opened": 2008 },
+        { "name": "S1/S2", "role": "卫星厅(捷运连接)", "opened": 2019, "note": "全球最大单体卫星厅之一" }
+      ],
+      "runways": [
+        { "id": "16R/34L", "length": 4000, "width": 60 },
+        { "id": "16L/34R", "length": 3800, "width": 60, "approx": true },
+        { "id": "17L/35R", "length": 3400, "width": 60, "approx": true },
+        { "id": "17R/35L", "length": 3800, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mu", "cn": "中国东方航空(含上海航空)" }, { "id": "ca", "cn": "中国国际航空" } ],
+      "facts": [
+        "1999 年通航,是中国面向全球的最大门户枢纽之一,国际货邮量长期位居世界前列。",
+        "2019 年启用 S1/S2 双卫星厅,旅客经捷运穿梭,机位数大幅扩充。",
+        "磁悬浮浦东线连接市区,曾是全球首条商业运营高速磁浮线路。"
+      ],
+      "coord": [121.80, 31.14]
+    },
+    {
+      "iata": "CAN", "icao": "ZGGG", "cn": "广州白云国际机场", "en": "Guangzhou Baiyun International Airport",
+      "city": "广州", "pinyin": "guangzhou baiyun",
+      "opened": 2004, "elevationM": 15,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际", "opened": 2004, "note": "2004 年由旧白云机场整体转场" },
+        { "name": "T2", "role": "南航枢纽主楼", "opened": 2018 }
+      ],
+      "runways": [
+        { "id": "01/19", "length": 3600, "width": 60, "approx": true },
+        { "id": "02L/20R", "length": 3600, "width": 60, "approx": true },
+        { "id": "02R/20L", "length": 3800, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "cz", "cn": "中国南方航空" } ],
+      "facts": [
+        "2004 年从紧邻市区的旧白云机场整体转场至花都现址,旧机场原址改建为白云新城。",
+        "南航主基地,T2 与南航“木棉”枢纽深度绑定,是承接“广州之路”国际中转的核心。",
+        "客流长期位居全国前三、全球前十。"
+      ],
+      "coord": [113.30, 23.39]
+    },
+    {
+      "iata": "SZX", "icao": "ZGSZ", "cn": "深圳宝安国际机场", "en": "Shenzhen Bao'an International Airport",
+      "city": "深圳", "pinyin": "shenzhen bao'an",
+      "opened": 1991, "elevationM": 4,
+      "terminals": [
+        { "name": "T3", "role": "国内/国际", "opened": 2013, "note": "“大鹏展翅”蜂窝天窗造型" }
+      ],
+      "runways": [
+        { "id": "15/33", "length": 3400, "width": 60, "approx": true },
+        { "id": "16/34", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "zh", "cn": "深圳航空" } ],
+      "facts": [
+        "T3 于 2013 年启用,白色蜂窝状表皮由 Massimiliano Fuksas 设计,是深圳的城市名片之一。",
+        "深圳航空主基地,紧邻珠三角制造业腹地,货机班次密集。",
+        "临海填海区建成的第二条跑道,使珠三角三大机场进入多跑道时代。"
+      ],
+      "coord": [113.81, 22.63]
+    },
+    {
+      "iata": "TFU", "icao": "ZUTF", "cn": "成都天府国际机场", "en": "Chengdu Tianfu International Airport",
+      "city": "成都", "pinyin": "chengdu tianfu",
+      "opened": 2021, "elevationM": 475, "approx": true,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际", "opened": 2021 },
+        { "name": "T2", "role": "国内为主", "opened": 2021 }
+      ],
+      "runways": [
+        { "id": "01L/19R", "length": 4000, "width": 60, "approx": true },
+        { "id": "01R/19L", "length": 4000, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "3u", "cn": "四川航空" }, { "id": "eu", "cn": "成都航空" }, { "id": "ca", "cn": "中国国际航空" } ],
+      "facts": [
+        "2021 年通航,成都成为中国内地继上海、北京之后第三个“双机场”城市。",
+        "航站楼构型取意“太阳神鸟”,是天府文化的图腾符号。",
+        "新建定位面向国际远程航线,与双流机场分工为“天府国际、双流国内精品”。"
+      ],
+      "coord": [104.44, 30.31]
+    },
+    {
+      "iata": "CTU", "icao": "ZUUU", "cn": "成都双流国际机场", "en": "Chengdu Shuangliu International Airport",
+      "city": "成都", "pinyin": "chengdu shuangliu",
+      "opened": 1939, "elevationM": 495,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际(部分)", "opened": 2001, "approx": true },
+        { "name": "T2", "role": "国内主力", "opened": 2012, "approx": true }
+      ],
+      "runways": [
+        { "id": "02L/20R", "length": 3600, "width": 60, "approx": true },
+        { "id": "02R/20L", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "3u", "cn": "四川航空" }, { "id": "eu", "cn": "成都航空" }, { "id": "ca", "cn": "中国国际航空" } ],
+      "facts": [
+        "1939 年始建,抗战时期即为重要空军基地,是中国持续使用最久的机场之一。",
+        "川航主基地,也是国产 ARJ21 最早规模化运营的机场之一(成都航空)。",
+        "天府机场启用后转型“精品商务+区域国际”定位,客流结构深度调整。"
+      ],
+      "coord": [103.95, 30.58]
+    },
+    {
+      "iata": "CKG", "icao": "ZUCK", "cn": "重庆江北国际机场", "en": "Chongqing Jiangbei International Airport",
+      "city": "重庆", "pinyin": "chongqing jiangbei",
+      "opened": 1990, "elevationM": 416, "approx": true,
+      "terminals": [
+        { "name": "T2", "role": "国内", "opened": 2004, "approx": true },
+        { "name": "T3A", "role": "国内/国际主楼", "opened": 2017 }
+      ],
+      "runways": [
+        { "id": "02L/20R", "length": 3600, "width": 60, "approx": true },
+        { "id": "02R/20L", "length": 3600, "width": 60, "approx": true },
+        { "id": "03/21", "length": 3800, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "ca", "cn": "中国国际航空(重庆)" }, { "id": "3u", "cn": "四川航空(重庆)" }, { "id": "pn", "cn": "西部航空" } ],
+      "facts": [
+        "1990 年通航,取代白市驿机场成为重庆主城民航门户。",
+        "T3A 于 2017 年启用,与第三跑道同步投运,进入三跑道俱乐部。",
+        "地处峡谷丘陵之间,进离场程序绕行山体,是著名的“山城机场”。"
+      ],
+      "coord": [106.64, 29.72]
+    },
+    {
+      "iata": "KMG", "icao": "ZPPP", "cn": "昆明长水国际机场", "en": "Kunming Changshui International Airport",
+      "city": "昆明", "pinyin": "kunming changshui",
+      "opened": 2012, "elevationM": 2102,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际", "opened": 2012 }
+      ],
+      "runways": [
+        { "id": "03/21", "length": 4500, "width": 60, "approx": true },
+        { "id": "04/22", "length": 4500, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mu", "cn": "中国东方航空(云南)" }, { "id": "8l", "cn": "祥鹏航空" } ],
+      "facts": [
+        "2012 年取代巫家坝机场通航,海拔约 2100 米,是中国海拔最高的千万级枢纽。",
+        "东航云南主基地,面向东南亚、南亚的桥头堡门户。",
+        "高高原气象复杂,冬季平流雾多发,曾因冻雾大面积延误而广受关注。"
+      ],
+      "coord": [102.93, 25.10]
+    },
+    {
+      "iata": "XIY", "icao": "ZLXY", "cn": "西安咸阳国际机场", "en": "Xi'an Xianyang International Airport",
+      "city": "西安", "pinyin": "xian xianyang",
+      "opened": 1991, "elevationM": 482,
+      "terminals": [
+        { "name": "T2", "role": "国内", "opened": 2003, "approx": true },
+        { "name": "T3", "role": "国内/国际", "opened": 2012 },
+        { "name": "T5", "role": "新建东航站楼", "opened": 2023, "approx": true, "note": "东方航空城组团,含考古陈列馆" }
+      ],
+      "runways": [
+        { "id": "05L/23R", "length": 3000, "width": 45, "approx": true },
+        { "id": "05R/23L", "length": 3800, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mu", "cn": "中国东方航空" }, { "id": "cz", "cn": "中国南方航空" } ],
+      "facts": [
+        "西北地区最大空中门户,“一带一路”航空物流节点,中亚、西亚航线密度全国领先。",
+        "机场地处咸阳塬上,扩建工程中屡有秦汉考古发现,T5 内设机场考古陈列馆,全国罕见。",
+        "东航、南航均设基地,是丝路航线网络的中枢。"
+      ],
+      "coord": [108.75, 34.44]
+    },
+    {
+      "iata": "HGH", "icao": "ZSHC", "cn": "杭州萧山国际机场", "en": "Hangzhou Xiaoshan International Airport",
+      "city": "杭州", "pinyin": "hangzhou xiaoshan",
+      "opened": 2000, "elevationM": 7,
+      "terminals": [
+        { "name": "T1/T2/T3", "role": "国内/国际(多指廊)", "opened": 2000, "approx": true, "note": "历次扩建形成的指廊组合" },
+        { "name": "T4", "role": "国内/国际新主楼", "opened": 2022, "approx": true }
+      ],
+      "runways": [
+        { "id": "06/24", "length": 3600, "width": 60, "approx": true },
+        { "id": "07/25", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mf", "cn": "厦门航空(杭州)" }, { "id": "gj", "cn": "浙江长龙航空" } ],
+      "facts": [
+        "2000 年取代笕桥民用部分通航,G20 杭州峰会前后完成多轮扩建。",
+        "长龙航空主基地,厦航设杭州过夜基地,长三角南翼干线枢纽。",
+        "T4 于杭州亚运会前启用,主题“荷花瓣”屋面成为新地标。"
+      ],
+      "coord": [120.43, 30.23]
+    },
+    {
+      "iata": "URC", "icao": "ZWWW", "cn": "乌鲁木齐地窝堡国际机场", "en": "Urumqi Diwopu International Airport",
+      "city": "乌鲁木齐", "pinyin": "wulumuqi diwopu",
+      "opened": 1939, "elevationM": 648,
+      "terminals": [
+        { "name": "T2", "role": "国内", "opened": 1993, "approx": true },
+        { "name": "T3", "role": "国际/国内", "opened": 2011, "approx": true }
+      ],
+      "runways": [
+        { "id": "07/25", "length": 3600, "width": 60, "approx": true },
+        { "id": "15/33", "length": 3200, "width": 45, "approx": true }
+      ],
+      "hubs": [ { "id": "cz", "cn": "中国南方航空(新疆)" } ],
+      "facts": [
+        "1939 年始建,是亚欧大陆桥航空通道的关键节点,联通中亚、西亚与欧洲。",
+        "南航新疆分公司主基地,国内罕见的以“疆内环线+出疆放射”为骨架的支线网络核心。",
+        "冬季大雾频发,是民航业内著名的低能见度运行研究样本机场。"
+      ],
+      "coord": [87.47, 43.91]
+    },
+    {
+      "iata": "WUH", "icao": "ZHHH", "cn": "武汉天河国际机场", "en": "Wuhan Tianhe International Airport",
+      "city": "武汉", "pinyin": "wuhan tianhe",
+      "opened": 1995, "elevationM": 34,
+      "terminals": [
+        { "name": "T3", "role": "国内/国际主楼", "opened": 2017, "note": "启用后 T1/T2 停用改造" }
+      ],
+      "runways": [
+        { "id": "04L/22R", "length": 3600, "width": 60, "approx": true },
+        { "id": "04R/22L", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "cz", "cn": "中国南方航空(湖北)" }, { "id": "mu", "cn": "中国东方航空(武汉)" } ],
+      "facts": [
+        "1995 年通航,是华中地区首个双跑道机场,九州通衢的空中门户。",
+        "T3 于 2017 年启用,单楼总量设计兼顾中转效率。",
+        "依托“鄂州花湖货运枢纽+天河客运枢纽”形成客货双枢纽格局。"
+      ],
+      "coord": [114.21, 30.78]
+    },
+    {
+      "iata": "NKG", "icao": "ZSNJ", "cn": "南京禄口国际机场", "en": "Nanjing Lukou International Airport",
+      "city": "南京", "pinyin": "nanjing lukou",
+      "opened": 1997, "elevationM": 25, "approx": true,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际(改造)", "opened": 1997 },
+        { "name": "T2", "role": "国内/国际", "opened": 2014 }
+      ],
+      "runways": [
+        { "id": "07/25", "length": 3600, "width": 60, "approx": true },
+        { "id": "16/34", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mu", "cn": "中国东方航空(江苏)" }, { "id": "zh", "cn": "深圳航空(南京)" } ],
+      "facts": [
+        "1997 年通航,长三角主要枢纽之一,东航江苏公司主基地。",
+        "双跑道独立运行,是华东空中通道上沪宁一线的流量调节阀。",
+        "禄口地名源自古代驿站,机场沿用了这一千年驿站基因。"
+      ],
+      "coord": [118.86, 31.74]
+    },
+    {
+      "iata": "CSX", "icao": "ZGHA", "cn": "长沙黄花国际机场", "en": "Changsha Huanghua International Airport",
+      "city": "长沙", "pinyin": "changsha huanghua",
+      "opened": 1989, "elevationM": 66,
+      "terminals": [
+        { "name": "T1", "role": "国内(改造后启用)", "opened": 1989, "approx": true },
+        { "name": "T2", "role": "国内/国际主楼", "opened": 2011, "approx": true }
+      ],
+      "runways": [
+        { "id": "18L/36R", "length": 3600, "width": 60, "approx": true },
+        { "id": "18R/36L", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "cz", "cn": "中国南方航空(湖南,驻场运力以之为主)" } ],
+      "facts": [
+        "1989 年通航,湖南门户,因地处黄花镇得名,是全国离市区较近的干线机场之一。",
+        "双跑道运行后客流量稳居中部前列,对周边省份中转吸引力强。",
+        "驻场运力以南方航空为主,湖南本土航司曾以“红土航空”等短暂活跃(存疑待核实)。"
+      ],
+      "coord": [113.22, 28.19]
+    },
+    {
+      "iata": "XMN", "icao": "ZSAM", "cn": "厦门高崎国际机场", "en": "Xiamen Gaoqi International Airport",
+      "city": "厦门", "pinyin": "xiamen gaoqi",
+      "opened": 1983, "elevationM": 17, "approx": true,
+      "terminals": [
+        { "name": "T3", "role": "国际/地区", "opened": 1996, "approx": true, "note": "中式屋顶花园意象,厦航原主楼" },
+        { "name": "T4", "role": "国内", "opened": 2014 }
+      ],
+      "runways": [
+        { "id": "05/23", "length": 3400, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "mf", "cn": "厦门航空" } ],
+      "facts": [
+        "1983 年通航,改革开放后首批利用科威特贷款建设的机场,是我国民航市场化改革的起点之一。",
+        "T3(国际)/T4(国内)双楼运营格局,T3 的园林式庭院在国内航站楼中独树一帜。",
+        "厦航主基地,全部机队为波音,是国内罕见的“全波音”航司大本营。",
+        "单跑道高流量运行的代表——一条跑道承载了全国前列的起降架次。",
+        "规划背景:厦门翔安新机场按规划建成并整体转场后,高崎机场将完成历史使命,原址区域拟转型再开发(以官方规划为准)。"
+      ],
+      "coord": [118.13, 24.54]
+    },
+    {
+      "iata": "FOC", "icao": "ZSFZ", "cn": "福州长乐国际机场", "en": "Fuzhou Changle International Airport",
+      "city": "福州", "pinyin": "fuzhou changle",
+      "opened": 1997, "elevationM": 15, "approx": true,
+      "terminals": [
+        { "name": "T1", "role": "国内/国际", "opened": 1997 },
+        { "name": "T2", "role": "国内(二期扩建新增)", "opened": 2023, "approx": true, "note": "二期扩建工程新增航站楼" }
+      ],
+      "runways": [
+        { "id": "03/21", "length": 3600, "width": 60, "approx": true }
+      ],
+      "hubs": [ { "id": "fu", "cn": "福州航空" }, { "id": "mf", "cn": "厦门航空(福建基地)" } ],
+      "facts": [
+        "1997 年通航,填海临江而建,面朝闽江口,是国内少有的海景进近。",
+        "T1/T2 双楼运营格局:T1 承担国内/国际,T2 为二期扩建新增的国内主楼。",
+        "主基地航司福州航空,机队为全波音 737-800;厦门航空亦设福建基地。",
+        "机场临海风大,台风季绕飞与备降是机组常备科目。"
+      ],
+      "coord": [119.66, 25.94]
+    }
+  ]
+}
