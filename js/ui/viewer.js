@@ -1,8 +1,8 @@
 /**
  * ui/viewer.js — 机型查看页(#/aircraft/<variantId>)
- * 左:3D 舞台(场景基座 + 参数化整机 + 人形剪影/客梯车/米数标尺参照物)
- * 右:参数卡 / 动画开关 / 相机预设;底部上一架·下一架 + P2/P3/P4 预留按钮(置灰)。
- * 点击部件:console.log partId + toast 显示中文名(P3 热点系统的依赖验证)。
+ * 左:3D 舞台(场景基座 + 真实 GLB 整机 + 人形剪影/客梯车/米数标尺参照物)
+ * 右:涂装 / 参数卡 / 相机预设;底部上一架·下一架 + 涂装/部件图鉴(P3)/舱内(P4 预留)。
+ * P3:部件热点图鉴层(parts.js)挂在本页,partId 映射见该模块头注释。
  */
 import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
@@ -12,18 +12,7 @@ import { storeUpdate } from '../core/store.js';
 import { buildHangarEnv, registerHangarBrand } from '../engine/hangarEnv.js';
 import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/details.js';
 import { getAllLiveries, liveriesForVariant } from '../engine/livery.js';
-
-/* 部件命名表(P1 提示词 30 项)中文对照 */
-const PART_NAMES = {
-  nose_radome: '机鼻雷达罩', windshield: '驾驶舱风挡', pitot: '皮托管', static_port: '静压孔',
-  aoa_sensor: '迎角传感器', cabin_window: '客舱舷窗', door_l1: '客舱舱门', fuselage: '机身',
-  wing_root_fairing: '翼身整流罩', slat: '前缘缝翼', flap: '后缘襟翼', spoiler: '扰流板',
-  aileron: '副翼', winglet: '翼梢小翼', wing_box: '机翼盒段', engine_nacelle: '发动机短舱',
-  fan_blade: '风扇叶片', thrust_reverser: '反推装置', pylon: '发动机吊挂', apu: 'APU 排气口',
-  vertical_stabilizer: '垂直尾翼', rudder: '方向舵', horizontal_stabilizer: '水平尾翼',
-  elevator: '升降舵', nose_gear: '前起落架', main_gear: '主起落架', wheel_brake: '机轮刹车',
-  beacon_light: '防撞灯', strobe_light: '频闪灯', landing_light: '着陆灯',
-};
+import { createPartsLayer } from './parts.js';
 
 function toast(msg, type = '') {
   let wrap = document.querySelector('.toast-wrap');
@@ -111,7 +100,7 @@ export function render(container, params) {
           <span class="spacer"></span>
           <div class="v-reserved">
             <button class="btn btn-ghost btn-sm" id="btn-livery" title="打开涂装面板">切换涂装</button>
-            <button class="btn btn-ghost btn-sm" disabled title="P3 上线">部件图鉴</button>
+            <button class="btn btn-ghost btn-sm" id="btn-parts" title="部件热点图鉴(建议在原厂涂装下使用)">部件图鉴</button>
             <button class="btn btn-ghost btn-sm" disabled title="P4 上线">进入舱内</button>
           </div>
         </div>
@@ -210,6 +199,7 @@ export function render(container, params) {
 
     /* ---------- P2:涂装切换(真实涂装 GLB 整体换装) ---------- */
     const acRef = { ac };
+    let partsLayer = null; // P3 部件热点层,相机通道就绪后创建
     base.addTick((dt, t) => acRef.ac.update(dt, t));
     const swWrap = container.querySelector('#lv-swatches');
     const lvSelect = container.querySelector('#lv-select');
@@ -251,6 +241,7 @@ export function render(container, params) {
         });
         acRef.model = def.model;
         base.scene.add(acRef.ac.root);
+        if (partsLayer) partsLayer.rebind();   // P3:换装后重建 partId 索引与热点圆点
         // 新模型起落架姿态不同,重校取景基线
         const bb2 = new THREE.Box3().setFromObject(acRef.ac.root);
         if (!bb2.isEmpty()) base.controls.target.y = bb2.getCenter(new THREE.Vector3()).y;
@@ -350,16 +341,16 @@ export function render(container, params) {
     };
 
     let tween = null;
-    function flyTo(preset) {
+    function flyTo(preset, dur = 0.9) {
       tween = {
-        t: 0,
+        t: 0, d: dur,
         p0: base.camera.position.clone(), p1: new THREE.Vector3(...preset.pos),
         t0: base.controls.target.clone(), t1: new THREE.Vector3(...preset.tgt),
       };
     }
     base.addTick((dt) => {
       if (!tween) return;
-      tween.t = Math.min(1, tween.t + dt / 0.9);
+      tween.t = Math.min(1, tween.t + dt / tween.d);
       const e = tween.t < 0.5 ? 4 * tween.t ** 3 : 1 - Math.pow(-2 * tween.t + 2, 3) / 2;
       base.camera.position.lerpVectors(tween.p0, tween.p1, e);
       base.controls.target.lerpVectors(tween.t0, tween.t1, e);
@@ -373,35 +364,22 @@ export function render(container, params) {
       run(() => btn.removeEventListener('click', h));
     });
 
-    /* ---------- 交互:点击部件打印 partId ---------- */
-    const ray = new THREE.Raycaster();
-    const ptr = new THREE.Vector2();
-    let downXY = null;
-    const onDown = (ev) => { downXY = [ev.clientX, ev.clientY]; };
-    const onUp = (ev) => {
-      if (!downXY) return;
-      const moved = Math.hypot(ev.clientX - downXY[0], ev.clientY - downXY[1]);
-      downXY = null;
-      if (moved > 6) return;                       // 拖拽不算点击
-      const rect = base.renderer.domElement.getBoundingClientRect();
-      ptr.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
-      ptr.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
-      ray.setFromCamera(ptr, base.camera);
-      const meshes = [];
-      acRef.ac.root.traverse((o) => { if ((o.isMesh || o.isInstancedMesh) && o.userData.partId) meshes.push(o); });
-      const hit = ray.intersectObjects(meshes, false)[0];
-      if (hit) {
-        const id = hit.object.userData.partId;
-        console.log('[viewer] partId =', id, '→', PART_NAMES[id] || id);
-        toast(`部件:${PART_NAMES[id] || id}(${id})`);
-      }
-    };
-    base.renderer.domElement.addEventListener('pointerdown', onDown);
-    base.renderer.domElement.addEventListener('pointerup', onUp);
-    run(() => {
-      base.renderer.domElement.removeEventListener('pointerdown', onDown);
-      base.renderer.domElement.removeEventListener('pointerup', onUp);
+    /* ---------- P3:部件热点图鉴层 ---------- */
+    partsLayer = createPartsLayer({
+      base, acRef, dims: v, variantId,
+      mountEl: container.querySelector('.viewer-main'),
+      flyTo,
+      onToast: toast,
     });
+    run(() => partsLayer.dispose());
+    const btnParts = container.querySelector('#btn-parts');
+    const onParts = () => {
+      const on = partsLayer.setActive(!partsLayer.active());
+      btnParts.classList.toggle('on', on);
+      if (on) toast('部件图鉴:悬停高亮部件,点击弹出知识卡');
+    };
+    btnParts.addEventListener('click', onParts);
+    run(() => btnParts.removeEventListener('click', onParts));
 
     /* 调试通道(控制台可查几何上下文) */
     window.__CH_DEBUG = { root: ac.root, variantId, camera: base.camera, controls: base.controls, scene: base.scene };

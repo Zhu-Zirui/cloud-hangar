@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
 import { loadAllVariants } from '../engine/aircraft.js';
 import { getAllLiveries } from '../engine/livery.js';
+import { storeGet } from '../core/store.js';
 
 /* 机型卡片:数据来自 data/aircraft/*.json(仅真实模型变体,loadAllVariants 已过滤) */
 const CARD_DESC = {
@@ -205,10 +206,12 @@ export function render(container) {
     if (!wrap) return;
     const lvCount = {};
     for (const l of lv.liveries) lvCount[l.variant] = (lvCount[l.variant] || 0) + 1;
+    const exploredN = (storeGet('exploredParts', []) || []).length;   // P3 部件打卡进度
     wrap.innerHTML = variants.map((v, i) => `
       <article class="ac-card glass-card anim-fade-up anim-delay-${(i % 3) + 1}">
         <div class="collect-badge" title="涂装收集进度(P6 启用)"><span class="dot"></span>收集 --</div>
         <div class="livery-badge" title="该机型可选涂装数量(含原厂)">涂装 ×${(lvCount[v.id] || 0) + 1}</div>
+        <div class="parts-badge" title="部件图鉴探索进度(共 30 项)">部件 ${exploredN}/30</div>
         <div class="ac-family">${v.familyCn}</div>
         <h3>${v.cnName.replace(/^空客 |^波音 |^中国商飞 /, '')}</h3>
         <div class="ac-art">${SILHOUETTE_SVG}</div>
