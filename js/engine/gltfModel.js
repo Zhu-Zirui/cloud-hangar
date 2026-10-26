@@ -29,6 +29,17 @@ export const GLB_VARIANTS = {
 
 const cache = new Map(); // assetId → Promise<THREE.Group>(克隆模板)
 
+/* 源模型机鼻朝向表(key = GLB 文件名主名,涂装变体如 b788-cz 共用主型号值)。
+   实测方法:解包 GLB,按名字定位机鼻证据(鼻锥/前起舱门/皮托管)与机尾证据
+   (方向舵/垂尾/APU 排气)比较 z。其余 8 变体机鼻 +Z → yaw 0;a20n 机鼻 +X → −90°。
+   新增变体必须先实测后补表,勿再引入全局盲翻转。 */
+const SOURCE_NOSE_YAW = { a20n: -Math.PI / 2 };
+
+function sourceNoseYaw(assetId) {
+  const base = String(assetId).split('/').pop().replace(/\.glb$/i, '').split('-')[0];
+  return SOURCE_NOSE_YAW[base] ?? 0;
+}
+
 /** 加载 GLB(缓存原始模板,调用方 clone) */
 export function loadGltfTemplate(assetId) {
   if (!cache.has(assetId)) {
@@ -53,46 +64,35 @@ export function loadGltfTemplate(assetId) {
 
 /**
  * 归一化模型:中心原点(机身轴线中点)、机鼻 +Z、轮子贴 y=0。
- * FR24 模型朝向惯例不一致,用包围盒与最长轴自动判定,再按运行时校准表修正。
+ * 源模型朝向不做自动猜测:2026-10-26 逐 GLB 解包核验,9 变体中 8 个源机鼻 +Z、
+ * a20n 源机鼻 +X(见 SOURCE_NOSE_YAW);此前"FR24 机鼻 −Z,统一 +180°"的盲翻转
+ * 把 8 个机型转成机鼻 −Z,导致查看页前视/尾翼预设与部件图鉴空间分类全部首尾颠倒。
  * @param {THREE.Group} scene gltf.scene
  * @param {object} dims { length, span, height } 权威数据表米数
+ * @param {number} yaw 源模型机鼻对准 +Z 所需的绕 Y 旋转(弧度,见 sourceNoseYaw)
  * @returns {THREE.Group} 归一化后的根组(y=0 为地面,机身轴线 ≈ dims.axisY)
  */
-export function normalizeAircraft(scene, dims) {
+export function normalizeAircraft(scene, dims, yaw = 0) {
   const root = new THREE.Group();
   const inner = scene; // 直接操作原场景(每个变体只加载一份,viewer 一次一机)
 
-  // 1) 包围盒
-  const box = new THREE.Box3().setFromObject(inner);
-  const size = new THREE.Vector3();
-  box.getSize(size);
-  const center = new THREE.Vector3();
-  box.getCenter(center);
+  // 1) 先按实测表对准机鼻,再测包围盒(yaw 为 ±90° 时纵轴随旋转从 X 落到 Z)
+  inner.rotation.y = yaw;
+  const size = new THREE.Box3().setFromObject(inner).getSize(new THREE.Vector3());
 
-  // 2) 纵轴判定:与权威数据 length 差值小者为纵轴(787 等翼展>机长,不能按最长轴)
-  let sizeZ = size.z, sizeX = size.x, sizeY = size.y;
-  const errZ = Math.abs(size.z - dims.length);
-  const errX = Math.abs(size.x - dims.length);
-  if (errX < errZ) { // 纵轴在 X:转 90°
-    inner.rotation.y = Math.PI / 2;
-    [sizeZ, sizeX] = [sizeX, sizeZ];
-  }
-  // FR24 机型机鼻朝 -Z(gltf z-up 风格已在导出时处理),运行时以 747 实测校准
-  inner.rotation.y += Math.PI;
-
-  // 3) 等比缩放到真实长度
-  const scale = dims.length / sizeZ;
+  // 2) 等比缩放到真实长度
+  const scale = dims.length / size.z;
   inner.scale.multiplyScalar(scale);
-  sizeZ *= scale; sizeX *= scale; sizeY *= scale;
+  size.multiplyScalar(scale);
 
-  // 4) 重新计算包围盒:水平居中(z/x),底面(机轮)贴 y=0 —— 模型自带起落架
+  // 3) 重新计算包围盒:水平居中(z/x),底面(机轮)贴 y=0 —— 模型自带起落架
   const box2 = new THREE.Box3().setFromObject(inner);
   const c2 = new THREE.Vector3();
   box2.getCenter(c2);
   inner.position.set(-c2.x, -box2.min.y, -c2.z);
 
   root.add(inner);
-  root.userData.dims = { ...dims, actual: { x: sizeX, y: sizeY, z: sizeZ }, scale };
+  root.userData.dims = { ...dims, actual: { x: size.x, y: size.y, z: size.z }, scale };
   return root;
 }
 
@@ -104,7 +104,7 @@ export function normalizeAircraft(scene, dims) {
 export async function buildGltfAircraftUrl(url, renderer, dims) {
   const assetId = url;
   const scene = await loadGltfTemplate(assetId);
-  const root = normalizeAircraft(scene, dims);
+  const root = normalizeAircraft(scene, dims, sourceNoseYaw(assetId));
 
   // 环境反射:GLB 材质接入 PMREM RoomEnvironment,观感与参数化通道一致
   const envMap = getEnvMap(renderer);
