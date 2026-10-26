@@ -106,7 +106,8 @@ export function render(container, params) {
           <div class="v-reserved">
             <button class="btn btn-ghost btn-sm" id="btn-livery" title="打开涂装面板">切换涂装</button>
             <button class="btn btn-ghost btn-sm" id="btn-parts" title="部件热点图鉴(建议在原厂涂装下使用)">部件图鉴</button>
-            <button class="btn btn-ghost btn-sm" disabled title="P4 上线">进入舱内</button>
+            <a class="btn btn-ghost btn-sm" href="#/cabin/${variantId}?mode=cockpit" title="P4 驾驶舱漫游">进入驾驶舱</a>
+            <a class="btn btn-ghost btn-sm" href="#/cabin/${variantId}?mode=cabin" title="P4 客舱漫游">进入客舱</a>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ const app = document.getElementById('app');
 const ROUTES = {
   hangar:   { module: () => import('./ui/hangar.js'),   nav: 'hangar' },
   aircraft: { module: () => import('./ui/viewer.js'),    nav: 'hangar' },
+  cabin:    { module: () => import('./ui/cabin.js'),     nav: 'hangar' },  // P4 舱内漫游
   airports: { module: () => import('./ui/airports.js'),  nav: 'airports' },
   wiki:     { module: () => import('./ui/wiki.js'),      nav: 'wiki' },
   game:     { module: () => import('./ui/game.js'),      nav: 'game' },
