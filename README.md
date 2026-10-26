@@ -1,8 +1,8 @@
 # AeroAtlas
 
-A global 3D aviation atlas for aircraft discovery, airport exploration, flight knowledge, and open aviation culture.
+AeroAtlas is a browser-based 3D aviation atlas designed for aircraft discovery, airport exploration, civil aviation learning, and open community collaboration.
 
-> Formerly Cloud Hangar · 现为 AeroAtlas（云端机库品牌升级版）
+> Cloud Hangar is the earlier project identity. AeroAtlas is the upgraded international brand direction.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Zhu-Zirui/cloud-hangar/main/assets/logos/brand.png" alt="AeroAtlas logo" width="180" />
@@ -30,7 +30,7 @@ AeroAtlas（航空图谱）是一个面向全球航空爱好者、飞友、开�
 
 - 让更多人能够通过浏览器理解飞机结构、机体外观和航空工程
 - 让用户接触机场、航司、航空文化和全球航空知识
-- 让开发者、设计者、内容创作者与航空爱好者共同参与，打造更强大的开放式航空平台
+- 让开发者、设计者、内容创作者与航空爱好者共同参与，构建更强大的开放式航空平台
 
 AeroAtlas 的目标不是只做一个中国版航空站点，而是逐步成长为一个面向全球的航空知识图谱、航空主题社区与开放协作平台。
 
@@ -46,45 +46,77 @@ The project is still in its initial prototype phase, and many features, data ref
 
 AeroAtlas is not meant to remain a China-only aviation project. It aims to grow into a global aviation atlas and knowledge community for users across regions and languages.
 
-## Why this project exists / 项目为什么存在
+## 项目为何存在 / Why this project exists
 
 航空世界充满故事、系统与工程细节，但很多人仍然难以以轻松、有趣且高质量的方式接触这些知识。AeroAtlas 希望打造一个：
 
-- 视觉上强烈吸引人的航空知识平台
+- 视觉上富有吸引力
 - 兼具教育意义与探索价值
 - 能直接在浏览器中体验
 - 可持续扩展并允许社区协作
 
 它不是一个单纯的静态展示页面，而是一个开放的航空知识分享与学习平台。
 
-## Current status / 当前状态
+The world of aviation is rich in stories, systems, and engineering details, but many people still find it hard to access this knowledge in an engaging, accessible, and beautiful way. AeroAtlas aims to create an experience that is:
+
+- visually compelling
+- educational and exploratory
+- directly accessible in a browser
+- scalable and open to community collaboration
+
+It is not just a static page. It is an open aviation knowledge platform for learning, discovery, and global exchange.
+
+## 当前状态 / Current status
+
+这是一个早期项目，仍在快速迭代中。
 
 This is still an early-stage project.
 
-- The core concept is working and the experience is already runnable
+- 核心思路已经成立，项目可运行
+- 功能仍在不断迭代和完善
+- 部分数据、交互细节和体验仍待优化
+- 当前内容以中国民航场景为主
+- 长期方向是面向全球航空社区
+
+- The core concept is already working and the project is runnable
 - Features are still being iterated and refined
-- Some data accuracy, UI details, and user experience improvements are pending
+- Some data accuracy, UI details, and user experience improvements are still pending
 - The current content is centered on China civil aviation
-- The long-term direction is a global aviation edition
+- The long-term direction is a global aviation platform
+
+重要说明：
+
+这不是最终成品，而是一个具有明确方向、可持续扩展、面向全球社区协作的早期平台。
 
 Important note:
 
-This project is not a final product yet. It is a foundational open-source aviation platform ready for community improvement and future expansion.
+This project is not a final product yet. It is a meaningful foundation for future community-driven development, open collaboration, and global expansion.
 
-## Project vision / 项目愿景
+## 项目愿景 / Project vision
 
-We want AeroAtlas to grow from an early personal aviation project into a global open-community aviation platform.
+我们希望 AeroAtlas 从一个个人兴趣项目成长为一个面向全球的开放式航空平台。
 
-Our vision is to create a place where:
+Our long-term vision is to turn AeroAtlas into a global open aviation platform.
+
+我们的愿景是建立一个地方，让：
+
+- 航空爱好者能够共同学习
+- 机场、机型、航司和飞行知识能以更现代的方式被发现
+- 开发者、设计者和贡献者能够协作建设更好的体验
+- 航空文化和知识能够跨语言、跨地区传播
+
+We want to create a place where:
 
 - aviation fans can learn together
-- airport, aircraft, airline, and flight knowledge can be discovered in a modern, interactive format
-- developers, designers, and community contributors collaborate on meaningful experiences
+- aircraft, airports, airlines, and flight knowledge can be discovered in a modern interactive format
+- developers, designers, and contributors can collaborate on meaningful product experiences
 - aviation culture and knowledge can be shared across languages and regions
 
-The goal is not just to build a website. The goal is to build a trusted platform that inspires aviation curiosity and connects global flight communities.
+目标不仅是做一个网站，而是搭建一个能激发好奇心、连接全球飞友与航空社区的平台。
 
-## Core features / 核心功能
+The goal is not only to build a website. The goal is to build a trusted platform that inspires curiosity and connects global flight communities.
+
+## 核心功能 / Key features
 
 ### 3D aircraft browsing / 3D 机型浏览
 - Explore aircraft models in 3D
@@ -111,16 +143,18 @@ The goal is not just to build a website. The goal is to build a trusted platform
 - Add replayability and progress tracking
 - Support a lightweight game-like exploration model
 
-## Brand naming system / 品牌命名体系
+## 品牌命名体系 / Brand naming system
 
-AeroAtlas is the recommended core brand for the long-term international direction. The following naming system can help build a larger and more coherent brand family.
+AeroAtlas 是推荐的长期全球品牌名。以下是一个更完整的品牌体系，用于建立更稳健的长期品牌结构。
 
-### Core brand / 核心品牌
+AeroAtlas is the recommended long-term global brand. The following naming system helps build a stronger and more coherent brand family.
+
+### 核心品牌 / Core brand
 - AeroAtlas
 - AeroAtlas Studio
 - AeroAtlas Labs
 
-### Product lines / 产品线
+### 产品线 / Product lines
 - AeroAtlas Explorer
 - AeroAtlas Airports
 - AeroAtlas Academy
@@ -128,56 +162,55 @@ AeroAtlas is the recommended core brand for the long-term international directio
 - AeroAtlas Community
 - AeroAtlas Live
 
-### Chinese naming options / 中文命名备选
+### 中文命名备选 / Chinese naming options
 - 航空图谱
 - 空天图谱
 - 飞行图谱
 - 航空档案
 - 机库图谱
 
-### Recommended brand strategy / 推荐品牌策略
+### 推荐品牌策略 / Recommended strategy
 
-1. Use AeroAtlas as the main global name
-2. Keep Cloud Hangar as legacy/Chinese brand context for the early stage
-3. Build subproducts under the AeroAtlas family
-4. Use unified visual language across web, community, documentation, and future app products
+1. 使用 AeroAtlas 作为主品牌
+2. 保留 Cloud Hangar 作为历史/早期中文品牌背景
+3. 在 AeroAtlas 之下扩展产品线
+4. 在 Web、社区、文档、未来应用中保持统一视觉语言
 
-### Best choice for long-term growth / 长期最优选择
+### 长期最优选择 / Best long-term choice
 
-The strongest long-term brand identity is:
+长期最优品牌是：
 
 - AeroAtlas
 
-It is:
-- international-friendly
-- memorable
-- easy to search and brand
-- suitable for a global aviation platform
-- expandable into products, communities, and data services
+它具备以下特点：
+- 国际化表达更强
+- 易记、易传播
+- 适合做全球航空知识平台
+- 适合后续拓展更多产品与社区能力
 
-## Roadmap / 发展路线
+## 发展路线 / Roadmap
 
 ### Phase 1: China-focused edition / 中国版
-- China civil aviation content
-- Major aircraft models and airport data
-- Aviation knowledge and educational exploration
+- 中国民航内容
+- 主要机型与机场数据
+- 航空知识与教育型内容
 
 ### Phase 2: Global aviation edition / 国际版
-- Expand beyond China
-- Add more aircraft families, airports, and airline brands
-- Improve internationalization and multilingual support
+- 扩展至中国以外内容
+- 增加更多机型、机场和航司品牌
+- 提升国际化和多语言支持
 
 ### Phase 3: Community-driven platform / 社区协作平台
-- Open contribution model
-- Better data governance and content updates
-- Broader community participation from global contributors
+- 开放贡献模型
+- 更好的内容治理和数据管理
+- 全球开发者和爱好者参与建设
 
 ### Phase 4: Global aviation knowledge hub / 全球航空知识中心
-- Stronger community and content ecosystem
-- More maintainers and contributors
-- A broader platform for aviation enthusiasts and learners around the world
+- 更强的内容生态和社区协作
+- 更多贡献者与维护者
+- 面向全世界航空爱好者与学习者的开放平台
 
-## Tech stack / 技术栈
+## 技术栈 / Tech stack
 
 - HTML5
 - CSS3
@@ -188,14 +221,14 @@ It is:
 
 This project intentionally keeps a lightweight architecture without heavy framework overhead so it remains accessible, easy to share, and simple to deploy.
 
-## Live demo / 在线演示
+## 在线演示 / Live demo
 
 - Demo: https://zhu-zirui.github.io/cloud-hangar/
 - Repository: https://github.com/Zhu-Zirui/cloud-hangar
 
-## Local run / 本地运行
+## 本地运行 / Local run
 
-### Option 1 / 方式一
+### 方式一 / Option 1
 
 ```bash
 cd cloud-hangar
@@ -208,7 +241,7 @@ Then open:
 http://127.0.0.1:8000/
 ```
 
-### Option 2 / 方式二
+### 方式二 / Option 2
 
 ```bash
 cd cloud-hangar
@@ -221,7 +254,7 @@ Then open:
 http://127.0.0.1:8000/
 ```
 
-## Project structure / 项目结构
+## 项目结构 / Project structure
 
 ```text
 cloud-hangar/
@@ -253,9 +286,19 @@ cloud-hangar/
 └── assets/CREDITS.md
 ```
 
-## Open source spirit / 开源精神
+## 开源精神 / Open source spirit
+
+这个项目仍然很年轻，但它具有很强的扩展潜力。
 
 This project is still small, but it has strong potential.
+
+我们希望它能够发展成一个共享平台，让更多人参与完善：
+
+- 机型数据与机场信息
+- 航空知识内容
+- UI/UX 与交互体验
+- 多语言与本地化内容
+- 数据质量和功能成熟度
 
 We hope it can become a shared platform where open-source contributors improve:
 
@@ -265,9 +308,21 @@ We hope it can become a shared platform where open-source contributors improve:
 - translations and localization
 - data quality and product maturity
 
-The project is not just about code. It is also about building a community around aviation discovery and knowledge sharing.
+它不仅仅是代码项目，也是一项以航空探索与知识分享为核心的社区项目。
 
-## Contributing / 参与贡献
+It is not just a code project. It is also a community project centered on aviation discovery and knowledge sharing.
+
+## 参与贡献 / Contributing
+
+我们欢迎多种形式的贡献：
+
+- 问题反馈 / bug reports
+- 功能建议 / feature ideas
+- UI 与交互优化 / design and interaction improvements
+- 数据修正 / data corrections
+- 翻译与本地化 / translations and localization
+- 航空内容审核 / aviation content reviews
+- 品牌与视觉支持 / branding and visual support
 
 We welcome contributions in many forms:
 
@@ -279,19 +334,38 @@ We welcome contributions in many forms:
 - aviation content reviews
 - visual design and branding support
 
+如果你想贡献，请 Fork 本仓库并提交 Pull Request。
+
 If you want to contribute, please fork the repository and open a pull request.
 
-## License / 许可证
+## 许可证 / License
+
+本项目采用 MIT License。
 
 This project is released under the MIT License.
 
+请查看 [LICENSE](LICENSE) 文件获取完整许可证说明。
+
 Please see the [LICENSE](LICENSE) file for the full license text.
+
+MIT 许可证非常适合开放式航空知识类项目，因为它允许自由使用、修改与再分发，并保留署名要求。
 
 The MIT license is a simple and community-friendly choice for an open-source aviation platform and supports broad adoption, modification, and distribution with attribution.
 
-## Important note / 重要说明
+## 重要说明 / Important note
+
+这是最初始版本。
 
 This is an initial version.
+
+目前仍然存在很多待解决的问题，包括：
+
+- 数据准确性修正
+- 用户体验打磨
+- 内容完整性提升
+- 国际化支持
+- 性能和稳定性优化
+- 更广泛的全球航空覆盖
 
 There are still many issues that require attention, including:
 
@@ -302,29 +376,45 @@ There are still many issues that require attention, including:
 - optimization and stability improvements
 - broader global aviation coverage
 
+但这也正是早期开源项目的价值：它有机会在社区力量下不断成长、迭代与升级。
+
 But that is also the value of an early open-source project: it has room to grow, improve, and evolve through community effort.
+
+我们诚挚欢迎所有关心航空、开源、3D Web 体验和全球知识共享的人加入。
 
 We sincerely welcome anyone who cares about aviation, open-source development, 3D web experiences, and global knowledge-sharing to join this mission.
 
-## Community call / 社区呼吁
+## 社区呼吁 / Community call
+
+我们邀请全球航空爱好者、开发者、设计师、学生、写作者和开源贡献者加入我们。
 
 We invite aviation enthusiasts, developers, designers, students, writers, and open-source contributors from around the world to join us.
 
+让我们共同把这个平台做得更强、更有价值、更好地服务全球航空社区。
+
 Let us work together to make this platform stronger, more useful, and more inspiring for aviation communities worldwide.
+
+让我们一起构建一个不仅面向中国，而且面向世界的航空知识平台。
 
 Let’s build a better aviation knowledge platform — not only for China, but for the world.
 
-## Author / 作者
+## 作者 / Author
 
 - GitHub: Zhu-Zirui
 - Project: AeroAtlas
 - Repository: https://github.com/Zhu-Zirui/cloud-hangar
 
-## Final message / 最后一句话
+## 最后一句话 / Final message
+
+AeroAtlas 仍然很年轻，但它的愿景很大。
 
 AeroAtlas is still young, but the vision is large.
 
+我们正在构建的不仅是一个项目，而是一个面向全球航空爱好者、学习者和开源贡献者的未来平台。
+
 We are building not only a project, but a future platform for aviation lovers, learners, and open-source contributors around the world.
+
+如果你关心航空、设计、前端技术和开放知识共享，我们欢迎你加入。
 
 If you care about aviation, design, front-end technology, and open knowledge-sharing, we welcome you to join us.
 
