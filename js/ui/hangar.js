@@ -8,6 +8,7 @@ import { createSceneBase } from '../scene.js';
 import { loadAllVariants } from '../engine/aircraft.js';
 import { getAllLiveries } from '../engine/livery.js';
 import { storeGet } from '../core/store.js';
+import { checkAchievements, RANKS } from './game.js';
 
 /* 机型卡片:数据来自 data/aircraft/*.json(仅真实模型变体,loadAllVariants 已过滤) */
 const CARD_DESC = {
@@ -173,6 +174,7 @@ export function render(container) {
         <div class="hero-chips">
           <span class="chip">360° 赏机</span><span class="chip">涂装切换</span>
           <span class="chip">部件知识</span><span class="chip">机场图鉴</span>
+          <span class="chip rank-chip" id="hero-rank" hidden title="答题等级(P6)"></span>
         </div>
         <div class="hero-actions">
           <button class="btn btn-primary" id="btn-goto-fleet">浏览机队 ↓</button>
@@ -198,6 +200,15 @@ export function render(container) {
     </section>
   </div>`;
 
+  /* 等级徽章(P6):hero 处显示答题等级;并全量补检一次成就(P3/P5 打卡的徽章在此触发 toast) */
+  const rankEl = container.querySelector('#hero-rank');
+  const rank = storeGet('pilotRank', 0) || 0;
+  if (rank > 0 && rankEl) {
+    rankEl.hidden = false;
+    rankEl.textContent = `${RANKS[rank]} ${'★'.repeat(rank === 4 ? 5 : rank)}`;
+  }
+  checkAchievements().catch(() => {});
+
   /* 机队卡片:异步读全量变体 JSON;涂装角标读 liveries.json(可切换涂装数) */
   let disposed = false;
   Promise.all([loadAllVariants(), getAllLiveries().catch(() => ({ liveries: [] }))]).then(([variants, lv]) => {
@@ -207,17 +218,22 @@ export function render(container) {
     const lvCount = {};
     for (const l of lv.liveries) lvCount[l.variant] = (lvCount[l.variant] || 0) + 1;
     const exploredN = (storeGet('exploredParts', []) || []).length;   // P3 部件打卡进度
-    wrap.innerHTML = variants.map((v, i) => `
+    const seenLv = new Set(storeGet('seenLiveries', []) || []);       // P6 涂装收集进度
+    wrap.innerHTML = variants.map((v, i) => {
+      const vLv = lv.liveries.filter((l) => l.variant === v.id);
+      const seenN = vLv.filter((l) => seenLv.has(l.id)).length;
+      return `
       <article class="ac-card glass-card anim-fade-up anim-delay-${(i % 3) + 1}">
-        <div class="collect-badge" title="涂装收集进度(P6 启用)"><span class="dot"></span>收集 --</div>
-        <div class="livery-badge" title="该机型可选涂装数量(含原厂)">涂装 ×${(lvCount[v.id] || 0) + 1}</div>
+        <div class="collect-badge" title="该机型涂装收集进度(看过即点亮)"><span class="dot"></span>涂装 ${seenN}/${vLv.length}</div>
+        <div class="livery-badge" title="该机型可选涂装数量(含原厂)">涂装 ×${vLv.length}</div>
         <div class="parts-badge" title="部件图鉴探索进度(共 30 项)">部件 ${exploredN}/30</div>
         <div class="ac-family">${v.familyCn}</div>
         <h3>${v.cnName.replace(/^空客 |^波音 |^中国商飞 /, '')}</h3>
         <div class="ac-art">${SILHOUETTE_SVG}</div>
         <p class="ac-desc">${CARD_DESC[v.id] || ''}</p>
         <a class="btn btn-ghost btn-sm" href="#/aircraft/${v.id}">进入机库 →</a>
-      </article>`).join('');
+      </article>`;
+    }).join('');
   }).catch((err) => console.error('[hangar] 机型数据加载失败:', err));
 
   /* 3D 场景:基座 + 占位验证机 + 剪影立牌 + 悬浮标签 */

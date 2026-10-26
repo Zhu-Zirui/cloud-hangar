@@ -8,7 +8,8 @@ import * as THREE from 'three';
 import { createSceneBase } from '../scene.js';
 import { buildAircraft, loadVariant, VARIANT_ORDER } from '../engine/aircraft.js';
 import { GLB_VARIANTS, buildGltfAircraft, buildGltfAircraftUrl } from '../engine/gltfModel.js';
-import { storeUpdate } from '../core/store.js';
+import { storeUpdate, storeSet } from '../core/store.js';
+import { checkAchievements } from './game.js';
 import { buildHangarEnv, registerHangarBrand } from '../engine/hangarEnv.js';
 import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/details.js';
 import { getAllLiveries, liveriesForVariant } from '../engine/livery.js';
@@ -50,6 +51,10 @@ export function render(container, params) {
     </div>`;
     return () => cleanups.forEach((f) => f());
   }
+
+  /* P6 打卡:进机型页即记录 seenVariants(首航/全机型鉴赏家徽章依据),并补检成就 */
+  storeUpdate('seenVariants', (arr) => { const s = new Set(arr || []); s.add(variantId); return [...s]; }, []);
+  checkAchievements().catch(() => {});
 
   /* 骨架(加载中) */
   container.innerHTML = `
@@ -251,6 +256,7 @@ export function render(container, params) {
         if (triEl) triEl.textContent = `△ ${tri.toLocaleString()}`;
         hangar.setBrand(def.airline || (variantId.startsWith('a') ? 'airbus' : 'boeing'));
         storeUpdate('seenLiveries', (arr) => { const set = new Set(arr || []); set.add(def.id); return [...set]; }, []);
+        checkAchievements().catch(() => {}); // P6:涂装收藏家等徽章补检
         toast(`涂装:${def.name}`);
       } catch (err) {
         console.error('[viewer] 涂装加载失败:', err);
@@ -308,7 +314,10 @@ export function render(container, params) {
       el.addEventListener('change', h);
       run(() => el.removeEventListener('change', h));
     };
-    bind('#tg-night', (on) => { acRef.ac.setNight(on); base.setNight(on); hangar.setNight(on); });
+    bind('#tg-night', (on) => {
+      acRef.ac.setNight(on); base.setNight(on); hangar.setNight(on);
+      if (on) { storeSet('nightUsed', true); checkAchievements().catch(() => {}); } // P6:夜航体验徽章
+    });
 
     const rulerBtn = container.querySelector('#v-ruler');
     const onRuler = () => {
