@@ -1,249 +1,309 @@
-# 云端机库 · 中国民航 3D 图鉴 / Cloud Hangar · China Civil Aviation 3D Atlas
+# Cloud Hangar
+
+A browser-based 3D aviation atlas for aircraft discovery, airport exploration, and civil aviation knowledge.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Zhu-Zirui/cloud-hangar/main/assets/logos/brand.png" alt="Cloud Hangar Logo" width="180" />
+  <img src="https://raw.githubusercontent.com/Zhu-Zirui/cloud-hangar/main/assets/logos/brand.png" alt="Cloud Hangar logo" width="180" />
 </p>
 
 <p align="center">
-  <a href="https://zhu-zirui.github.io/cloud-hangar/">🌐 在线演示 / Live Demo</a>
+  <a href="https://zhu-zirui.github.io/cloud-hangar/" target="_blank">🌐 Live Demo</a>
   ·
-  <a href="https://github.com/Zhu-Zirui/cloud-hangar">📦 GitHub 仓库 / Repository</a>
+  <a href="https://github.com/Zhu-Zirui/cloud-hangar" target="_blank">📦 GitHub</a>
+  ·
+  <a href="LICENSE" target="_blank">📄 License</a>
 </p>
 
-## 1. 项目简介 / Project Overview
+<p align="center">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Initial%20Prototype-orange" />
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-blue" />
+  <img alt="Stack" src="https://img.shields.io/badge/Stack-HTML%2FCSS%2FJS%2FThree.js-4ea1ff" />
+</p>
 
-云端机库是一个以中国民航为主题的纯前端 3D 图鉴项目，聚焦于航空器、机场、部件知识与民航百科的沉浸式展示体验。项目以原生 HTML + CSS + JavaScript 构建，结合 Three.js 3D 渲染，实现了机型浏览、涂装切换、机型知识卡、机场图鉴、百科与答题成就等一体化的静态展示站点。
+## 中文简介 / Chinese Overview
 
-Cloud Hangar is a front-end 3D aviation showcase themed around China's civil aviation ecosystem. It focuses on immersive display of aircraft, airports, component knowledge, and civil aviation encyclopedia content. Built with native HTML, CSS, and JavaScript, and powered by Three.js, the project offers a static single-page experience featuring aircraft browsing, livery switching, component knowledge cards, airport exploration, encyclopedia, and quiz-based achievements.
+Cloud Hangar（云端机库）是一个面向航空爱好者、航旅学习者与全球飞友的 3D 交互式航空知识平台。它目前仍处于初版探索阶段，项目还存在许多待完善的问题、数据校准需求和体验优化空间，但它已经清晰呈现出一个重要方向：
 
-这个项目的设计目标是：
-- 让更多人可以用浏览器直接了解中国民航机型与航空知识
-- 用轻量静态站点的方式展示高质量 3D 内容
-- 让内容以“交互 + 信息 + 数据”三位一体的方式被浏览和传播
+- 用浏览器让更多人感受飞机的结构、外观与工程设计
+- 让用户了解机场、航司、航空文化与民航知识
+- 让全球开发者、设计者、航空爱好者一起协作，构建更强大的航空知识平台
 
-Project goals:
-- Make China's civil aviation aircraft and aviation knowledge accessible directly in the browser
-- Deliver high-quality 3D content through a lightweight static website
-- Present information via interactive visuals, structured knowledge, and data-driven exploration
+当前版本以中国民航内容为主，目标是从中国版起步，逐步发展成面向全球的航空知识图谱与生态平台，服务全球航空迷、飞友、学习者与开源贡献者。
 
-## 2. 亮点功能 / Key Features
+## English Overview
 
-### 2.1 3D 机型图鉴 / 3D Aircraft Gallery
-- 支持多机型浏览与切换
-- 采用 Three.js 渲染航空器模型
-- 支持交互式视角切换与场景观测
-- 机库界面展示机型信息与机型关联内容
+Cloud Hangar is a 3D interactive aviation knowledge platform designed for aviation enthusiasts, learners, and global flight lovers. The project is still in its initial prototype stage, and many issues, data refinements, and UX improvements remain pending. Nevertheless, it already points toward a clear vision:
 
-- Supports multi-aircraft browsing and switching
-- Uses Three.js to render aircraft models
-- Includes interactive camera/view-angle changes
-- Hangar interface displays aircraft details and related content
+- Make aircraft structure, form, and engineering more accessible through the browser
+- Help users explore airports, airlines, aviation culture, and civil aviation knowledge
+- Build a more powerful and collaborative global aviation platform with developers, designers, and aviation enthusiasts
 
-### 2.2 涂装切换 / Livery Switching
-- 支持不同航空公司涂装切换
-- 通过真实机队着色方案和整机替换实现品牌差异展示
-- 适用于对航空涂装、机队识别与品牌视觉体验的展示
+The current version focuses on China’s civil aviation ecosystem, but the long-term goal is to evolve from a China-focused project into a global aviation atlas that serves users worldwide.
 
-- Supports airline livery switching
-- Uses real aircraft branding variations and full-model replacement
-- Useful for demonstrating airline identity and visual variations
+## Why this project exists / 项目为什么存在
 
-### 2.3 部件知识图鉴 / Component Knowledge Atlas
-- 提供 30+ 部件知识卡
-- 按部件分类、热点定位与交互式展示
-- 帮助用户理解飞机结构和各部件功能
+航空世界充满故事、系统与工程细节，但许多人仍难以以轻松、有趣且高质量的方式接触这些知识。Cloud Hangar 希望打造一个：
 
-- Includes 30+ component knowledge cards
-- Offers part classification, hotspot positioning, and interaction
-- Helps users understand aircraft structure and component functions
+- 视觉上富有吸引力
+- 具有教育意义和探索价值
+- 能直接在浏览器中体验
+- 可持续扩展并允许社区协作
 
-### 2.4 机场图鉴 / Airport Atlas
-- 覆盖中国主要机场数据
-- 支持列表、详情、地图三视图切换
-- 提供跑道布局、机场信息与城市航线语境
+它不是仅仅一个静态页面，而是一个面向知识传播、文化展示与航空学习的开放平台。
 
-- Covers major airports in China
-- Includes list, detail, and map views
-- Provides runway layout, airport information, and city/aviation context
+## Current status / 当前状态
 
-### 2.5 民航百科与答题成就 / Aviation Encyclopedia + Quiz + Achievements
-- 提供 40+ 主题词条
-- 搭配知识问答、进度记录与徽章成就系统
-- 适合学习、传播和互动式参观
+This is an early-stage project.
 
-- Provides 40+ aviation entries
-- Includes quiz challenges, progress tracking, and badge achievements
-- Suitable for learning, discovery, and interactive engagement
+- The core idea is already working and the site is runnable
+- Features are still being iterated and improved
+- Some visual details, content accuracy, and UX refinements are still in progress
+- The current content is centered on China civil aviation
+- The long-term direction is a global aviation edition
 
-## 3. 项目结构 / Project Structure
+Important note:
 
-```text
-cloud-hangar/
-├── assets/                  # 资源文件 / static assets
-│   ├── models/             # 3D 模型 / GLB files
-│   ├── logos/              # 航司及品牌 logo / airline brand logos
-│   └── CREDITS.md          # 版权与素材来源说明 / credits
-├── css/
-│   └── main.css            # 全站样式 / site styling
-├── data/
-│   ├── aircraft/           # 机型数据 / aircraft metadata
-│   ├── airports.json       # 机场数据 / airport dataset
-│   ├── liveries.json      # 涂装数据 / livery dataset
-│   ├── parts.json          # 部件知识卡 / part knowledge dataset
-│   ├── quiz.json           # 问答数据 / quiz content
-│   └── wiki.json           # 百科数据 / encyclopedia content
-├── js/
-│   ├── core/               # 基础通用逻辑 / core utilities
-│   ├── engine/             # 3D 引擎与机型构建 / rendering engine
-│   ├── ui/                 # 页面渲染和交互 / UI modules
-│   ├── main.js             # 路由和入口 / route + app bootstrap
-│   └── scene.js            # 场景基础设施 / scene foundation
-├── index.html              # 站点入口 / HTML entry
-├── dev-server.py           # 本地开发服务器 / local dev server
-├── PROGRESS.md             # 项目进度记录 / progress ledger
-├── README.md               # 项目说明文档 / project documentation
-├── .gitignore
-└── LICENSE                 # 若项目后续补充许可 / license if added
-```
+This project is not a final product yet. It is a meaningful foundation for future community-driven development, open collaboration, and global expansion.
 
-## 4. 技术栈 / Tech Stack
+## Project vision / 项目愿景
+
+We want Cloud Hangar to grow from a personal aviation interest project into a global open-source aviation platform.
+
+Our long-term vision is to create a place where:
+
+- aviation fans can learn together
+- global aircraft and airport knowledge can be discovered in a modern interface
+- developers, designers, and contributors collaborate on meaningful experiences
+- aviation culture and knowledge can be shared across regions and languages
+
+The goal is not only to build a website. The goal is to build a platform that inspires curiosity and brings aviation communities together.
+
+## Core features / 核心功能
+
+### 3D aircraft browsing / 3D 机型浏览
+- Explore multiple aircraft models in 3D
+- View aircraft variants and related information
+- Experience an interactive aviation gallery in the browser
+
+### Airline livery and identity showcase / 涂装与航司识别展示
+- Explore airline liveries and aircraft branding
+- Present aircraft visual identity in a more engaging way
+- Support brand-driven aviation discovery experience
+
+### Airport atlas / 机场图鉴
+- Search and discover airport information
+- View airport metadata, features, and runway context
+- Present structured airport knowledge for browsing and learning
+
+### Aviation encyclopedia / 民航百科
+- Publish aviation-related knowledge in a readable format
+- Build an accessible educational layer for learners and enthusiasts
+- Support a structured knowledge base around aircraft and civil aviation
+
+### Quiz and achievement system / 答题与成就系统
+- Encourage interaction and learning
+- Add replayability and progress tracking
+- Support a more engaging gameplay-like knowledge experience
+
+## Roadmap / 发展路线
+
+### Phase 1: China-focused edition / 中国版
+- China civil aviation content
+- Major aircraft models and airport data
+- Aviation knowledge and educational exploration
+
+### Phase 2: Global aviation edition / 国际版
+- Expand beyond China
+- Add more aircraft families, airports, and airline brands
+- Improve internationalization and multilingual content
+
+### Phase 3: Community-driven platform / 社区协作平台
+- Open contribution model
+- Better data governance and structured content updates
+- Broader participation by global contributors
+
+### Phase 4: Global aviation knowledge hub / 全球航空知识中心
+- Stronger user community
+- More maintainers and contributors
+- A broader platform for aviation enthusiasts and learners worldwide
+
+## Tech stack / 技术栈
 
 - HTML5
 - CSS3
 - JavaScript ES Modules
-- Three.js r160
+- Three.js
 - GitHub Pages
-- Pure static asset architecture (no build tools required)
+- Static front-end architecture
 
-This project intentionally avoids heavy frameworks or complex build systems, which keeps it lightweight, easy to browse, and easy to deploy on GitHub Pages.
+This project intentionally keeps a lightweight architecture without complex frameworks so it can remain accessible, sharable, and easy to deploy.
 
-## 5. 在线访问 / Live Access
+## Live demo / 在线演示
 
-项目已部署到 GitHub Pages：
+- Demo: https://zhu-zirui.github.io/cloud-hangar/
+- Repository: https://github.com/Zhu-Zirui/cloud-hangar
 
-- Chinese demo: https://zhu-zirui.github.io/cloud-hangar/
-- GitHub repository: https://github.com/Zhu-Zirui/cloud-hangar
+## Local run / 本地运行
 
-## 6. 本地运行 / Local Run
-
-### 方法一 / Option 1：直接使用内置开发服务器
+### Option 1 / 方式一
 
 ```bash
 cd cloud-hangar
 python dev-server.py 8000
 ```
 
-然后在浏览器打开：
+Then open:
 
 ```text
 http://127.0.0.1:8000/
 ```
 
-### 方法二 / Option 2：使用 Python 自带静态服务器
+### Option 2 / 方式二
 
 ```bash
 cd cloud-hangar
 python -m http.server 8000
 ```
 
-随后访问：
+Then open:
 
 ```text
 http://127.0.0.1:8000/
 ```
 
-## 7. 项目特色与应用场景 / Highlights and Use Cases
+## Project structure / 项目结构
 
-### 7.1 面向民航爱好者 / For Aviation Enthusiasts
-- 机型识别与结构学习
-- 机队与涂装知识扩展
-- 机场与航线知识探究
+```text
+cloud-hangar/
+├── assets/                  # static assets and runtime resources
+│   ├── models/              # 3D aircraft model files
+│   ├── logos/               # brands and airline logos
+│   └── CREDITS.md          # asset and source credits
+├── css/
+│   └── main.css            # global styling
+├── data/
+│   ├── aircraft/           # aircraft metadata
+│   ├── airports.json       # airport data
+│   ├── liveries.json       # aircraft livery data
+│   ├── parts.json           # component knowledge data
+│   ├── quiz.json            # quiz content
+│   └── wiki.json            # encyclopedia content
+├── js/
+│   ├── core/               # shared utilities
+│   ├── engine/             # 3D rendering and aircraft engine
+│   ├── ui/                 # page rendering and interactions
+│   ├── main.js             # routing and app bootstrapping
+│   └── scene.js            # scene infrastructure
+├── index.html              # site entry
+├── dev-server.py           # local development server
+├── PROGRESS.md             # project progress record
+├── LICENSE                 # MIT license
+├── README.md               # project documentation
+├── .gitignore
+└── assets/CREDITS.md
+```
 
-### 7.2 面向教育传播 / For Education and Outreach
-- 适合航空知识普及
-- 适合课程演示和互动展示
-- 可作为前端/3D/数据展示类项目案例
+## Naming direction / 命名方向
 
-### 7.3 面向开源学习 / For Open Source Learning
-- 体现静态站点开发方式
-- 展示 3D Web 场景与交互逻辑组织
-- 适合学习前端、3D 与内容型 Web 应用开发
+The project currently uses the name Cloud Hangar, which is meaningful and works well for the early stage. However, for a global audience and future international expansion, the project could evolve toward a broader and more international brand name.
 
-## 8. 浏览器兼容性 / Browser Compatibility
+Recommended naming directions:
 
-推荐使用现代浏览器：
-- Chrome
-- Edge
-- Firefox
-- Safari (较新版本)
+- AeroAtlas
+- SkyAtlas
+- FlightAtlas
+- AirHarbor
+- HangarWorld
+- AeroHub
 
-由于项目使用 WebGL/Three.js，建议在较新版本浏览器中体验最佳效果。
+Recommended priority:
 
-## 9. 版本说明 / Version Notes
+1. AeroAtlas
+2. SkyAtlas
+3. FlightAtlas
 
-当前项目处于持续迭代状态，包含以下主要模块：
-- 机库与航机浏览
-- 机场图鉴
-- 航空百科
-- 问答和成就系统
-- 3D 机型展示与数据驱动内容
+AeroAtlas is especially suitable for a platform that aims to become a global aviation atlas, knowledge base, and community project.
 
-The project is under active iteration and includes:
-- Hangar and aircraft browsing
-- Airport atlas
-- Aviation encyclopedia
-- Quiz and achievement system
-- 3D aircraft rendering and data-driven content
+This README keeps the current project identity as Cloud Hangar while clearly positioning the project’s future ambition toward a global aviation platform.
 
-## 10. 版权说明 / Copyright and Disclaimer
+## Open source spirit / 开源精神
 
-本项目用于学习、展示与非商业研究场景，素材与模型来源均遵循项目说明与附属文件记录，具体请参考：
+This project is still small, but it has strong potential.
 
-- `assets/CREDITS.md`
-- `PROGRESS.md`
+We hope it can become a shared platform where open-source contributors improve:
 
-This project is intended for learning, display, and non-commercial research. Asset and model sources should be checked in the project records and credits files, especially:
+- aircraft data
+- airport information
+- aviation knowledge content
+- UI/UX and interactions
+- translations and localization
+- data quality and product maturity
 
-- `assets/CREDITS.md`
-- `PROGRESS.md`
+The project is not just about code. It is also about building a community around aviation discovery and knowledge sharing.
 
-如需商用或二次分发，请先确认各模型、图片、品牌/Logo 与数据来源的授权条件。
+## Contributing / 参与贡献
 
-For any commercial use or redistribution, please confirm the licensing status of each model, image, logo, brand asset, and data source before use.
+We welcome contributions in many forms:
 
-## 11. 贡献方式 / Contributing
+- bug reports
+- feature ideas
+- UI and interaction improvements
+- data corrections
+- translations
+- aviation content reviews
+- visual design and branding support
 
-欢迎提出建议、参与修正或提交改进：
+If you want to contribute, please fork the repository and open a pull request.
 
-1. Fork 本仓库
-2. 创建功能分支
-3. 提交改进
-4. 提交 Pull Request
+## License / 许可证
 
-We welcome suggestions, fixes, and improvements:
+This project is released under the MIT License.
 
-1. Fork this repository
-2. Create a feature branch
-3. Commit your improvements
-4. Open a Pull Request
+Please see the [LICENSE](LICENSE) file for the full license text.
 
-## 12. 项目作者 / Author
+The MIT license is a simple and community-friendly choice for an open-source aviation platform and supports broad adoption, modification, and distribution with attribution.
+
+## Important note / 重要说明
+
+This is an initial version.
+
+There are still many issues that require attention, including:
+
+- data accuracy refinement
+- user experience polish
+- content completeness
+- internationalization
+- optimization and stability improvements
+- broader global aviation coverage
+
+But that is also the value of an early open-source project: it has room to grow, improve, and evolve through community effort.
+
+We sincerely welcome anyone who cares about aviation, open-source development, 3D web experiences, and global knowledge-sharing to join this mission.
+
+## Community call / 社通告
+
+We invite aviation enthusiasts, developers, designers, students, writers, and open-source contributors from around the world to join us.
+
+Let us work together to make this platform stronger, more useful, and more inspiring for aviation communities worldwide.
+
+Let’s build a better aviation knowledge platform — not only for China, but for the world.
+
+## Author / 作者
 
 - GitHub: Zhu-Zirui
+- Project: Cloud Hangar
 - Repository: https://github.com/Zhu-Zirui/cloud-hangar
 
-## 13. 最后说明 / Final Note
+## Final message / 最后一句话
 
-云端机库不是一个传统的“静态页面”，而是一个兼具展示、互动与知识传播功能的前端航空主题作品。它将三维展现、文化信息和用户体验结合在一起，为航空爱好者、前端学习者和内容型项目开发者提供了一个有参考价值的案例。
+Cloud Hangar is still young, but the vision is large.
 
-Cloud Hangar is not a traditional static landing page; it is a front-end aviation-themed project combining 3D presentation, interactive discovery, and knowledge propagation. It integrates 3D visualization, cultural information, and user experience into a single project, making it a useful reference for aviation enthusiasts, frontend learners, and content-driven web app developers.
+We are building not only a project, but a future platform for aviation lovers, learners, and open-source contributors around the world.
 
-如果你喜欢这个项目，欢迎 Star、Fork 与分享。让更多人看到这份关于中国民航的 3D 图鉴作品。
-
-If you enjoy this project, please consider giving it a Star, Fork, and sharing it with others. Let more people discover this 3D aviation atlas project about China’s civil aviation.
+If you care about aviation, design, front-end technology, and open knowledge-sharing, we welcome you to join us.
 
 ---
 
 <p align="center">
-  <sub>Cloud Hangar · A browser-based 3D aviation atlas for civil aviation discovery</sub>
+  <sub>Cloud Hangar — an early-stage aviation atlas with a global future.</sub>
 </p>
