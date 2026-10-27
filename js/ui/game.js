@@ -81,7 +81,7 @@ const BADGES = [
   { id: 'first-promo',      name: '初出茅庐',     desc: '通过第 1 次晋级考试',  test: (t, s) => s.pilotRank >= 1 },
   { id: 'five-star',        name: '五星机长',     desc: '答题等级满级',         test: (t, s) => s.pilotRank >= RANK_MAX },
   { id: 'night-owl',        name: '夜航体验',     desc: '触发任一夜航模式',     test: (t, s) => !!s.nightUsed },
-  { id: 'em-demo',          name: '应急达人',     desc: '触发氧气面罩与滑梯演示(待 P4 激活)', test: (t, s) => !!s.emDemo },
+  { id: 'em-demo',          name: '云端乘客',     desc: '进入任一机型客舱漫游', test: (t, s) => !!s.emDemo },
 ];
 
 function collectState() {

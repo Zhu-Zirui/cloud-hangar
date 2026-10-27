@@ -1,7 +1,7 @@
 /**
  * interior/cabin.js — P4 检查点 2:客舱场景(A320 窄体布局,宽体机由界面标注"示意")
  * L1 门进入→前厨房/后走廊;头等 2-2 两排 + 经济 3-3 十一排(InstancedMesh);
- * 行李架开合、PSU 面板、氧气面罩/滑梯应急演示、夜航模式、舷窗机位看机翼云海。
+ * 行李架开合、PSU 面板、夜航模式、舷窗机位看机翼云海(应急演示已按用户要求移除)。
  * 行走:地面热点点击跳转 + WASD 第一人称(碰撞限制走廊矩形,视线高 1.6m)。
  * 坐标约定:+Z 机头方向,地板 y=0,舱内宽 ±1.95m,纵向 -13.5(尾)~+13(前)。
  */
@@ -21,25 +21,40 @@ const SEAT_COLS = [-1.6, -1.05, -0.5, 0.5, 1.05, 1.6];    // 经济舱列位
 const F_COLS = [-1.25, -0.55, 0.55, 1.25];                // 头等舱列位
 
 /* ---------------- 贴图工厂 ---------------- */
+/* 圆角舷窗:舱壁框 → 深色密封条 → 玻璃(昼:渐变天+云影;夜:星空) */
 function windowTex(night) {
   const cv = document.createElement('canvas');
-  cv.width = 128; cv.height = 192;
+  cv.width = 170; cv.height = 250;
   const ctx = cv.getContext('2d');
+  const rr = (x, y, w, h, r) => { // 圆角矩形路径
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  };
+  ctx.clearRect(0, 0, 170, 250);
+  rr(6, 6, 158, 238, 54); ctx.fillStyle = '#d8dde2'; ctx.fill();      // 舱壁安装框
+  rr(16, 16, 138, 218, 46); ctx.fillStyle = '#3c4249'; ctx.fill();    // 窗框
+  rr(26, 26, 118, 198, 38); ctx.fillStyle = '#15181d'; ctx.fill();    // 橡胶密封条
+  ctx.save(); rr(32, 32, 106, 186, 33); ctx.clip();                   // 玻璃区
   if (night) {
-    const g = ctx.createLinearGradient(0, 0, 0, 192);
+    const g = ctx.createLinearGradient(0, 32, 0, 218);
     g.addColorStop(0, '#02040d'); g.addColorStop(1, '#0a1730');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 192);
-    for (let i = 0; i < 90; i++) { // 星空
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 170, 250);
+    for (let i = 0; i < 110; i++) {
       ctx.fillStyle = `rgba(255,255,255,${0.25 + Math.random() * 0.75})`;
-      ctx.fillRect(Math.random() * 128, Math.random() * 130, 1.6, 1.6);
+      ctx.fillRect(Math.random() * 170, Math.random() * 150, 1.7, 1.7);
     }
   } else {
-    const g = ctx.createLinearGradient(0, 0, 0, 192);
-    g.addColorStop(0, '#8ec9f2'); g.addColorStop(1, '#dcedf8');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 192);
-    ctx.fillStyle = 'rgba(255,255,255,.75)'; // 一抹云
-    ctx.beginPath(); ctx.ellipse(64, 150, 52, 14, 0, 0, Math.PI * 2); ctx.fill();
+    const g = ctx.createLinearGradient(0, 0, 0, 250);
+    g.addColorStop(0, '#7cc0ee'); g.addColorStop(0.72, '#cfe7f6'); g.addColorStop(1, '#e8f2fa');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 170, 250);
+    ctx.fillStyle = 'rgba(255,255,255,.8)'; // 云影
+    ctx.beginPath(); ctx.ellipse(85, 185, 62, 16, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(50, 210, 40, 11, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.16)'; // 玻璃斜向反光
+    ctx.beginPath(); ctx.moveTo(20, 60); ctx.lineTo(80, 20); ctx.lineTo(104, 20); ctx.lineTo(44, 60); ctx.fill();
   }
+  ctx.restore();
   const tex = new THREE.CanvasTexture(cv);
   tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
@@ -67,7 +82,7 @@ function psuTex(night) {
 
 /* ================= 主工厂 ================= */
 export function createCabin(container, opts = {}) {
-  const { variantId = '', onToast = () => {}, onDemoDone = () => {} } = opts;
+  const { variantId = '', onToast = () => {} } = opts;
   const base = createSceneBase(container, {
     cameraPos: [-0.6, 1.6, 16.5], target: [-0.6, 1.55, 15],
     minDistance: 0.2, maxDistance: 2, maxPolar: 95 * Math.PI / 180,
@@ -83,7 +98,6 @@ export function createCabin(container, opts = {}) {
   const mMetal = new THREE.MeshStandardMaterial({ color: 0xb9c1c9, roughness: 0.35, metalness: 0.7 });
   const mFloor = new THREE.MeshStandardMaterial({ color: 0x343a42, roughness: 0.95 });
   const mDark = new THREE.MeshStandardMaterial({ color: 0x23272d, roughness: 0.8 });
-  const mMask = new THREE.MeshStandardMaterial({ color: 0xf2c832, roughness: 0.5, emissive: 0x44300a, emissiveIntensity: 0.4 });
   const add = (m, parent) => { (parent || base.scene).add(m); return m; };
 
   /* ---------- 舱体:椭圆截面内壁(BackSide 圆筒)+ 平地板 ----------
@@ -104,7 +118,7 @@ export function createCabin(container, opts = {}) {
 
   /* ---------- 舷窗列(InstancedMesh,昼/夜换贴图) ---------- */
   const winTexDay = windowTex(false), winTexNight = windowTex(true);
-  const winGeo = new THREE.PlaneGeometry(0.26, 0.4);
+  const winGeo = new THREE.PlaneGeometry(0.34, 0.5);
   const winMat = new THREE.MeshBasicMaterial({ map: winTexDay, toneMapped: false });
   const winZs = [];
   for (let z = 9.6; z > -7.2; z -= 0.56) winZs.push(z);
@@ -146,6 +160,67 @@ export function createCabin(container, opts = {}) {
       q.position.set(sx * 1.5, 1.88, z); q.rotation.z = sx * 0.5; add(q);
     }
   }
+
+  /* 窗间立柱(每对窗之间的舱壁肋条) */
+  {
+    const postGeo = new THREE.BoxGeometry(0.05, 0.62, 0.1);
+    const posts = new THREE.InstancedMesh(postGeo, mWall, (winZs.length + 1) * 2);
+    const d = new THREE.Object3D(); let i = 0;
+    const zs = [winZs[0] + 0.28, ...winZs.map((z) => z - 0.28)];
+    for (const z of zs) for (const sx of [-1, 1]) {
+      d.position.set(sx * 1.93, 1.28, z); d.updateMatrix(); posts.setMatrixAt(i++, d.matrix);
+    }
+    add(posts);
+  }
+  /* 顶部灯带(昼白 / 夜暖,自发光) */
+  const stripMat = new THREE.MeshBasicMaterial({ color: 0xf5f8fa, toneMapped: false });
+  const lampStrip = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.05, LEN * 0.88), stripMat);
+  lampStrip.position.set(0, 2.5, 0); add(lampStrip);
+  /* 走道地毯(深蓝)与两侧亮缘条 */
+  const carpet = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.014, LEN * 0.9),
+    new THREE.MeshStandardMaterial({ color: 0x24344c, roughness: 0.96 }));
+  carpet.position.set(0, 0.008, 0); add(carpet);
+  /* 走廊上方"禁止吸烟 · 系好安全带"标语牌 ×3 */
+  const signTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = 112;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#101318'; c.fillRect(0, 0, 256, 112);
+    c.strokeStyle = '#454c55'; c.lineWidth = 4; c.strokeRect(4, 4, 248, 104);
+    c.fillStyle = '#e8574a'; c.beginPath(); c.arc(52, 46, 26, 0, Math.PI * 2); c.fill();
+    c.strokeStyle = '#fff'; c.lineWidth = 6; // 禁烟:烟卷斜杠
+    c.beginPath(); c.moveTo(38, 60); c.lineTo(66, 32); c.stroke();
+    c.fillStyle = '#7fe08a'; c.font = 'bold 20px "PingFang SC","Microsoft YaHei",sans-serif';
+    c.fillText('系好安全带', 92, 54);
+    c.fillStyle = '#9aa5b1'; c.font = '15px "PingFang SC","Microsoft YaHei",sans-serif';
+    c.fillText('NO SMOKING · FASTEN SEAT BELT', 90, 86);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+  })();
+  const signMat = new THREE.MeshBasicMaterial({ map: signTex, toneMapped: false });
+  for (const z of [7.4, 1.8, -3.8]) {
+    const sign = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.18), signMat);
+    sign.rotation.order = 'YXZ'; sign.rotation.y = Math.PI; sign.rotation.x = -0.3;
+    sign.position.set(0, 2.28, z); add(sign);
+  }
+  /* 前隔板客舱信息牌(温度/客舱高度) */
+  const infoTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = 320; cv.height = 120;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#141920'; c.fillRect(0, 0, 320, 120);
+    c.strokeStyle = '#3d4650'; c.strokeRect(3, 3, 314, 114);
+    c.fillStyle = '#7fd0ff'; c.font = 'bold 20px monospace'; c.textAlign = 'center';
+    c.fillText('CABIN  24°C', 110, 52);
+    c.fillText('CAB ALT    0 FT', 110, 88);
+    c.fillStyle = '#e8574a'; c.font = 'bold 26px "PingFang SC","Microsoft YaHei",sans-serif';
+    c.fillText('禁止吸烟', 250, 70);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+  })();
+  const infoSign = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.19),
+    new THREE.MeshBasicMaterial({ map: infoTex, toneMapped: false }));
+  infoSign.rotation.y = Math.PI; infoSign.position.set(0, 2.3, 10.34); add(infoSign);
+  /* 头等舱/经济舱分舱布帘(半透) */
+  const curtain = new THREE.Mesh(new THREE.BoxGeometry(2.6, 2.1, 0.04),
+    new THREE.MeshStandardMaterial({ color: 0x6d5a6e, roughness: 0.95, transparent: true, opacity: 0.42 }));
+  curtain.position.set(0, 1.1, 6.0); add(curtain);
 
   /* ---------- 座椅:四件套 InstancedMesh(坐垫/靠背/头枕/扶手),头等独立配色 ---------- */
   const seatDefs = [];
@@ -207,27 +282,55 @@ export function createCabin(container, opts = {}) {
   }
   bulkhead(10.4, 0.7);   // 前厨房隔板
   bulkhead(-11.2, 0.72); // 尾部隔板
-  /* 前厨房:金属面板 + 餐车凹位 + 餐车 */
-  for (let i = 0; i < 3; i++) {
-    const cart = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.9, 0.5), mMetal);
-    cart.position.set(-1.2 + i * 0.55, 0.45, 11.6); add(cart);
-    const handle = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.04, 0.04), mDark);
-    handle.position.set(-1.2 + i * 0.55, 0.95, 11.32); add(handle);
+  /* 前厨房:烤箱面板 ×2 + 餐车 ×4 + 水槽台 */
+  const ovenTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = 128; cv.height = 128;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#b9c0c7'; c.fillRect(0, 0, 128, 128);
+    for (let i = 0; i < 128; i += 6) { c.fillStyle = i % 12 ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.08)'; c.fillRect(0, i, 128, 3); }
+    c.fillStyle = '#171a1e'; c.fillRect(20, 24, 88, 58); // 观察窗
+    c.fillStyle = '#2e3338'; c.fillRect(20, 92, 88, 14); // 把手座
+    c.fillStyle = '#8b939b'; c.fillRect(28, 96, 72, 6);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+  })();
+  for (let i = 0; i < 2; i++) {
+    const oven = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.62, 0.1),
+      new THREE.MeshStandardMaterial({ map: ovenTex, roughness: 0.4, metalness: 0.5 }));
+    oven.position.set(0.55 + i * 0.66, 1.28, 11.28); add(oven);
   }
-  const galleyTop = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.9, 0.6), mPanel);
-  galleyTop.position.set(1.2, 1.5, 11.6); add(galleyTop);
-  /* 后盥洗室:右后小间(门 + 洗手台示意) */
+  for (let i = 0; i < 4; i++) {
+    const cart = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.9, 0.48), mMetal);
+    cart.position.set(-1.35 + (i % 2) * 0.55, 0.45, i < 2 ? 11.7 : 11.0); add(cart);
+    const handle = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.04, 0.04), mDark);
+    handle.position.set(-1.35 + (i % 2) * 0.55, 0.95, (i < 2 ? 11.7 : 11.0) - 0.28); add(handle);
+  }
+  const galleyTop = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.06, 0.55), mMetal); // 工作台面
+  galleyTop.position.set(1.2, 1.0, 11.6); add(galleyTop);
+  const sink = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.34), mDark); // 水槽
+  sink.position.set(1.2, 1.04, 11.55); add(sink);
+  /* 后盥洗室:门 + 洗手台镜 + 马桶 */
   const lavDoor = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.9, 0.06), mPanel);
   lavDoor.position.set(0.9, 0.95, -11.15); lavDoor.rotation.y = 0.9; add(lavDoor);
-  const sink = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.4), mMetal);
-  sink.position.set(1.4, 0.9, -12.3); add(sink);
+  const lavSink = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.4), mMetal);
+  lavSink.position.set(1.4, 0.9, -12.3); add(lavSink);
   const lavMirror = new THREE.Mesh(new THREE.PlaneGeometry(0.45, 0.5), new THREE.MeshStandardMaterial({ color: 0x8fb8d8, roughness: 0.1, metalness: 0.6 }));
   lavMirror.position.set(1.4, 1.6, -12.85); add(lavMirror); // 尾墙内侧,面向 +Z 舱内
+  const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.15, 0.4, 14),
+    new THREE.MeshStandardMaterial({ color: 0xe8ecef, roughness: 0.3 }));
+  bowl.position.set(1.45, 0.2, -11.7); add(bowl);
+  const seat = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.035, 8, 18),
+    new THREE.MeshStandardMaterial({ color: 0xd7dce0, roughness: 0.5 }));
+  seat.rotation.x = Math.PI / 2; seat.position.set(1.45, 0.42, -11.7); add(seat);
+  /* L1 门侧乘务员折叠座椅 */
+  const jumpBase = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.36), mDark);
+  jumpBase.position.set(-1.55, 0.62, 11.3); add(jumpBase);
+  const jumpBack = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.5, 0.07), mDark);
+  jumpBack.position.set(-1.72, 0.92, 11.3); add(jumpBack);
   /* 尾厨房凹位 */
   const tailGalley = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.0, 0.5), mPanel);
   tailGalley.position.set(-0.6, 0.5, -12.6); add(tailGalley);
 
-  /* ---------- 翼上应急出口门(两侧) + 开启手柄 ---------- */
+  /* ---------- 翼上应急出口门(两侧,静态陈设) ---------- */
   const exitDoors = [];
   for (const sx of [-1, 1]) {
     const g = new THREE.Group(); g.position.set(sx * 1.9, 1.15, -0.6); add(g);
@@ -314,36 +417,6 @@ export function createCabin(container, opts = {}) {
     new THREE.MeshBasicMaterial({ color: 0xdfe9f2, transparent: true, opacity: 0.55, depthWrite: false }));
   haze.rotation.x = -Math.PI / 2; haze.position.y = -42; add(haze);
 
-  /* ---------- 应急演示组:氧气面罩(中排 PSU)+ 充气滑梯(右应急门) ---------- */
-  const oxy = new THREE.Group(); oxy.position.set(0, 2.02, 2.15); add(oxy); // 演示用 PSU(中排走道上方)
-  const oxyCover = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.03, 0.2), mPanel);
-  const coverPivot = new THREE.Group(); coverPivot.position.set(0, 0, -0.1); // 铰链在后缘
-  oxyCover.position.set(0, 0, 0.1); coverPivot.add(oxyCover); oxy.add(coverPivot);
-  const masks = [];
-  for (let i = 0; i < 4; i++) {
-    const g = new THREE.Group();
-    const line = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.34, 4), mDark);
-    line.position.y = -0.17; g.add(line);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), mMask);
-    head.position.y = -0.36; g.add(head);
-    const bag = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.12, 8), mMask);
-    bag.position.y = -0.45; bag.rotation.x = Math.PI; g.add(bag);
-    g.position.set(-0.21 + i * 0.14, 0, 0);
-    g.visible = false; oxy.add(g);
-    masks.push({ g, t: 0 });
-  }
-  /* 滑梯:右应急门外,折叠 → 充气展开(scale + 弹性摆动) */
-  const slide = new THREE.Group(); slide.position.set(2.1, 0.9, -0.6); add(slide);
-  const slideBody = new THREE.Mesh(
-    new THREE.BoxGeometry(1.15, 0.16, 3.1),
-    new THREE.MeshStandardMaterial({ color: 0xe8a13c, roughness: 0.7 }),
-  );
-  slideBody.position.set(0.5, -0.55, -0.3); slideBody.rotation.x = 0.62; // 向外下倾
-  slide.add(slideBody);
-  const slideRail = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.1, 3.1), new THREE.MeshStandardMaterial({ color: 0xc9822a }));
-  slideRail.position.set(0.5, -0.25, -0.3); slideRail.rotation.x = 0.62; slide.add(slideRail);
-  slide.visible = false;
-
   /* ---------- 夜航模式:暖光点光源组 + 地面指引灯条 ---------- */
   const nightLights = [];
   for (const z of [8, 1.5, -5, -11]) {
@@ -410,60 +483,6 @@ export function createCabin(container, opts = {}) {
   window.addEventListener('pointerup', onUp);
   el.addEventListener('click', onClick);
 
-  /* ---------- 演示状态 ---------- */
-  const demo = { kind: '', t: 0 };
-  function startDemo(kind) {
-    if (demo.kind) return;
-    demo.kind = kind; demo.t = 0;
-    if (kind === 'oxygen') {
-      coverPivot.rotation.x = 0;
-      masks.forEach((m) => { m.t = 0; m.g.visible = false; });
-      flyTo('first', 1.1);
-      onToast('客舱失压演示:氧气面罩舱盖打开,面罩垂落 — 请戴好再帮助他人');
-    } else if (kind === 'slide') {
-      const d = exitDoors[1]; // 右舷应急门
-      d.g.rotation.y = 0; slide.visible = false;
-      slide.scale.set(0.06, 0.06, 0.06);
-      flyTo('exit', 1.1);
-      onToast('应急门开启,滑梯充气中…(约 3 秒)');
-    }
-  }
-  function resetDemos() {
-    demo.kind = ''; demo.t = 0;
-    coverPivot.rotation.x = 0;
-    masks.forEach((m) => { m.t = 0; m.g.visible = false; });
-    exitDoors.forEach((d) => { d.g.rotation.y = 0; });
-    slide.visible = false;
-  }
-  function stepDemo(dt) {
-    if (!demo.kind) return;
-    demo.t += dt;
-    if (demo.kind === 'oxygen') {
-      coverPivot.rotation.x = damp(coverPivot.rotation.x, 1.9, 4, dt); // 舱盖翻开
-      masks.forEach((m, i) => {
-        const mt = demo.t - 0.5 - i * 0.15;
-        if (mt <= 0) { m.g.visible = false; return; }
-        m.g.visible = true; m.t = mt;
-        const drop = Math.min(1, mt / 0.7);
-        const bounce = drop < 1 ? 1 - Math.pow(1 - drop, 3) : 1 + Math.sin((mt - 0.7) * 9) * 0.12 * Math.exp(-(mt - 0.7) * 2.2);
-        m.g.position.y = -0.34 * Math.max(0.0, bounce); // 面罩垂落(带弹性回摆)
-        m.g.rotation.z = Math.sin(m.t * 5.5) * 0.35 * Math.exp(-m.t * 1.6); // 摆动
-      });
-      if (demo.t > 4.5) { onDemoDone('oxygen'); demo.kind = ''; }
-    } else if (demo.kind === 'slide') {
-      const d = exitDoors[1];
-      d.g.rotation.y = damp(d.g.rotation.y, -2.1, 3.5, dt); // 舱门向内上开启
-      if (demo.t > 0.8) {
-        slide.visible = true;
-        const inf = Math.min(1, (demo.t - 0.8) / 2.2);
-        const wob = 1 + Math.sin(inf * Math.PI * 3) * 0.06 * (1 - inf);
-        const s = 0.06 + (1 - 0.06) * (1 - Math.pow(1 - inf, 2.2)) * wob;
-        slide.scale.set(s, s, s);
-      }
-      if (demo.t > 3.6) { onDemoDone('slide'); demo.kind = ''; onToast('滑梯充气完成'); }
-    }
-  }
-
   /* ---------- 行李架开合 ---------- */
   let binsTarget = 0;
   function toggleBins() {
@@ -477,7 +496,6 @@ export function createCabin(container, opts = {}) {
   const PRESETS = {
     door:   { x: 0, z: 11.4, yaw: 0.05, pitch: -0.06 },
     first:  { x: 0.35, z: 7.8, yaw: -0.08, pitch: 0.05 },
-    exit:   { x: 0.55, z: -0.2, yaw: -1.35, pitch: 0.1 },  // 望向右舷应急门
     lav:    { x: 0.3, z: -9.8, yaw: -0.42, pitch: 0 },
     galley: { x: 0, z: -11.9, yaw: 0.04, pitch: 0.04 },
     window: { x: 1.12, z: 1.3, yaw: -0.98, pitch: -0.22 }, // 贴右窗看机翼云海
@@ -541,7 +559,6 @@ export function createCabin(container, opts = {}) {
       f.open = damp(f.open, f.target, 5, dt);
       f.pivot.rotation.z = f.sx * f.open * 1.25;
     }
-    stepDemo(dt);
     /* 云海漂移 */
     for (const c of clouds) {
       c.position.z += c.userData.v * dt;
@@ -563,6 +580,8 @@ export function createCabin(container, opts = {}) {
     psuMat.needsUpdate = true;
     dayLights.forEach((p) => { p.intensity = night ? 0.08 : 0.55; });
     nightLights.forEach((p) => { p.intensity = night ? 1.15 : 0; });
+    stripMat.color.set(night ? 0xffd9a8 : 0xf5f8fa); // 顶部灯带昼白/夜暖
+    signMat.color.set(night ? 0x9fd8ff : 0xffffff); // 标语牌背光
     guides.forEach((g) => { g.visible = night; });
     mHull.color.set(night ? 0x6b7078 : 0xdfe4ea);
     mWall.color.set(night ? 0x70767e : 0xe8ebee);
@@ -573,9 +592,8 @@ export function createCabin(container, opts = {}) {
 
   return {
     setNight, isNight: () => night,
-    flyTo, startDemo, resetDemos, toggleBins,
-    isDemo: () => !!demo.kind,
-    presets: [['door', '舱门口'], ['first', '头等舱'], ['exit', '应急门'], ['lav', '后盥洗室'], ['galley', '尾厨房'], ['window', '舷窗视角']],
+    flyTo, toggleBins,
+    presets: [['door', '舱门口'], ['first', '头等舱'], ['lav', '后盥洗室'], ['galley', '尾厨房'], ['window', '舷窗视角']],
     dispose: () => {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);

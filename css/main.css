@@ -432,7 +432,7 @@ button { font-family: inherit; }
 .v-bottom .btn { backdrop-filter: blur(8px); }
 .v-bottom .spacer { flex: 1; }
 .v-reserved { display: flex; gap: 8px; flex-wrap: wrap; }
-.v-reserved .btn { opacity: .45; cursor: not-allowed; }
+.v-reserved .btn:disabled { opacity: .45; cursor: not-allowed; } /* P4 起按钮全部启用,仅置灰 disabled */
 
 .v-side { display: flex; flex-direction: column; gap: 16px; }
 .v-card { padding: 18px 18px 16px; }
@@ -908,4 +908,60 @@ button { font-family: inherit; }
   .g-top { grid-template-columns: 1fr; }
   .g-opts { grid-template-columns: 1fr; }
   .w-detail { padding: 24px 22px; }
+}
+
+/* ================= P4 舱内漫游页(#/cabin) ================= */
+.cabin-wrap { display: grid; grid-template-columns: minmax(0, 1fr); padding-top: 22px; padding-bottom: 30px; }
+.cabin-main { position: relative; overflow: hidden; height: calc(100vh - 150px); min-height: 520px; }
+.cabin-main #cb-3d { position: absolute; inset: 0; }
+.cabin-main #cb-3d canvas { display: block; }
+
+.cb-topbar {
+  position: absolute; top: 12px; left: 14px; right: 14px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; z-index: 5;
+}
+.cb-topbar .btn { backdrop-filter: blur(8px); }
+.cb-topbar .spacer { flex: 1; }
+.cb-title {
+  padding: 8px 14px; border-radius: 10px; font-size: 14px; letter-spacing: 1px;
+  background: rgba(6,14,26,0.72); border: 1px solid var(--line); backdrop-filter: blur(8px);
+}
+.cb-tabs {
+  display: flex; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--line); background: rgba(6,14,26,0.66); backdrop-filter: blur(8px);
+}
+.cb-tab { padding: 8px 14px; font-size: 13px; color: var(--ink-dim); text-decoration: none; transition: color .2s, background .2s; }
+.cb-tab:hover { color: var(--ink); }
+.cb-tab.on { color: #04121f; background: var(--accent); font-weight: 700; }
+.cb-chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--warn);
+  padding: 6px 10px; border-radius: 999px;
+  background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.4);
+}
+.cb-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cb-actions .btn.on { color: var(--accent); border-color: rgba(56,189,248,0.55); background: var(--accent-soft); }
+.cb-topbar .switch {
+  color: var(--ink-dim); background: rgba(6,14,26,0.66); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 12px; backdrop-filter: blur(8px); white-space: nowrap;
+}
+.cb-topbar .switch:hover { color: var(--ink); }
+
+.cb-presets {
+  position: absolute; left: 14px; top: 58px; z-index: 5;
+  display: flex; gap: 8px; flex-wrap: wrap; max-width: 70%;
+}
+.btn-xs { padding: 4px 10px; font-size: 11.5px; border-radius: 8px; backdrop-filter: blur(8px); }
+
+.cb-hint {
+  position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 5;
+  font-size: 12.5px; color: var(--ink-dim);
+  padding: 8px 14px; border-radius: 10px;
+  background: rgba(6,14,26,0.6); border: 1px solid var(--line); backdrop-filter: blur(8px);
+}
+.cb-hint b { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .cb-topbar { gap: 6px; }
+  .cb-title { display: none; }
+  .cb-presets { top: 52px; }
 }

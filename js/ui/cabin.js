@@ -3,7 +3,7 @@
  * P4:驾驶舱/客舱共用一页,按 mode 动态挂载 js/interior/ 对应场景;
  * 顶部 HUD 提供返回查看页、舱位切换、演示按钮、相机预设、夜航开关。
  * 宽体机标注"舱内以窄体布局示意";c919 驾驶舱标注"示意"。
- * 应急演示完成 → 写 cav3d.emDemo(P6 徽章"应急达人"自动点亮)。
+ * 进入客舱漫游 → 写 cav3d.emDemo(P6 徽章自动点亮;应急演示已按用户要求移除)。
  */
 import { loadVariant, VARIANT_ORDER } from '../engine/aircraft.js';
 import { storeSet } from '../core/store.js';
@@ -77,7 +77,7 @@ export function render(container, params) {
   const hintEl = container.querySelector('#cb-hint');
 
   const HINTS = {
-    cockpit: '拖拽环视 · 滚轮缩放 · <b>油门杆可上下拖动</b> · 顶板按钮点击亮/暗灯',
+    cockpit: '<b>360°</b> 拖拽环视 · 滚轮缩放 · <b>油门杆可拖动</b> · 顶板按钮亮/暗 · 点击<b>后舱门</b>进入客舱',
     cabin: '拖拽转视角 · <b>WASD</b> 行走(走廊内) · 点击地面光圈跳转',
   };
 
@@ -109,8 +109,18 @@ export function render(container, params) {
       ? await import('../interior/cockpit.js')
       : await import('../interior/cabin.js');
     if (disposed) return;
-    interior = mod.createCabin ? mod.createCabin(stageEl, { variantId, onToast: toast, onDemoDone })
-      : mod.createCockpit(stageEl, { variantId, onToast });
+    interior = mod.createCabin ? mod.createCabin(stageEl, { variantId, onToast: toast })
+      : mod.createCockpit(stageEl, {
+        variantId, onToast: toast,
+        onDoor: () => { location.hash = `#/cabin/${variantId}?mode=cabin`; }, // 后舱门 → 客舱
+      });
+    stageEl.querySelector('.v-loading')?.remove(); // 场景就绪,摘掉加载遮罩
+
+    /* P6 打卡:进入客舱漫游(原应急演示成就改挂于此) */
+    if (mode === 'cabin') {
+      storeSet('emDemo', true);
+      checkAchievements().catch(() => {});
+    }
 
     buildActions();
     buildPresets();
@@ -128,13 +138,13 @@ export function render(container, params) {
       return b;
     };
     if (mode === 'cockpit') {
-      mkBtn('▶ 起飞演示', '30-40 秒全流程:推油门→抬轮→爬升→收轮→改平', () => {
-        if (!interior.isDemo()) interior.startDemo();
+      mkBtn('起飞演示', '约 40 秒:TOGA→100节/V1/VR 抬轮→爬升收轮→3000ft 改平(含英文口令)', () => {
+        if (!interior.isDemo()) interior.startDemo('takeoff');
+      });
+      mkBtn('降落演示', '1800ft 下滑→1000ft 放轮→50ft 拉平→接地减速(含英文口令)', () => {
+        if (!interior.isDemo()) interior.startDemo('landing');
       });
     } else {
-      mkBtn('氧气面罩', '客舱失压:面罩舱盖打开垂落', () => interior.startDemo('oxygen'));
-      mkBtn('应急滑梯', '应急门开启 + 滑梯充气展开', () => interior.startDemo('slide'));
-      mkBtn('复位', '复位应急演示', () => interior.resetDemos());
       mkBtn('行李架', '行李架舱门整体开/合', (e) => {
         const open = interior.toggleBins();
         e.currentTarget.classList.toggle('on', open);
@@ -154,12 +164,7 @@ export function render(container, params) {
     }
   }
 
-  /* P6 打卡:应急演示完成 → emDemo;夜航 → nightUsed */
-  function onDemoDone(kind) {
-    storeSet('emDemo', true);
-    checkAchievements().catch(() => {});
-    void kind;
-  }
+  /* P6 打卡:夜航 → nightUsed(客舱漫游打卡在 mount 时写入) */
   const nightTg = container.querySelector('#cb-night-tg');
   nightTg.addEventListener('change', () => {
     if (!interior) return;
