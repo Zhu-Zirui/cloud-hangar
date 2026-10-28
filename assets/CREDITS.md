@@ -86,3 +86,11 @@ File:West Air (China) Logo.png)、8l.png(祥鹏航空,File:Lucky Air New Logo 20
 gj.png(浙江长龙航空,File:LoongAir logo.png):均取自 en.wikipedia
 Special:FilePath 服务(2026-10-26 下载,原始分辨率 168–960px)。
 与上节一致:全部标志为各航司注册商标,本项目为非商业爱好者图鉴的标识性引用,不再分发。
+
+## 航司标志补录 `logos/`(P5 扩容 52 机场"基地航司"用,2026-10-29)
+
+qd/gs/bk/ns/ry/jd/gx/dr/tv/9d/g5/aq/ky/fm.png(青岛航空、天津航空、奥凯航空、
+河北航空、江西航空、首都航空、北部湾航空、多彩贵州航空、西藏航空、天骄航空、
+华夏航空、九元航空、昆明航空、上海航空):经 360 图片搜索(image.so.com)检索
+公开网络图片下载,长边压缩至 ≤400px、白底化处理。来源图片为各航司注册商标,
+本项目为非商业爱好者图鉴的标识性引用,不再分发。

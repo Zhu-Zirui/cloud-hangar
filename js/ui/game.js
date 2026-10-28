@@ -26,6 +26,9 @@ const ROUND_SIZE = 15;   // 每局题数
 const PASS_N = 12;       // 晋级线
 const RANK_MAX = 4;      // 五星机长
 
+/* 难度自适应抽题权重:等级越高,1 星题越少、3 星题越多(等级 0 → 5:3:1,等级 4 → 1:3:5) */
+const diffWeight = (d, rank) => (d <= 1 ? 5 - rank : d === 2 ? 3 : 1 + rank);
+
 /* 部件总数为 30(parts.json,P3 验收);不 import parts.js 以免引入 three 依赖 */
 const PARTS_TOTAL = 30;
 
@@ -45,11 +48,13 @@ function getTotals() {
       loadJson('../../data/liveries.json'),
       loadJson('../../data/airports.json'),
       loadJson('../../data/wiki.json'),
-    ]).then(([lv, ap, wk]) => ({
+      loadQuiz(),
+    ]).then(([lv, ap, wk, qz]) => ({
       variants: [...new Set(lv.liveries.map((l) => l.variant))].length,
       liveries: lv.liveries.length,
       airports: ap.airports.length,
       wiki: wk.length,
+      quiz: qz.length,
       parts: PARTS_TOTAL,
     }));
   }
@@ -173,7 +178,18 @@ export function render(container, params) {
   function startRound(slugKey) {
     loadQuiz().then((quiz) => {
       const cat = SLUG_CAT[slugKey] ?? null;
-      const pool = shuffle(quiz.filter((q) => !cat || q.category === cat)).slice(0, ROUND_SIZE);
+      const cand = quiz.filter((q) => !cat || q.category === cat);
+      /* 按当前等级加权抽题:等级越高难题占比越大(不放回加权抽样) */
+      const rank = Math.min(RANK_MAX, storeGet('pilotRank', 0) || 0);
+      const items = cand.map((q) => ({ q, w: diffWeight(q.difficulty || 1, rank) }));
+      const pool = [];
+      for (let k = 0; k < Math.min(ROUND_SIZE, items.length); k++) {
+        const total = items.reduce((s, it) => s + it.w, 0);
+        let r = Math.random() * total, i = 0;
+        for (; i < items.length - 1; i++) { r -= items[i].w; if (r <= 0) break; }
+        pool.push(items[i].q);
+        items.splice(i, 1);
+      }
       if (!pool.length) { showToast('该分类暂无题目', 'warn'); return; }
       round = { pool, idx: 0, correct: 0, wrong: [], cat };
       renderQuestion();
@@ -188,6 +204,7 @@ export function render(container, params) {
       <div class="g-quiz-top">
         <span class="v-chip">${round.cat ? `分类闯关 · ${round.cat}` : '综合闯关'}</span>
         <span class="v-chip">第 ${round.idx + 1} / ${round.pool.length} 题</span>
+        <span class="v-chip" title="难度随你的机长等级自适应">难度 ${'★'.repeat(Math.min(3, q.difficulty || 1))}</span>
         <span class="v-chip">答对 ${round.correct}</span>
         <span class="spacer"></span>
         <button class="btn btn-ghost btn-sm" id="g-quit">退出本局</button>
@@ -325,7 +342,7 @@ export function render(container, params) {
     </div>
 
     <section class="g-start glass-card anim-fade-up">
-      <h3>答题闯关 <span class="v-chip">每局 ${ROUND_SIZE} 题 · 答对 ≥${PASS_N} 晋级</span></h3>
+      <h3>答题闯关 <span class="v-chip">每局 ${ROUND_SIZE} 题 · 答对 ≥${PASS_N} 晋级</span><span class="v-chip">题库 ${totals.quiz || ''} 题 · 难度随机长等级自适应</span></h3>
       <div class="g-cat-row">
         <button class="btn btn-primary" data-slug="all">综合闯关</button>
         ${Object.entries(SLUG_CAT).filter(([k]) => k !== 'all').map(([k, c]) => `
@@ -344,16 +361,4 @@ export function render(container, params) {
   }
 
   return () => { disposed = true; };
-}
-
-/* ---------- 工具 ---------- */
-
-/** Fisher-Yates 洗牌(返回新数组) */
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 }

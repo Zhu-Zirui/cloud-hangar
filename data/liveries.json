@@ -129,6 +129,90 @@
       "cn": "全日空",
       "en": "ANA",
       "color": "#13448f"
+    },
+    "qd": {
+      "cn": "青岛航空",
+      "en": "QINGDAO AIRLINES",
+      "color": "#C7000B",
+      "logo": "assets/logos/qd.png"
+    },
+    "gs": {
+      "cn": "天津航空",
+      "en": "TIANJIN AIRLINES",
+      "color": "#D7000F",
+      "logo": "assets/logos/gs.png"
+    },
+    "bk": {
+      "cn": "奥凯航空",
+      "en": "OKAY AIRLINES",
+      "color": "#E87A1E",
+      "logo": "assets/logos/bk.png"
+    },
+    "ns": {
+      "cn": "河北航空",
+      "en": "HEBEI AIRLINES",
+      "color": "#2458A6",
+      "logo": "assets/logos/ns.png"
+    },
+    "ry": {
+      "cn": "江西航空",
+      "en": "JIANGXI AIR",
+      "color": "#1E50A2",
+      "logo": "assets/logos/ry.png"
+    },
+    "jd": {
+      "cn": "首都航空",
+      "en": "CAPITAL AIRLINES",
+      "color": "#E60012",
+      "logo": "assets/logos/jd.png"
+    },
+    "gx": {
+      "cn": "北部湾航空",
+      "en": "GX AIRLINES",
+      "color": "#E60000",
+      "logo": "assets/logos/gx.png"
+    },
+    "dr": {
+      "cn": "多彩贵州航空",
+      "en": "COLORFUL GUIZHOU",
+      "color": "#0BA0D8",
+      "logo": "assets/logos/dr.png"
+    },
+    "tv": {
+      "cn": "西藏航空",
+      "en": "TIBET AIRLINES",
+      "color": "#D8331F",
+      "logo": "assets/logos/tv.png"
+    },
+    "9d": {
+      "cn": "天骄航空",
+      "en": "GENGHIS KHAN AIRLINES",
+      "color": "#1F70B8",
+      "logo": "assets/logos/9d.png"
+    },
+    "g5": {
+      "cn": "华夏航空",
+      "en": "CHINA EXPRESS",
+      "color": "#0069B7",
+      "logo": "assets/logos/g5.png"
+    },
+    "aq": {
+      "cn": "九元航空",
+      "en": "9 AIR",
+      "color": "#F26522",
+      "logo": "assets/logos/aq.png"
+    },
+    "ky": {
+      "cn": "昆明航空",
+      "en": "KUNMING AIRLINES",
+      "color": "#C40000",
+      "logo": "assets/logos/ky.png"
+    },
+    "fm": {
+      "cn": "上海航空",
+      "en": "SHANGHAI AIRLINES",
+      "color": "#CE0E2D",
+      "logo": "assets/logos/fm.png"
     }
   },
   "liveries": [
