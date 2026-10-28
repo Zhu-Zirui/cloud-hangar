@@ -24,35 +24,35 @@ const F_COLS = [-1.25, -0.55, 0.55, 1.25];                // 头等舱列位
 /* 圆角舷窗:舱壁框 → 深色密封条 → 玻璃(昼:渐变天+云影;夜:星空) */
 function windowTex(night) {
   const cv = document.createElement('canvas');
-  cv.width = 170; cv.height = 250;
+  cv.width = 180; cv.height = 222;
   const ctx = cv.getContext('2d');
   const rr = (x, y, w, h, r) => { // 圆角矩形路径
     ctx.beginPath();
     ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
     ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
   };
-  ctx.clearRect(0, 0, 170, 250);
-  rr(6, 6, 158, 238, 54); ctx.fillStyle = '#d8dde2'; ctx.fill();      // 舱壁安装框
-  rr(16, 16, 138, 218, 46); ctx.fillStyle = '#3c4249'; ctx.fill();    // 窗框
-  rr(26, 26, 118, 198, 38); ctx.fillStyle = '#15181d'; ctx.fill();    // 橡胶密封条
-  ctx.save(); rr(32, 32, 106, 186, 33); ctx.clip();                   // 玻璃区
+  ctx.clearRect(0, 0, 180, 222);
+  rr(5, 5, 170, 212, 52); ctx.fillStyle = '#d8dde2'; ctx.fill();      // 舱壁安装框
+  rr(15, 15, 150, 192, 44); ctx.fillStyle = '#3c4249'; ctx.fill();    // 窗框
+  rr(24, 24, 132, 174, 36); ctx.fillStyle = '#15181d'; ctx.fill();    // 橡胶密封条
+  ctx.save(); rr(30, 30, 120, 162, 31); ctx.clip();                   // 玻璃区
   if (night) {
-    const g = ctx.createLinearGradient(0, 32, 0, 218);
+    const g = ctx.createLinearGradient(0, 30, 0, 192);
     g.addColorStop(0, '#02040d'); g.addColorStop(1, '#0a1730');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 170, 250);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 180, 222);
     for (let i = 0; i < 110; i++) {
       ctx.fillStyle = `rgba(255,255,255,${0.25 + Math.random() * 0.75})`;
-      ctx.fillRect(Math.random() * 170, Math.random() * 150, 1.7, 1.7);
+      ctx.fillRect(Math.random() * 180, Math.random() * 135, 1.7, 1.7);
     }
   } else {
-    const g = ctx.createLinearGradient(0, 0, 0, 250);
+    const g = ctx.createLinearGradient(0, 0, 0, 222);
     g.addColorStop(0, '#7cc0ee'); g.addColorStop(0.72, '#cfe7f6'); g.addColorStop(1, '#e8f2fa');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 170, 250);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 180, 222);
     ctx.fillStyle = 'rgba(255,255,255,.8)'; // 云影
-    ctx.beginPath(); ctx.ellipse(85, 185, 62, 16, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(50, 210, 40, 11, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(92, 160, 64, 15, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(52, 182, 42, 10, 0, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = 'rgba(255,255,255,.16)'; // 玻璃斜向反光
-    ctx.beginPath(); ctx.moveTo(20, 60); ctx.lineTo(80, 20); ctx.lineTo(104, 20); ctx.lineTo(44, 60); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(18, 56); ctx.lineTo(82, 18); ctx.lineTo(106, 18); ctx.lineTo(42, 56); ctx.fill();
   }
   ctx.restore();
   const tex = new THREE.CanvasTexture(cv);
@@ -110,15 +110,19 @@ export function createCabin(container, opts = {}) {
   hull.position.set(0, 1.15, 0); add(hull);
   const floor = new THREE.Mesh(new THREE.BoxGeometry(3.9, 0.12, LEN), mFloor);
   floor.position.set(0, -0.06, 0); add(floor);
-  /* 侧壁下饰条(客舱窗下腰带) */
+  /* 侧壁下饰条(客舱窗下腰带;压到窗底 1.01 以下,不再吃掉舷窗) */
   for (const sx of [-1, 1]) {
-    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.28, LEN), mPanel);
-    strip.position.set(sx * 1.92, 0.95, 0); add(strip);
+    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, LEN), mPanel);
+    strip.position.set(sx * 1.92, 0.82, 0); add(strip);
+    const shoulder = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.18, LEN), mPanel); // 窗上肩线饰条
+    shoulder.position.set(sx * 1.88, 1.62, 0); add(shoulder);
   }
 
-  /* ---------- 舷窗列(InstancedMesh,昼/夜换贴图) ---------- */
+  /* ---------- 舷窗列(InstancedMesh,昼/夜换贴图) ----------
+     窗片贴 x=±1.90:椭圆截面在窗顶(y≈1.43)处内收至 1.92,再高会把窗片埋进壁里
+     (此前"舷窗露一半"的根因),故整列下移收短,完整露在壁面上。 */
   const winTexDay = windowTex(false), winTexNight = windowTex(true);
-  const winGeo = new THREE.PlaneGeometry(0.34, 0.5);
+  const winGeo = new THREE.PlaneGeometry(0.34, 0.42);
   const winMat = new THREE.MeshBasicMaterial({ map: winTexDay, toneMapped: false });
   const winZs = [];
   for (let z = 9.6; z > -7.2; z -= 0.56) winZs.push(z);
@@ -126,7 +130,7 @@ export function createCabin(container, opts = {}) {
   {
     const d = new THREE.Object3D(); let i = 0;
     for (const z of winZs) for (const sx of [-1, 1]) {
-      d.position.set(sx * 1.935, 1.28, z); d.rotation.y = sx > 0 ? -Math.PI / 2 : Math.PI / 2;
+      d.position.set(sx * 1.9, 1.22, z); d.rotation.y = sx > 0 ? -Math.PI / 2 : Math.PI / 2;
       d.updateMatrix(); windows.setMatrixAt(i++, d.matrix);
     }
   }
@@ -163,19 +167,31 @@ export function createCabin(container, opts = {}) {
 
   /* 窗间立柱(每对窗之间的舱壁肋条) */
   {
-    const postGeo = new THREE.BoxGeometry(0.05, 0.62, 0.1);
+    const postGeo = new THREE.BoxGeometry(0.05, 0.52, 0.1);
     const posts = new THREE.InstancedMesh(postGeo, mWall, (winZs.length + 1) * 2);
     const d = new THREE.Object3D(); let i = 0;
     const zs = [winZs[0] + 0.28, ...winZs.map((z) => z - 0.28)];
     for (const z of zs) for (const sx of [-1, 1]) {
-      d.position.set(sx * 1.93, 1.28, z); d.updateMatrix(); posts.setMatrixAt(i++, d.matrix);
+      d.position.set(sx * 1.9, 1.22, z); d.updateMatrix(); posts.setMatrixAt(i++, d.matrix);
     }
     add(posts);
   }
-  /* 顶部灯带(昼白 / 夜暖,自发光) */
+  /* 顶部灯带 ×2(分置于顶棚两侧,昼白/夜暖,自发光) */
   const stripMat = new THREE.MeshBasicMaterial({ color: 0xf5f8fa, toneMapped: false });
-  const lampStrip = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.05, LEN * 0.88), stripMat);
-  lampStrip.position.set(0, 2.5, 0); add(lampStrip);
+  for (const sx of [-1, 1]) {
+    const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, LEN * 0.88), stripMat);
+    lamp.position.set(sx * 0.6, 2.48, 0); add(lamp);
+  }
+  /* 座椅滑轨(每列座椅下双轨,金属质感) */
+  {
+    const railGeo = new THREE.BoxGeometry(0.03, 0.014, LEN * 0.82);
+    const rails = new THREE.InstancedMesh(railGeo, mMetal, SEAT_COLS.length + F_COLS.length);
+    const d = new THREE.Object3D(); let i = 0;
+    for (const x of [...F_COLS, ...SEAT_COLS]) {
+      d.position.set(x, 0.007, 0.4); d.updateMatrix(); rails.setMatrixAt(i++, d.matrix);
+    }
+    add(rails);
+  }
   /* 走道地毯(深蓝)与两侧亮缘条 */
   const carpet = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.014, LEN * 0.9),
     new THREE.MeshStandardMaterial({ color: 0x24344c, roughness: 0.96 }));
@@ -217,6 +233,30 @@ export function createCabin(container, opts = {}) {
   const infoSign = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.19),
     new THREE.MeshBasicMaterial({ map: infoTex, toneMapped: false }));
   infoSign.rotation.y = Math.PI; infoSign.position.set(0, 2.3, 10.34); add(infoSign);
+  /* L1 门内侧 FAP 客舱管理面板(灯光/温度/舱门状态示意屏) */
+  {
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = 176;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#141920'; c.fillRect(0, 0, 256, 176);
+    c.strokeStyle = '#3d4650'; c.strokeRect(3, 3, 250, 170);
+    c.fillStyle = '#9fb4c8'; c.font = 'bold 16px monospace'; c.textAlign = 'left';
+    c.fillText('FAP  CABIN', 14, 26);
+    const dot = (x, y, col, label) => {
+      c.fillStyle = col; c.beginPath(); c.arc(x, y, 6, 0, Math.PI * 2); c.fill();
+      c.fillStyle = '#7d8896'; c.font = '12px monospace'; c.fillText(label, x + 12, y + 4);
+    };
+    dot(24, 56, '#7fe08a', 'DOORS CLOSED');
+    dot(24, 84, '#7fe08a', 'SLIDES ARMED');
+    dot(24, 112, '#ffd24a', 'CAB 24°C');
+    dot(24, 140, '#7fd0ff', 'CRT LT ON');
+    c.strokeStyle = '#3d4650';
+    for (let r = 0; r < 3; r++) c.strokeRect(150, 44 + r * 40, 90, 26); // 右侧调光推杆
+    c.fillStyle = '#2e3338'; for (let r = 0; r < 3; r++) c.fillRect(152, 46 + r * 40, 60, 22);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+    const fap = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.29),
+      new THREE.MeshBasicMaterial({ map: t, toneMapped: false }));
+    fap.rotation.y = Math.PI; fap.position.set(-1.0, 1.5, 10.35); add(fap);
+  }
   /* 头等舱/经济舱分舱布帘(半透) */
   const curtain = new THREE.Mesh(new THREE.BoxGeometry(2.6, 2.1, 0.04),
     new THREE.MeshStandardMaterial({ color: 0x6d5a6e, roughness: 0.95, transparent: true, opacity: 0.42 }));
@@ -237,6 +277,8 @@ export function createCabin(container, opts = {}) {
     { g: new THREE.BoxGeometry(0.055, 0.06, 0.4), off: [-0.24, 0.62, 0] },           // 扶手×2
     { g: new THREE.BoxGeometry(0.055, 0.06, 0.4), off: [0.24, 0.62, 0] },
     { g: new THREE.BoxGeometry(0.4, 0.34, 0.36), off: [0, 0.28, 0] },                // 底座
+    { g: new THREE.BoxGeometry(0.44, 0.1, 0.016), off: [0, 1.2, -0.235], tilt: 0.14, col: 0xf2f4f6 }, // 头枕巾(白色 antimacassar)
+    { g: new THREE.BoxGeometry(0.36, 0.16, 0.018), off: [0, 0.72, -0.262], tilt: 0.14, col: 0x22262b },// 椅背网兜(杂志袋)
   ];
   const seatMeshes = parts.map((p) => {
     const im = new THREE.InstancedMesh(p.g, mSeatC, nS);
@@ -246,8 +288,8 @@ export function createCabin(container, opts = {}) {
   {
     const d = new THREE.Object3D(); const col = new THREE.Color();
     seatDefs.forEach((s, i) => {
-      col.set(s.f ? 0x6e2f3c : 0x2e4a68); // 头等酒红 / 经济深蓝(航司座椅常见色)
       parts.forEach((p, pi) => {
+        col.set(p.col ?? (s.f ? 0x6e2f3c : 0x2e4a68)); // 头等酒红 / 经济深蓝;头枕巾/网兜用各自颜色
         d.position.set(s.x + p.off[0], p.off[1], s.z + p.off[2]);
         d.rotation.set(p.tilt || 0, 0, 0);
         d.updateMatrix();
@@ -308,9 +350,30 @@ export function createCabin(container, opts = {}) {
   galleyTop.position.set(1.2, 1.0, 11.6); add(galleyTop);
   const sink = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.34), mDark); // 水槽
   sink.position.set(1.2, 1.04, 11.55); add(sink);
+  { // 咖啡机 + 壶
+    const maker = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.26, 0.22),
+      new THREE.MeshStandardMaterial({ color: 0x2a2e33, roughness: 0.5 }));
+    maker.position.set(0.82, 1.16, 11.55); add(maker);
+    const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.1, 10),
+      new THREE.MeshStandardMaterial({ color: 0xb9c1c9, metalness: 0.7, roughness: 0.3 }));
+    pot.position.set(0.82, 1.08, 11.3); add(pot);
+  }
   /* 后盥洗室:门 + 洗手台镜 + 马桶 */
   const lavDoor = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.9, 0.06), mPanel);
   lavDoor.position.set(0.9, 0.95, -11.15); lavDoor.rotation.y = 0.9; add(lavDoor);
+  { // 盥洗室占用指示牌(红 OCCUPIED / 绿 VACANT)
+    const cv = document.createElement('canvas'); cv.width = 96; cv.height = 48;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#1a1e24'; c.fillRect(0, 0, 96, 48);
+    c.fillStyle = '#d23b3b'; c.fillRect(6, 6, 40, 36);
+    c.fillStyle = '#3ddc84'; c.fillRect(50, 6, 40, 36);
+    c.fillStyle = '#fff'; c.font = 'bold 11px monospace'; c.textAlign = 'center';
+    c.fillText('OCC', 26, 28); c.fillText('VAC', 70, 28);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+    const placard = new THREE.Mesh(new THREE.PlaneGeometry(0.14, 0.07),
+      new THREE.MeshBasicMaterial({ map: t, toneMapped: false }));
+    placard.rotation.y = 0.9; placard.position.set(0.76, 1.32, -10.94); add(placard);
+  }
   const lavSink = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.4), mMetal);
   lavSink.position.set(1.4, 0.9, -12.3); add(lavSink);
   const lavMirror = new THREE.Mesh(new THREE.PlaneGeometry(0.45, 0.5), new THREE.MeshStandardMaterial({ color: 0x8fb8d8, roughness: 0.1, metalness: 0.6 }));

@@ -298,15 +298,72 @@ export function createCockpit(container, opts = {}) {
   G.position.set(0, 3.2, 0); // 舱体抬到驾驶舱眼高 ≈4.45m(贴近地面停放姿态)
   base.scene.add(G);
 
-  /* ---------- 舱体:封闭六面 + 风挡 ---------- */
+  /* ---------- 舱体:放样机鼻壳体(外看是圆润机鼻,内看浅灰壁板;替代旧方盒) ---------- */
+  const mHullC = new THREE.MeshStandardMaterial({ color: 0xd7dce2, roughness: 0.55, metalness: 0.12, side: THREE.DoubleSide, vertexColors: true });
   const add = (m) => { G.add(m); return m; };
-  const floor = box(3.4, 0.1, 3.2, new THREE.MeshStandardMaterial({ color: 0x1a1e24, roughness: 0.95 }));
-  floor.position.set(0, -0.05, -0.1); add(floor);
-  const ceil = box(3.4, 0.1, 3.2, mShell); ceil.position.set(0, 2.16, -0.1); add(ceil);
-  for (const sx of [-1, 1]) {
-    const wall = box(0.1, 2.2, 3.2, mShell); wall.position.set(sx * 1.7, 1.05, -0.1); add(wall);
-    const win = box(0.06, 0.6, 0.62, mGlass); // 侧窗玻璃
-    win.position.set(sx * 1.68, 1.5, 0.45); add(win);
+  const mFloorC = new THREE.MeshStandardMaterial({ color: 0x1a1e24, roughness: 0.95 });
+  const floor = box(3.4, 0.1, 1.94, mFloorC); floor.position.set(0, -0.05, -0.75); add(floor); // 主地板 z -1.72~0.22
+  const floorF1 = box(2.55, 0.1, 1.0, mFloorC); floorF1.position.set(0, -0.05, 0.71); add(floorF1);  // 前段随壳体收窄
+  const floorF2 = box(1.6, 0.1, 0.42, mFloorC); floorF2.position.set(0, -0.05, 1.41); add(floorF2);
+  const floorF3 = box(0.62, 0.1, 0.34, mFloorC); floorF3.position.set(0, -0.05, 1.74); add(floorF3);
+  {
+    // 站位放样:截面为超椭圆(n=2.6,顶部饱满),由机尾向鼻锥收拢
+    const secs = [
+      { z: -1.72, w: 1.74, h: 1.14, y: 1.06 },
+      { z: -0.90, w: 1.74, h: 1.14, y: 1.06 },
+      { z: 0.20,  w: 1.70, h: 1.12, y: 1.04 },
+      { z: 0.85,  w: 1.58, h: 1.06, y: 1.00 },
+      { z: 1.30,  w: 1.32, h: 0.94, y: 0.95 },
+      { z: 1.60,  w: 0.92, h: 0.72, y: 0.88 },
+      { z: 1.80,  w: 0.42, h: 0.34, y: 0.78 },
+      { z: 1.90,  w: 0.02, h: 0.02, y: 0.70 },
+    ];
+    const N = 24, n = 2.6, pos = [], idx = [];
+    secs.forEach((s, si) => {
+      for (let k = 0; k < N; k++) {
+        const th = (k / N) * Math.PI * 2;
+        const c = Math.cos(th), sn = Math.sin(th);
+        pos.push(
+          s.w * Math.sign(c) * Math.pow(Math.abs(c), 2 / n),
+          s.y + s.h * Math.sign(sn) * Math.pow(Math.abs(sn), 2 / n),
+          s.z,
+        );
+      }
+    });
+    // 风挡带开洞:跳过 z∈[0.9,1.78] 且两侧上象限(10°~86°/94°~170°)的面片,两洞间只留
+    // 8° 细脊作中央结构;玻璃嵌在洞口——内看是天空,外看是深色风挡带
+    const holeQuad = (si, k) => {
+      const deg = (((k + 0.5) / N) * 360) % 360;
+      const band = Math.min(secs[si].z, secs[si + 1].z) < 1.78 && Math.max(secs[si].z, secs[si + 1].z) > 0.9;
+      return band && ((deg > 10 && deg < 86) || (deg > 94 && deg < 170));
+    };
+    for (let si = 0; si < secs.length - 1; si++) {
+      for (let k = 0; k < N; k++) {
+        const a = si * N + k, b = si * N + (k + 1) % N;
+        if (holeQuad(si, k)) continue;
+        idx.push(a, b, a + N, b, b + N, a + N);
+      }
+    }
+    // 顶点色:风挡带(+边距)区域的顶点涂深色——开洞毛边从外看是深色窗框结构,
+    // 从内看是窗周深色衬板;其余壳体保持机鼻白
+    const colArr = new Float32Array(pos.length);
+    const cDark = new THREE.Color(0x191d22), cLight = new THREE.Color(0xffffff);
+    for (let si = 0; si < secs.length; si++) {
+      for (let k = 0; k < N; k++) {
+        const deg = ((k / N) * 360) % 360;
+        const inBand = secs[si].z > 0.82 && ((deg >= 6 && deg <= 90) || (deg >= 90 && deg <= 174));
+        const c = inBand ? cDark : cLight;
+        colArr[si * N * 3 + k * 3] = c.r; colArr[si * N * 3 + k * 3 + 1] = c.g; colArr[si * N * 3 + k * 3 + 2] = c.b;
+      }
+    }
+    const c0 = pos.length / 3; // 尾端封盖(法线朝后:扇形逆着环的绕序)
+    pos.push(0, secs[0].y, secs[0].z);
+    for (let k = 0; k < N; k++) idx.push(c0, k, (k + 1) % N);
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute('color', new THREE.BufferAttribute(colArr, 3));
+    g.setIndex(idx); g.computeVertexNormals();
+    add(new THREE.Mesh(g, mHullC));
   }
   /* 后隔板 + 中央舱门(点击进入客舱,走道连通) */
   for (const sx of [-1, 1]) {
@@ -317,28 +374,40 @@ export function createCockpit(container, opts = {}) {
   doorPanel.position.set(0, 0.89, -1.62); doorPanel.userData.isDoor = true; add(doorPanel);
   const doorHandle = box(0.05, 0.16, 0.03, mMetal); doorHandle.position.set(0.24, 0.95, -1.57); add(doorHandle);
   const doorSign = box(0.3, 0.1, 0.02, mDark); doorSign.position.set(0, 1.72, -1.57); add(doorSign);
-  /* 风挡 3 面:前大块 + 两侧斜(下沿 1.2 = 仪表板上沿,眼高 1.26 起全宽视野) */
-  const ws = [
-    { w: 1.7, h: 0.85, x: 0, y: 1.60, z: 1.36, ry: 0 },
-    { w: 0.62, h: 0.72, x: -1.0, y: 1.50, z: 1.2, ry: 0.62 },
-    { w: 0.62, h: 0.72, x: 1.0, y: 1.50, z: 1.2, ry: -0.62 },
+  /* ---------- 风挡:每侧 3 块环抱机鼻(A320 布局:前风挡+固定窗+滑动窗)+ 侧舱窗 ---------- */
+  const PANE = [
+    { x: 0.33, y: 1.48, z: 1.47, ry: 0.28, rx: -0.32, w: 0.58, h: 0.80 }, // No.1 前风挡
+    { x: 0.80, y: 1.44, z: 1.26, ry: 0.60, rx: -0.28, w: 0.46, h: 0.68 }, // No.2 固定窗
+    { x: 1.05, y: 1.38, z: 0.98, ry: 0.95, rx: -0.22, w: 0.42, h: 0.60 }, // No.3 滑动窗
   ];
-  for (const p of ws) {
-    const pane = new THREE.Mesh(new THREE.PlaneGeometry(p.w, p.h), mGlass);
-    pane.position.set(p.x, p.y, p.z); pane.rotation.set(-0.3, p.ry, 0); add(pane);
+  for (const sx of [-1, 1]) for (const p of PANE) {
+    const g = new THREE.Group();
+    g.position.set(sx * p.x, p.y, p.z);
+    g.rotation.order = 'YXZ'; g.rotation.y = Math.PI - sx * p.ry; g.rotation.x = p.rx;
+    const glass = new THREE.Mesh(new THREE.PlaneGeometry(p.w, p.h), mGlass);
+    g.add(glass);
+    // 窗框 = 四条边框条(不能整块垫片:否则从舱内挡死玻璃)
+    const fw = 0.055;
+    for (const [bw, bh, bx, by] of [
+      [p.w + 0.08, fw, 0, (p.h + fw) / 2], [p.w + 0.08, fw, 0, -(p.h + fw) / 2],
+      [fw, p.h + 0.08, (p.w + fw) / 2, 0], [fw, p.h + 0.08, -(p.w + fw) / 2, 0],
+    ]) {
+      const f = box(bw, bh, 0.018, mDark); f.position.set(bx, by, -0.004); g.add(f);
+    }
+    add(g);
   }
-  for (const px of [-0.4, 0.4]) { // 中央风挡分隔柱
-    const post = box(0.07, 0.9, 0.1, mPanel); post.position.set(px, 1.56, 1.34); post.rotation.x = -0.3; add(post);
-  }
-  /* 风挡雨刷 + 侧窗大块化 */
-  for (const px of [-0.55, 0.55]) {
-    const wiper = box(0.015, 0.5, 0.015, mDark); wiper.position.set(px, 1.32, 1.3); wiper.rotation.x = 0.4; wiper.rotation.z = px > 0 ? -0.25 : 0.25; add(wiper);
+  { // 中央风挡柱 + 雨刷
+    const post = box(0.05, 0.9, 0.06, mDark); post.position.set(0, 1.48, 1.5); post.rotation.x = -0.32; add(post);
+    for (const sx of [-1, 1]) {
+      const wiper = box(0.014, 0.5, 0.014, mDark);
+      wiper.position.set(sx * 0.22, 1.34, 1.46); wiper.rotation.x = 0.38; wiper.rotation.z = sx * 0.22; add(wiper);
+    }
   }
 
   /* ---------- 主仪表板 + 遮光罩 + 6 屏 ---------- */
   // 仪表板顶(1.26)压到视线(1.26≈眼高4.46)之下,风挡下沿(1.2)起开阔视野
   const dash = box(2.5, 0.44, 0.12, mPanel); dash.position.set(0, 0.96, 1.18); dash.rotation.x = -0.12; add(dash);
-  const kick = box(3.2, 0.9, 0.1, mDark); kick.position.set(0, 0.45, 1.22); add(kick); // 前挡板:封住仪表板下方视线
+  const kick = box(2.7, 0.9, 0.1, mDark); kick.position.set(0, 0.45, 1.22); add(kick); // 前挡板:封住仪表板下方视线(收窄进壳体)
   const glare = box(2.6, 0.1, 0.42, mDark); glare.position.set(0, 1.06, 1.2); glare.rotation.x = 0.2; add(glare); // 遮光罩(压低:机长位可越过它看到 ~100m 外地面/跑道)
   const fcu = box(1.1, 0.13, 0.12, mPanel); // FCU 自动飞行面板条(中央)
   fcu.position.set(0, 1.10, 1.15); fcu.rotation.x = -0.25; add(fcu);
@@ -378,7 +447,7 @@ export function createCockpit(container, opts = {}) {
   /* ---------- 顶板 OVERHEAD:标签底板 + 8×6 按钮阵列 ---------- */
   const OH_ROWS = 6, OH_COLS = 8;
   const ohPanel = box(1.62, 0.62, 0.06, mPanel);
-  ohPanel.position.set(0, 2.02, 0.62); ohPanel.rotation.x = -0.62; add(ohPanel);
+  ohPanel.position.set(0, 1.93, 0.62); ohPanel.rotation.x = -0.62; add(ohPanel);
   const ohTex = overheadLabelTex(OH_ROWS, OH_COLS, ['灯光', '燃油', '液压', '空调', '电源', '防冰', 'APU', '氧气',
     '航行灯', '左泵', '1 发', '组件1', 'GEN1', '机翼', '主启', '机组',
     '着陆灯', '右泵', '2 发', '组件2', 'GEN2', '发动', '备启', '乘客',
@@ -391,7 +460,7 @@ export function createCockpit(container, opts = {}) {
   ohFace.rotation.y = Math.PI;       // 翻面朝下方的驾驶员
   ohFace.rotation.x = 0.62;          // 顶板俯仰角
   // 面板盒厚 0.06 且倾斜:标签面须沿法线放到盒前 0.045(半厚 0.03)处,否则埋进盒体
-  ohFace.position.set(0, 2.02 - 0.581 * 0.045, 0.62 - 0.814 * 0.045); add(ohFace);
+  ohFace.position.set(0, 1.93 - 0.581 * 0.045, 0.62 - 0.814 * 0.045); add(ohFace);
   const ohButtons = [];
   const cw = 1.56 / OH_COLS, ch = 0.56 / OH_ROWS;
   for (let r = 0; r < OH_ROWS; r++) for (let c = 0; c < OH_COLS; c++) {
@@ -402,7 +471,7 @@ export function createCockpit(container, opts = {}) {
     // 与标签同一投影:局部 y 偏移 → (0, cos, -sin) 方向;按钮沿法线再凸出 0.03
     const dy = 0.28 - ch * (r + 0.5);
     const bx = -0.78 + cw * (c + 0.5);
-    b.position.set(bx, 2.015 + dy * Math.cos(0.62) - 0.58 * 0.032, 0.622 - dy * Math.sin(0.62) - 0.81 * 0.032);
+    b.position.set(bx, 1.925 + dy * Math.cos(0.62) - 0.58 * 0.032, 0.622 - dy * Math.sin(0.62) - 0.81 * 0.032);
     b.rotation.order = 'YXZ'; b.rotation.y = Math.PI; b.rotation.x = 0.62;
     b.userData.ohIndex = r * OH_COLS + c; add(b); ohButtons.push(b);
   }
@@ -521,11 +590,43 @@ export function createCockpit(container, opts = {}) {
     cp.rotation.order = 'YXZ'; cp.rotation.y = Math.PI; cp.rotation.x = -0.12 - Math.PI / 2;
     cp.position.set(-0.06, 0.66, 1.135); add(cp);
   }
-  /* 侧杆底座 + 遮阳板 */
+  /* 仪表台两侧开关板(canvas:拨动开关阵列)+ 停留刹车 ×2 */
+  {
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = 224;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#262b31'; c.fillRect(0, 0, 256, 224);
+    c.fillStyle = '#9fb4c8'; c.font = 'bold 14px monospace'; c.textAlign = 'center';
+    c.fillText('SYS PANEL', 128, 20);
+    for (let r = 0; r < 4; r++) for (let k = 0; k < 4; k++) {
+      const x = 34 + k * 62, y = 48 + r * 46;
+      c.fillStyle = '#171a1e'; c.fillRect(x - 4, y, 26, 22); // 开关槽
+      c.fillStyle = ['#c9d4df', '#e0e5ea', '#c9d4df', '#8b939b'][(r + k) % 4];
+      c.fillRect(x, y + (r % 2 ? 2 : 10), 18, 10); // 拨杆上/下位
+      c.fillStyle = '#6b7681'; c.font = '10px monospace';
+      c.fillText(['FUEL', 'HYD', 'ELEC', 'AIR'][k], x + 9, y + 40);
+    }
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+    for (const sx of [-1, 1]) {
+      const p = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.3),
+        new THREE.MeshBasicMaterial({ map: t, toneMapped: false }));
+      p.rotation.order = 'YXZ'; p.rotation.y = Math.PI - sx * 0.42; p.rotation.x = -0.12;
+      p.position.set(sx * 1.04, 0.98, 1.12); add(p);
+    }
+  }
+  for (const sx of [-1, 1]) {
+    const pbBase = box(0.05, 0.03, 0.14, mDark); pbBase.position.set(sx * 0.25, 0.66, 0.98); add(pbBase);
+    const pb = box(0.035, 0.035, 0.12, new THREE.MeshStandardMaterial({ color: 0xd9b13c, roughness: 0.5 }));
+    pb.position.set(sx * 0.25, 0.69, 0.9); pb.rotation.x = -0.5; add(pb);
+  }
+  /* 侧杆底座 + 遮阳板 + 驾驶舱顶灯 */
   for (const sx of [-1, 1]) {
     const baseB = box(0.17, 0.07, 0.2, mDark); baseB.position.set(sx * 0.92, 0.715, 0.72); add(baseB);
-    const visor = box(0.52, 0.018, 0.24, mDark); // 遮阳板(风挡上沿)
-    visor.position.set(sx * 0.44, 2.08, 1.16); visor.rotation.x = -0.42; add(visor);
+    const visor = box(0.5, 0.016, 0.22, mDark); // 遮阳板(贴壳顶内侧)
+    visor.position.set(sx * 0.42, 1.86, 1.2); visor.rotation.x = -0.5; add(visor);
+  }
+  {
+    const dome = box(0.18, 0.04, 0.18, new THREE.MeshStandardMaterial({ color: 0xeef2f5, emissive: 0x555555, emissiveIntensity: 0.4 }));
+    dome.position.set(0, 2.12, -0.55); add(dome);
   }
 
   /* ---------- 侧杆 / 脚蹬 / 双座 ---------- */
@@ -556,11 +657,26 @@ export function createCockpit(container, opts = {}) {
   /* ---------- 窗外:跑道(阈值段 + 中线虚线段) ----------
      整组挂 rwyGrp:随 S.alt 整体下沉/抬起,起飞"地面远去"、降落"地面迎面"。 */
   const rwyGrp = new THREE.Group(); base.scene.add(rwyGrp);
+  const cloudDrift = [];
   base.scene.traverse((o) => { // 基座自带的停机坪是静态的,不随高度动 → 隐藏,地面统一归 rwyGrp
     if (o.isMesh && o.geometry && o.geometry.parameters && o.geometry.parameters.width === 300) o.visible = false;
   });
+  /* 草地纹理(canvas 噪点,repeat + 随地速滚动 = 滑跑/进近的近地动感) */
+  const grassTex = (() => {
+    const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+    const c = cv.getContext('2d');
+    c.fillStyle = '#46503c'; c.fillRect(0, 0, 256, 256);
+    for (let i = 0; i < 2600; i++) {
+      c.fillStyle = Math.random() < 0.5 ? `rgba(96,112,72,${0.12 + Math.random() * 0.2})` : `rgba(52,62,42,${0.1 + Math.random() * 0.2})`;
+      c.fillRect(Math.random() * 256, Math.random() * 256, 2 + Math.random() * 4, 1 + Math.random() * 3);
+    }
+    const t = new THREE.CanvasTexture(cv);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(60, 60);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(2400, 2400),
-    new THREE.MeshStandardMaterial({ color: 0x3e4638, roughness: 1 }));
+    new THREE.MeshStandardMaterial({ map: grassTex, roughness: 1 }));
   ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; rwyGrp.add(ground);
   const rDashTex = runwayTex();
   const rDash = new THREE.Mesh(new THREE.PlaneGeometry(45, 1700),
@@ -571,6 +687,50 @@ export function createCockpit(container, opts = {}) {
   // 默认 XYZ 欧拉序:先绕 z 面内翻 π(跑道号转正),再绕 x 放平——法线保持朝上
   rThr.rotation.x = -Math.PI / 2; rThr.rotation.z = Math.PI;
   rThr.position.set(0, 0.08, 100); rwyGrp.add(rThr);
+  /* 跑道助航灯:边灯白 ×60 + 入口绿灯排 + PAPI(左二白二红) */
+  {
+    const lg = new THREE.BoxGeometry(0.14, 0.1, 0.14);
+    const edge = new THREE.InstancedMesh(lg,
+      new THREE.MeshStandardMaterial({ color: 0xd8dde2, emissive: 0xfff6d8, emissiveIntensity: 0.9 }), 58);
+    const d = new THREE.Object3D(); let i = 0;
+    for (let z = 140; z <= 1820; z += 60) for (const sx of [-1, 1]) {
+      d.position.set(sx * 23.5, 0.12, z); d.updateMatrix(); edge.setMatrixAt(i++, d.matrix);
+    }
+    rwyGrp.add(edge);
+    const thr = new THREE.InstancedMesh(lg,
+      new THREE.MeshStandardMaterial({ color: 0x9fe8b8, emissive: 0x2ee06a, emissiveIntensity: 1 }), 15);
+    for (let k = 0; k < 15; k++) { d.position.set(-21 + k * 3, 0.12, 128); d.updateMatrix(); thr.setMatrixAt(k, d.matrix); }
+    rwyGrp.add(thr);
+    const papiC = [0xffffff, 0xffffff, 0xd23b3b, 0xd23b3b];
+    papiC.forEach((col, k) => {
+      const p = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.4),
+        new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 0.9 }));
+      p.position.set(-28 - k * 2.2, 0.5, 96); rwyGrp.add(p);
+    });
+  }
+  /* 场景陈设:航站楼 + 塔台 + 树(远景,静态) */
+  {
+    const mBld = new THREE.MeshStandardMaterial({ color: 0xb9c2cc, roughness: 0.8 });
+    const mGlassB = new THREE.MeshStandardMaterial({ color: 0x4a5f74, roughness: 0.3, metalness: 0.4 });
+    const term = new THREE.Mesh(new THREE.BoxGeometry(18, 9, 64), mBld);
+    term.position.set(-62, 4.5, 300); rwyGrp.add(term);
+    const termGlass = new THREE.Mesh(new THREE.BoxGeometry(18.4, 4.2, 58), mGlassB);
+    termGlass.position.set(-62, 3.2, 300); rwyGrp.add(termGlass);
+    const twr = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2.2, 24, 10), mBld);
+    twr.position.set(-84, 12, 350); rwyGrp.add(twr);
+    const cab = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.4, 6.5), mGlassB);
+    cab.position.set(-84, 25.5, 350); rwyGrp.add(cab);
+    const trunkM = new THREE.MeshStandardMaterial({ color: 0x5a4632, roughness: 0.9 });
+    const crownM = new THREE.MeshStandardMaterial({ color: 0x3c5a34, roughness: 0.95 });
+    for (let k = 0; k < 12; k++) {
+      const tx = (k % 2 ? -1 : 1) * (32 + Math.random() * 26), tz = 180 + Math.random() * 700;
+      const h = 3 + Math.random() * 4;
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.24, h, 6), trunkM);
+      trunk.position.set(tx, h / 2, tz); rwyGrp.add(trunk);
+      const crown = new THREE.Mesh(new THREE.ConeGeometry(1.4 + Math.random(), 2.6 + Math.random() * 2, 7), crownM);
+      crown.position.set(tx, h + 1.1, tz); rwyGrp.add(crown);
+    }
+  }
   /* 云团(挂 rwyGrp,随高度一起沉/升):悬在空中,爬升时掠过,进近时迎面升起 */
   {
     const cMat = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
@@ -580,7 +740,9 @@ export function createCockpit(container, opts = {}) {
       const r = 6 + Math.random() * 12;
       m.scale.set(r, r * 0.42, r);
       m.position.set((Math.random() < 0.5 ? -1 : 1) * (20 + Math.random() * 60), 7 + Math.random() * 9, 150 + Math.random() * 560);
+      m.userData.v = 1.5 + Math.random() * 2.5; // 缓慢漂移,进近时更显迎面
       rwyGrp.add(m);
+      cloudDrift.push(m);
     }
   }
 
@@ -592,15 +754,40 @@ export function createCockpit(container, opts = {}) {
     demo: false, kind: 'takeoff', phase: '', phaseT: 0, phaseMsg: '', ts: 0,
     called: null, // 降落高度门限呼叫去重
   };
-  /* 标准英文飞行口令(Web Speech API,零音频资源) */
-  function speak(text) {
+  /* 标准英文飞行口令(Web Speech API,零音频资源)。
+     getVoices() 首调常返回空列表,须挂 voiceschanged 异步补选;播报前 cancel 防堆积。 */
+  let enVoice = null;
+  function pickVoice() {
+    const vs = speechSynthesis.getVoices();
+    enVoice = vs.find((v) => v.lang === 'en-US' && /Google|Microsoft/.test(v.name))
+      || vs.find((v) => v.lang === 'en-US') || vs.find((v) => v.lang && v.lang.startsWith('en')) || null;
+  }
+  pickVoice();
+  if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = pickVoice;
+  function speak(text, opt = {}) {
     try {
+      speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US'; u.rate = 1.08;
-      const en = speechSynthesis.getVoices().find((v) => v.lang && v.lang.startsWith('en'));
-      if (en) u.voice = en;
+      u.lang = 'en-US'; u.rate = opt.rate ?? 1.0; u.pitch = 1; u.volume = opt.volume ?? 1;
+      if (enVoice) u.voice = enVoice;
       speechSynthesis.speak(u);
     } catch (err) { /* 语音不可用时静默跳过 */ }
+  }
+  /* 客舱广播"叮咚"双音(WebAudio 合成) */
+  function chime() {
+    try {
+      const ac = new (window.AudioContext || window.webkitAudioContext)();
+      const play = (f, t0, dur) => {
+        const o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, ac.currentTime + t0);
+        g.gain.exponentialRampToValueAtTime(0.22, ac.currentTime + t0 + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + t0 + dur);
+        o.connect(g); g.connect(ac.destination);
+        o.start(ac.currentTime + t0); o.stop(ac.currentTime + t0 + dur + 0.05);
+      };
+      play(830, 0, 0.42); play(622, 0.45, 0.6);
+    } catch (err) { /* 音频不可用时静默跳过 */ }
   }
   const THR_MAX_FWD = -0.62, THR_IDLE = 0.62; // 油门杆姿态角范围
   function setThrottleVisual(v) {
@@ -616,13 +803,13 @@ export function createCockpit(container, opts = {}) {
       S.forceVs = false;
       Object.assign(S, { phase: 'spool', phaseMsg: '推油门 TOGA', spd: 0, alt: 0, vs: 0, pitch: 0, flaps: 1 });
       flapLever.position.z = 0.14;
-      speak('Cabin crew, prepare for take off');
+      chime(); speak('Cabin crew, doors on automatic, cross check, and prepare for take off');
       onToast('起飞演示:TOGA → 100 节/V1/VR 抬轮 → 正爬升收轮 → 3000ft 改平');
     } else {
       S.forceVs = true; // 下滑/拉平的下沉率由进近阶段直控(常规公式只算爬升)
       Object.assign(S, { phase: 'approach', phaseMsg: '进近 1800FT 建立下滑', spd: 160, alt: 1800, vs: -1200, pitch: -1.5, thr: 0.35, gearDown: false, flaps: 1 });
       gearPivot.rotation.x = -1.9;
-      speak('Cabin crew, prepare for landing');
+      chime(); speak('Cabin crew, prepare for landing');
       onToast('降落演示:1800ft 下滑 → 1000ft 放轮 → 50ft 拉平 → 接地减速');
     }
     flyTo('captain', 1.2);
@@ -698,6 +885,7 @@ export function createCockpit(container, opts = {}) {
         spdOnce('r70', 68, 'Seventy');
         spdOnce('r50', 48, 'Fifty');
         spdOnce('r30', 28, 'Thirty');
+        if (S.phaseT > 4.2 && !S.called.pa) { S.called.pa = 1; chime(); speak('Cabin crew, doors on automatic, cross check and prepare for disembarking', { rate: 0.95 }); }
       },
       next: () => 'done' },
   };
@@ -848,10 +1036,16 @@ export function createCockpit(container, opts = {}) {
         base.controls.target.lerp(look, 0.2);
       }
     } else { camBase.set(0, 0, 0); demoShake = 0; }
-    /* 滑跑时跑道虚线滚动(速度感);地面整体随高度升降(起飞下沉/降落迎面抬起) */
+    /* 滑跑时跑道虚线/草地滚动(速度感);地面整体随高度升降(起飞下沉/降落迎面抬起) */
     rDashTex.offset.y -= (S.spd * 0.5144 * dt) / 71;
     if (rDashTex.offset.y < -1) rDashTex.offset.y += 1;
+    grassTex.offset.y -= (S.spd * 0.5144 * dt) / 40; // 每格 2400/60=40m,与跑道同速
+    if (grassTex.offset.y < -1) grassTex.offset.y += 1;
     rwyGrp.position.y = S.alt * 0.0022 - 0.007;
+    for (const c of cloudDrift) {
+      c.position.z += c.userData.v * dt;
+      if (c.position.z > 720) c.position.z = 150;
+    }
     /* 舱门运镜:走到门口后交棒路由切客舱 */
     if (doorFly > 0) {
       doorFly += dt;
@@ -863,17 +1057,23 @@ export function createCockpit(container, opts = {}) {
   let night = false;
   const cabinLight = new THREE.PointLight(0xfff1dd, 1.1, 6, 1.6);
   cabinLight.position.set(0, 2.0, 0.3); G.add(cabinLight);
+  const noseLight = new THREE.PointLight(0xeef4fa, 1.0, 4, 1.5); // 鼻锥内壁补光(壳体内表面背光易发黑)
+  noseLight.position.set(0, 1.7, 1.0); G.add(noseLight);
+  const aftLight = new THREE.PointLight(0xeef4fa, 0.8, 5, 1.5);
+  aftLight.position.set(0, 1.85, -1.0); G.add(aftLight);
   const panelLight = new THREE.PointLight(0x9fc4ff, 0.5, 3, 2);
   panelLight.position.set(0, 1.5, 1.0); G.add(panelLight);
   function setNight(on) {
     night = !!on;
     cabinLight.intensity = night ? 0.28 : 1.1;
     cabinLight.color.set(night ? 0xffd9a8 : 0xfff1dd);
+    noseLight.intensity = night ? 0.5 : 1.0;
+    aftLight.intensity = night ? 0.4 : 0.8;
     panelLight.intensity = night ? 0.9 : 0.5;
     base.setNight(on);
   }
 
-  window.__CH_COCKPIT = { S, SCREENS }; // 调试通道(模拟状态/屏幕画布)
+  window.__CH_COCKPIT = { S, SCREENS, cam: base.camera, ctl: base.controls }; // 调试通道(模拟状态/屏幕画布/相机)
   return {
     setNight, isNight: () => night,
     flyTo, startDemo, isDemo: () => S.demo,
@@ -883,6 +1083,7 @@ export function createCockpit(container, opts = {}) {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
       rDashTex.dispose();
+      grassTex.dispose();
       ohTex.dispose(); quadLblTex.dispose();
       base.dispose();
     },
