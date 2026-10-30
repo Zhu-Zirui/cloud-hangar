@@ -35,6 +35,16 @@ function airlineLogo(liv, id) {
 }
 
 /* ---------- 入口 ---------- */
+
+/* 分省视图的省级区域固定顺序(直辖市/省/自治区按习惯排序,港澳台殿后) */
+const PROV_ORDER = [
+  '北京', '天津', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江',
+  '上海', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南',
+  '湖北', '湖南', '广东', '广西', '海南', '重庆', '四川', '贵州',
+  '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆',
+  '香港', '澳门', '台湾',
+];
+
 export function render(container, { segments = [] } = {}) {
   container.innerHTML = `<div class="container"><div class="placeholder-page glass-card hud-frame"><div class="ph-icon">✈</div><h2>机场图鉴</h2><p>跑道数据加载中…</p></div></div>`;
   Promise.all([loadAirports(), loadLiveries()])
@@ -62,16 +72,15 @@ function renderIndex(container, list, liv) {
   <div class="container">
     <header class="ap-head">
       <div>
-        <h1 class="section-title">机场图鉴<span class="sub">AIRPORT DIRECTORY · ${list.length} 座</span></h1>
-        <p class="ap-sub">中国主要民用枢纽的跑道、航站楼与冷知识档案。</p>
+        <h1 class="section-title">机场图鉴<span class="sub">AIRPORT DIRECTORY · ${list.length} 座 · 覆盖省级区域 ${new Set(list.map((a) => a.province).filter(Boolean)).size} 个</span></h1>
+        <p class="ap-sub">中国主要民用机场(4C 级及以上为主,含港澳台)的跑道、航站楼与冷知识档案,按省份分组。</p>
       </div>
       <div class="ap-mode" role="tablist">
         <button class="v-chip btn-like ${mode === 'list' ? 'on' : ''}" data-m="list">列表模式</button>
         <button class="v-chip btn-like ${mode === 'map' ? 'on' : ''}" data-m="map">地图模式</button>
       </div>
     </header>
-    ${mode === 'list' ? listHTML(list) : mapHTML(list)}
-  </div>`;
+    ${mode === 'list' ? listHTML(list) : mapHTML(list)}  </div>`;
 
   container.querySelectorAll('.ap-mode button').forEach((b) => {
     b.addEventListener('click', () => { mode = b.dataset.m; renderIndex(container, list, liv); });
@@ -82,7 +91,7 @@ function renderIndex(container, list, liv) {
     input.addEventListener('input', () => {
       query = input.value.trim();
       const grid = container.querySelector('.ap-grid-wrap');
-      if (grid) grid.innerHTML = gridHTML(filterAirports(list));
+      if (grid) grid.innerHTML = provGroupsHTML(filterAirports(list));
       bindCards(container);
     });
   }
@@ -92,26 +101,44 @@ function renderIndex(container, list, liv) {
 function filterAirports(list) {
   const q = query.toLowerCase();
   const arr = q
-    ? list.filter((a) => [a.iata, a.cn, a.city, a.pinyin, a.en || ''].join(' ').toLowerCase().includes(q))
+    ? list.filter((a) => [a.iata, a.cn, a.city, a.pinyin, a.province || '', a.en || ''].join(' ').toLowerCase().includes(q))
     : list.slice();
   return arr.sort((x, y) => String(x.pinyin || x.cn).localeCompare(String(y.pinyin || y.cn), 'zh') || x.cn.localeCompare(y.cn, 'zh'));
 }
 
 function listHTML(list) {
+  const shown = filterAirports(list);
   return `
   <div class="ap-search glass-card">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input type="search" placeholder="按 IATA 代码 / 机场名 / 城市搜索,如 PEK、高崎、福州…" aria-label="搜索机场">
+    <input type="search" placeholder="按 IATA 代码 / 机场名 / 城市 / 省份搜索,如 PEK、高崎、西藏…" aria-label="搜索机场">
   </div>
-  <div class="ap-grid-wrap">${gridHTML(filterAirports(list))}</div>`;
+  <div class="ap-grid-wrap">${provGroupsHTML(shown)}</div>`;
 }
 
-function gridHTML(list) {
-  if (!list.length) return `<div class="placeholder-page glass-card"><h2>未找到匹配机场</h2><p>换个关键词试试,例如 IATA 代码或城市名。</p></div>`;
-  const seen = seenAirports();
-  return `<div class="ap-grid">` + list.map((a) => {
-    const isSeen = seen.includes(a.iata);
-    return `
+/** 按省份分组渲染(空组隐藏);无 province 字段的兜底归入"其他" */
+function provGroupsHTML(list) {
+  if (!list.length) return `<div class="placeholder-page glass-card"><h2>未找到匹配机场</h2><p>换个关键词试试,例如 IATA 代码、城市或省份。</p></div>`;
+  const byProv = new Map();
+  for (const a of list) {
+    const key = a.province || '其他';
+    if (!byProv.has(key)) byProv.set(key, []);
+    byProv.get(key).push(a);
+  }
+  const keys = [...byProv.keys()].sort((p1, p2) => {
+    const i1 = PROV_ORDER.indexOf(p1), i2 = PROV_ORDER.indexOf(p2);
+    return (i1 < 0 ? 999 : i1) - (i2 < 0 ? 999 : i2);
+  });
+  return keys.map((prov) => `
+  <section class="ap-prov">
+    <h2 class="ap-prov-title">${prov}<span class="sub">${byProv.get(prov).length} 座</span></h2>
+    <div class="ap-grid">${byProv.get(prov).map((a) => apCardHTML(a)).join('')}</div>
+  </section>`).join('');
+}
+
+function apCardHTML(a) {
+  const isSeen = seenAirports().includes(a.iata);
+  return `
     <a class="ap-card glass-card hud-frame ${isSeen ? 'seen' : ''}" href="#/airports/${a.iata}">
       <div class="ap-card-top">
         <span class="ap-iata">${a.iata}</span>
@@ -124,7 +151,6 @@ function gridHTML(list) {
         <span class="ap-seen">${isSeen ? '● 已浏览' : '○ 未浏览'}</span>
       </div>
     </a>`;
-  }).join('') + `</div>`;
 }
 
 function bindCards(container) { /* 卡片为 <a> 纯跳转,无需额外绑定,占位便于扩展 */ }
@@ -149,6 +175,7 @@ function renderDetail(container, list, liv, iata) {
         <h2>${ap.cn}</h2>
         <p class="ap-hero-en">${ap.en || ''} · ${ap.icao} · ${ap.city}</p>
         <div class="hero-chips">
+          <span class="chip">${ap.province ? `${ap.province} · ` : ''}${ap.city}</span>
           <span class="chip">${ap.opened} 年通航</span>
           <span class="chip">海拔 ${ap.elevationM} m${ap.approx ? '(约)' : ''}</span>
           <span class="chip">${ap.runways.length} 条跑道</span>

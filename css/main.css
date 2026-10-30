@@ -965,3 +965,13 @@ button { font-family: inherit; }
   .cb-title { display: none; }
   .cb-presets { top: 52px; }
 }
+
+/* ===== §P5.2 机场图鉴分省分组(P5 扩容 165 座) ===== */
+.ap-prov { margin: 0 0 30px; }
+.ap-prov-title {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 12px; padding: 0 2px 8px;
+  font-size: 18px; color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.ap-prov-title .sub { font-size: 12px; color: var(--ink-faint); letter-spacing: .5px; }

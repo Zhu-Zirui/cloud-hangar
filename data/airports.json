@@ -1,5 +1,5 @@
 {
-  "note": "中国主要民用机场数据 · P5 扩容至 52 座。字段 approx:true 表示近似值,待核对;coord 为 [经度,纬度](机场基准点近似)。跑道数据以 meters 计;跑道编号多为近似标注,以官方 AIP 为准。",
+  "note": "中国主要民用机场数据 · P5 扩容至 165 座(覆盖全国各省区市 4C 级及以上主要机场 + 港澳台)。字段 approx:true 表示近似值,待核对;coord 为 [经度,纬度](机场基准点近似)。跑道数据以 meters 计;跑道编号多为近似标注,以官方 AIP 为准。province 字段用于图鉴分组。",
   "updated": "2026-10-29",
   "airports": [
     {
@@ -61,7 +61,8 @@
       "coord": [
         116.6,
         40.08
-      ]
+      ],
+      "province": "北京"
     },
     {
       "iata": "PKX",
@@ -128,7 +129,8 @@
       "coord": [
         116.41,
         39.51
-      ]
+      ],
+      "province": "北京"
     },
     {
       "iata": "SHA",
@@ -192,7 +194,8 @@
       "coord": [
         121.34,
         31.19
-      ]
+      ],
+      "province": "上海"
     },
     {
       "iata": "PVG",
@@ -268,7 +271,8 @@
       "coord": [
         121.8,
         31.14
-      ]
+      ],
+      "province": "上海"
     },
     {
       "iata": "CAN",
@@ -330,7 +334,8 @@
       "coord": [
         113.3,
         23.39
-      ]
+      ],
+      "province": "广东"
     },
     {
       "iata": "SZX",
@@ -377,7 +382,8 @@
       "coord": [
         113.81,
         22.63
-      ]
+      ],
+      "province": "广东"
     },
     {
       "iata": "TFU",
@@ -437,7 +443,8 @@
       "coord": [
         104.44,
         30.31
-      ]
+      ],
+      "province": "四川"
     },
     {
       "iata": "CTU",
@@ -498,7 +505,8 @@
       "coord": [
         103.95,
         30.58
-      ]
+      ],
+      "province": "四川"
     },
     {
       "iata": "CKG",
@@ -573,7 +581,8 @@
       "coord": [
         106.64,
         29.72
-      ]
+      ],
+      "province": "重庆"
     },
     {
       "iata": "KMG",
@@ -627,7 +636,8 @@
       "coord": [
         102.93,
         25.1
-      ]
+      ],
+      "province": "云南"
     },
     {
       "iata": "XIY",
@@ -690,7 +700,8 @@
       "coord": [
         108.75,
         34.44
-      ]
+      ],
+      "province": "陕西"
     },
     {
       "iata": "HGH",
@@ -748,7 +759,8 @@
       "coord": [
         120.43,
         30.23
-      ]
+      ],
+      "province": "浙江"
     },
     {
       "iata": "URC",
@@ -801,7 +813,8 @@
       "coord": [
         87.47,
         43.91
-      ]
+      ],
+      "province": "新疆"
     },
     {
       "iata": "WUH",
@@ -852,7 +865,8 @@
       "coord": [
         114.21,
         30.78
-      ]
+      ],
+      "province": "湖北"
     },
     {
       "iata": "NKG",
@@ -908,7 +922,8 @@
       "coord": [
         118.86,
         31.74
-      ]
+      ],
+      "province": "江苏"
     },
     {
       "iata": "CSX",
@@ -961,7 +976,8 @@
       "coord": [
         113.22,
         28.19
-      ]
+      ],
+      "province": "湖南"
     },
     {
       "iata": "XMN",
@@ -1011,7 +1027,8 @@
       "coord": [
         118.13,
         24.54
-      ]
+      ],
+      "province": "福建"
     },
     {
       "iata": "FOC",
@@ -1064,7 +1081,8 @@
       "coord": [
         119.66,
         25.94
-      ]
+      ],
+      "province": "福建"
     },
     {
       "iata": "TAO",
@@ -1119,7 +1137,8 @@
       "coord": [
         120.37,
         36.36
-      ]
+      ],
+      "province": "山东"
     },
     {
       "iata": "TNA",
@@ -1162,7 +1181,8 @@
       "coord": [
         117.22,
         36.7
-      ]
+      ],
+      "province": "山东"
     },
     {
       "iata": "YNT",
@@ -1211,7 +1231,8 @@
       "coord": [
         120.97,
         37.65
-      ]
+      ],
+      "province": "山东"
     },
     {
       "iata": "DLC",
@@ -1267,7 +1288,8 @@
       "coord": [
         121.54,
         38.97
-      ]
+      ],
+      "province": "辽宁"
     },
     {
       "iata": "SHE",
@@ -1321,7 +1343,8 @@
       "coord": [
         123.49,
         41.64
-      ]
+      ],
+      "province": "辽宁"
     },
     {
       "iata": "HRB",
@@ -1378,7 +1401,8 @@
       "coord": [
         126.25,
         45.62
-      ]
+      ],
+      "province": "黑龙江"
     },
     {
       "iata": "CGQ",
@@ -1427,7 +1451,8 @@
       "coord": [
         125.69,
         44.0
-      ]
+      ],
+      "province": "吉林"
     },
     {
       "iata": "TSN",
@@ -1488,7 +1513,8 @@
       "coord": [
         117.35,
         39.13
-      ]
+      ],
+      "province": "天津"
     },
     {
       "iata": "SJW",
@@ -1541,7 +1567,8 @@
       "coord": [
         114.7,
         38.28
-      ]
+      ],
+      "province": "河北"
     },
     {
       "iata": "TYN",
@@ -1590,7 +1617,8 @@
       "coord": [
         112.63,
         37.75
-      ]
+      ],
+      "province": "山西"
     },
     {
       "iata": "HFE",
@@ -1633,7 +1661,8 @@
       "coord": [
         116.99,
         31.98
-      ]
+      ],
+      "province": "安徽"
     },
     {
       "iata": "KHN",
@@ -1682,7 +1711,8 @@
       "coord": [
         115.9,
         28.86
-      ]
+      ],
+      "province": "江西"
     },
     {
       "iata": "NGB",
@@ -1727,7 +1757,8 @@
       "coord": [
         121.47,
         29.83
-      ]
+      ],
+      "province": "浙江"
     },
     {
       "iata": "WNZ",
@@ -1773,7 +1804,8 @@
       "coord": [
         120.85,
         27.91
-      ]
+      ],
+      "province": "浙江"
     },
     {
       "iata": "WUX",
@@ -1821,7 +1853,8 @@
       "coord": [
         120.43,
         31.5
-      ]
+      ],
+      "province": "江苏"
     },
     {
       "iata": "NTG",
@@ -1869,7 +1902,8 @@
       "coord": [
         120.98,
         31.98
-      ]
+      ],
+      "province": "江苏"
     },
     {
       "iata": "HAK",
@@ -1930,7 +1964,8 @@
       "coord": [
         110.46,
         19.94
-      ]
+      ],
+      "province": "海南"
     },
     {
       "iata": "SYX",
@@ -1996,7 +2031,8 @@
       "coord": [
         109.51,
         18.3
-      ]
+      ],
+      "province": "海南"
     },
     {
       "iata": "NNG",
@@ -2046,7 +2082,8 @@
       "coord": [
         108.17,
         22.61
-      ]
+      ],
+      "province": "广西"
     },
     {
       "iata": "KWL",
@@ -2089,7 +2126,8 @@
       "coord": [
         110.04,
         25.22
-      ]
+      ],
+      "province": "广西"
     },
     {
       "iata": "KWE",
@@ -2156,7 +2194,8 @@
       "coord": [
         106.8,
         26.54
-      ]
+      ],
+      "province": "贵州"
     },
     {
       "iata": "ZUH",
@@ -2194,7 +2233,8 @@
       "coord": [
         113.38,
         22.01
-      ]
+      ],
+      "province": "广东"
     },
     {
       "iata": "SWA",
@@ -2233,7 +2273,8 @@
       "coord": [
         116.51,
         23.43
-      ]
+      ],
+      "province": "广东"
     },
     {
       "iata": "LHW",
@@ -2303,7 +2344,8 @@
       "coord": [
         103.62,
         36.51
-      ]
+      ],
+      "province": "甘肃"
     },
     {
       "iata": "INC",
@@ -2352,7 +2394,8 @@
       "coord": [
         106.0,
         38.32
-      ]
+      ],
+      "province": "宁夏"
     },
     {
       "iata": "XNN",
@@ -2403,7 +2446,8 @@
       "coord": [
         102.04,
         36.53
-      ]
+      ],
+      "province": "青海"
     },
     {
       "iata": "LXA",
@@ -2469,7 +2513,8 @@
       "coord": [
         90.91,
         29.3
-      ]
+      ],
+      "province": "西藏"
     },
     {
       "iata": "KHG",
@@ -2513,7 +2558,8 @@
       "coord": [
         75.98,
         39.54
-      ]
+      ],
+      "province": "新疆"
     },
     {
       "iata": "HET",
@@ -2573,7 +2619,8 @@
       "coord": [
         111.82,
         40.85
-      ]
+      ],
+      "province": "内蒙古"
     },
     {
       "iata": "JJN",
@@ -2612,7 +2659,8 @@
       "coord": [
         118.59,
         24.8
-      ]
+      ],
+      "province": "福建"
     },
     {
       "iata": "JHG",
@@ -2666,7 +2714,8 @@
       "coord": [
         100.76,
         21.98
-      ]
+      ],
+      "province": "云南"
     },
     {
       "iata": "LJG",
@@ -2710,7 +2759,8 @@
       "coord": [
         100.25,
         26.68
-      ]
+      ],
+      "province": "云南"
     },
     {
       "iata": "JZH",
@@ -2753,7 +2803,8 @@
       "coord": [
         103.68,
         32.85
-      ]
+      ],
+      "province": "四川"
     },
     {
       "iata": "YIN",
@@ -2792,6 +2843,4678 @@
       "coord": [
         81.33,
         43.95
+      ],
+      "province": "新疆"
+    },
+    {
+      "iata": "CGO",
+      "icao": "ZHCC",
+      "cn": "郑州新郑国际机场",
+      "en": "Zhengzhou Xinzheng International Airport",
+      "city": "郑州",
+      "pinyin": "zhengzhou xinzheng",
+      "province": "河南",
+      "opened": 1997,
+      "elevationM": 152,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(已改造)",
+          "opened": 1997,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2015,
+          "note": "面积约 48.6 万平方米,二期扩建启用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "16/34",
+          "length": 3400,
+          "width": 45,
+          "approx": true
+        },
+        {
+          "id": "17/35",
+          "length": 3600,
+          "width": 60,
+          "approx": true,
+          "note": "第二跑道,2016 年 1 月启用"
+        }
+      ],
+      "hubs": [
+        {
+          "id": "cz",
+          "cn": "中国南方航空(河南)"
+        }
+      ],
+      "facts": [
+        "1997 年 8 月 28 日通航,4F 级国际机场,米字形高铁枢纽郑州的空中门户。",
+        "国际货运航空枢纽:功能性口岸数量与种类居内陆机场之首,2024 年货邮吞吐量创通航以来新高。",
+        "双跑道运行(3400+3600 米),T2 为 2015 年二期扩建新增的大型主楼。"
+      ],
+      "coord": [
+        113.84,
+        34.52
+      ]
+    },
+    {
+      "iata": "LYA",
+      "icao": "ZHLY",
+      "cn": "洛阳北郊机场",
+      "en": "Luoyang Beijiao Airport",
+      "city": "洛阳",
+      "pinyin": "luoyang beijiao",
+      "province": "河南",
+      "opened": 1987,
+      "elevationM": 264,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2010,
+          "note": "面积约 1.5 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1987 年 9 月 26 日通航,全国净空条件最好的机场之一。",
+        "中国民航飞行学院洛阳分院设此:为国家民航飞行员培训基地,训练飞行量大。",
+        "郑州、济南、太原、武汉等周边干线机场的重要备降场。"
+      ],
+      "coord": [
+        112.46,
+        34.68
+      ]
+    },
+    {
+      "iata": "NNY",
+      "icao": "ZHNY",
+      "cn": "南阳姜营机场",
+      "en": "Nanyang Jiangying Airport",
+      "city": "南阳",
+      "pinyin": "nanyang jiangying",
+      "province": "河南",
+      "opened": 1992,
+      "elevationM": 124,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1992,
+          "approx": true,
+          "note": "面积约 8400 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2800,
+          "width": 50,
+          "approx": true,
+          "note": "2012 年延长至 2800 米"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "前身南阳机场始建于 1934 年;姜营机场 1991 年迁建,1992 年投用。",
+        "中国南方航空飞行训练基地,4D 级支线机场。",
+        "白河之滨,距南阳市中心仅约 8 千米。"
+      ],
+      "coord": [
+        112.61,
+        32.97
+      ]
+    },
+    {
+      "iata": "ANY",
+      "icao": "ZHAY",
+      "cn": "安阳红旗渠机场",
+      "en": "Anyang Hongqiqu Airport",
+      "city": "安阳",
+      "pinyin": "anyang hongqiqu",
+      "province": "河南",
+      "opened": 2023,
+      "elevationM": 74,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2023,
+          "note": "面积约 6100 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2023 年 11 月 29 日通航,河南最年轻的运输机场(时名安阳豫东北机场规划)。",
+        "安阳为全国通航产业试点城市,航空运动之都,林虑山滑翔基地闻名。",
+        "跑道 2600×45 米,4C 级支线机场。"
+      ],
+      "coord": [
+        114.42,
+        36.05
+      ]
+    },
+    {
+      "iata": "KRL",
+      "icao": "ZWKL",
+      "cn": "库尔勒机场",
+      "en": "Korla Airport",
+      "city": "库尔勒",
+      "pinyin": "kuerle",
+      "province": "新疆",
+      "opened": 2007,
+      "elevationM": 964,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2007,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "原军用机场 1971 年开通民航;新机场 2007 年 12 月 20 日通航,军民合用。",
+        "巴音郭楞蒙古自治州门户、新疆航空次枢纽,4D 级。",
+        "地处天山南麓孔雀河畔,香梨之乡的空中通道。"
+      ],
+      "coord": [
+        86.17,
+        41.7
+      ]
+    },
+    {
+      "iata": "AKU",
+      "icao": "ZWAT",
+      "cn": "阿克苏红旗坡机场",
+      "en": "Aksu Hongqipo Airport",
+      "city": "阿克苏",
+      "pinyin": "akesu hongqipo",
+      "province": "新疆",
+      "opened": 1973,
+      "elevationM": 1180,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2010,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2020,
+          "note": "面积约 2.0 万平方米,2020 年 11 月投用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "首建于 1942 年,全国民航最早建设的机场之一,军民合用。",
+        "新疆五个百万级次枢纽机场之一,2020 年更名红旗坡机场并启用 T2。",
+        "塔里木盆地北沿、天山南麓,距乌鲁木齐直线 700 公里。"
+      ],
+      "coord": [
+        80.29,
+        41.15
+      ]
+    },
+    {
+      "iata": "HTN",
+      "icao": "ZWTN",
+      "cn": "和田昆冈机场",
+      "en": "Hetian Kungang Airport",
+      "city": "和田",
+      "pinyin": "hetian kungang",
+      "province": "新疆",
+      "opened": 1957,
+      "elevationM": 1420,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2002,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3200,
+          "width": 50,
+          "approx": true,
+          "note": "2002 年加长到 3200 米"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "前身 1931 年通航,新中国成立后 1956 年试飞、1957 年建成,新疆老牌机场。",
+        "『玉都机场』:和田玉之乡的门户,2023 年更名昆冈机场。",
+        "塔里木盆地南部边缘,风沙天气对运行影响明显。"
+      ],
+      "coord": [
+        79.85,
+        37.04
+      ]
+    },
+    {
+      "iata": "KRY",
+      "icao": "ZWKM",
+      "cn": "克拉玛依古海机场",
+      "en": "Kelamayi Guhai Airport",
+      "city": "克拉玛依",
+      "pinyin": "kelamayi guhai",
+      "province": "新疆",
+      "opened": 2006,
+      "elevationM": 449,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2006,
+          "approx": true,
+          "note": "2023 年 9 月新航站楼投用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2006 年 4 月 10 日通航,2021 年更名古海机场,石油之城克拉玛依的门户。",
+        "北疆次枢纽机场,国家临时对外开放口岸。",
+        "跑道 2600×45 米,可全重起降 757-200 及以下机型。"
+      ],
+      "coord": [
+        85.02,
+        45.34
+      ]
+    },
+    {
+      "iata": "HMI",
+      "icao": "ZWHM",
+      "cn": "哈密伊州机场",
+      "en": "Hami Airport",
+      "city": "哈密",
+      "pinyin": "hami yizhou",
+      "province": "新疆",
+      "opened": 2008,
+      "elevationM": 839,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2008,
+          "approx": true,
+          "note": "约 4900 平方米,一层式"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1932 年曾开辟上海—新疆—苏联—柏林国际航线,抗战时期为援华物资转运通道。",
+        "1964 年重建,1981 年停航,2008 年 12 月复航,2016 年升 4D。",
+        "新疆最早设站通航的城市之一,东天山脚下的进疆门户。"
+      ],
+      "coord": [
+        93.64,
+        42.83
+      ]
+    },
+    {
+      "iata": "KCA",
+      "icao": "ZWKC",
+      "cn": "库车龟兹机场",
+      "en": "Kuqa Qiuci Airport",
+      "city": "阿克苏(库车)",
+      "pinyin": "kuche guici",
+      "province": "新疆",
+      "opened": 2011,
+      "elevationM": 1080,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2011,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "老库车机场建于上世纪 30 年代,被城区与化工园区包围;2011 年 9 月新机场通航。",
+        "龟兹古国故地,4C 级支线机场,服务南疆铁路枢纽库车。",
+        "跑道较老场大幅延长,摆脱了『被包在县城中间』的窘境。"
+      ],
+      "coord": [
+        82.85,
+        41.26
+      ]
+    },
+    {
+      "iata": "BPX",
+      "icao": "ZUBD",
+      "cn": "昌都邦达机场",
+      "en": "Qamdo Bangda Airport",
+      "city": "昌都",
+      "pinyin": "changdu bangda",
+      "province": "西藏",
+      "opened": 1995,
+      "elevationM": 4334,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1995,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 5500,
+          "width": 45,
+          "approx": true,
+          "note": "曾为世界最长民航跑道"
+        },
+        {
+          "id": "10/28",
+          "length": 4500,
+          "width": 45,
+          "approx": true,
+          "note": "2017 年新建跑道"
+        }
+      ],
+      "hubs": [
+        {
+          "id": "tv",
+          "cn": "西藏航空"
+        },
+        {
+          "id": "ca",
+          "cn": "中国国际航空"
+        }
+      ],
+      "facts": [
+        "1978 年建成、1995 年正式通航:世界海拔第二高机场(约 4334 米)。",
+        "邦达草原上的机场:距昌都城区约 120 千米,曾是世界上离城市最远的机场。",
+        "高高原运行限制严格,航班集中于上午,2017 年新建 4500 米第二跑道。"
+      ],
+      "coord": [
+        97.1,
+        30.55
+      ]
+    },
+    {
+      "iata": "LZY",
+      "icao": "ZULS",
+      "cn": "林芝米林机场",
+      "en": "Nyingchi Mainling Airport",
+      "city": "林芝",
+      "pinyin": "linzhi milin",
+      "province": "西藏",
+      "opened": 2006,
+      "elevationM": 2949,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2006,
+          "approx": true,
+          "note": "扩建后约 1.35 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "tv",
+          "cn": "西藏航空"
+        },
+        {
+          "id": "ca",
+          "cn": "中国国际航空"
+        }
+      ],
+      "facts": [
+        "2006 年 9 月 1 日通航,西藏海拔最低的机场(2949 米),却被称为国内飞行难度第一。",
+        "雅鲁藏布江河谷云雾缭绕、两侧高山 4000+ 米,RNP AR 精密导航程序起降。",
+        "桃花节与雪山门户,国航/南航/川航/西藏航执飞。"
+      ],
+      "coord": [
+        94.33,
+        29.3
+      ]
+    },
+    {
+      "iata": "NGQ",
+      "icao": "ZUAL",
+      "cn": "阿里昆莎机场",
+      "en": "Ngari Gunsa Airport",
+      "city": "阿里",
+      "pinyin": "ali kunsha",
+      "province": "西藏",
+      "opened": 2008,
+      "elevationM": 4274,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2008,
+          "approx": true,
+          "note": "约 3900 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "10/28",
+          "length": 4500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "tv",
+          "cn": "西藏航空"
+        }
+      ],
+      "facts": [
+        "2008 年 7 月 1 日通航,海拔 4274 米,世界海拔第四高的机场。",
+        "冈底斯山与喜马拉雅之间的噶尔河谷,神山圣湖之旅的空中入口。",
+        "跑道 4500×45 米,高高原运行限制严格。"
+      ],
+      "coord": [
+        80.06,
+        32.1
+      ]
+    },
+    {
+      "iata": "DDR",
+      "icao": "ZUZR",
+      "cn": "日喀则和平机场",
+      "en": "Shigatse Peace Airport",
+      "city": "日喀则",
+      "pinyin": "rikaze heping",
+      "province": "西藏",
+      "opened": 2010,
+      "elevationM": 3800,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2010,
+          "approx": true,
+          "note": "约 4500 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 5000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "tv",
+          "cn": "西藏航空"
+        }
+      ],
+      "facts": [
+        "1968 年动工、1972 年建成军用;2010 年 10 月 30 日民航通航,西藏第五个民用机场。",
+        "海拔 3800 米、跑道长达 5000 米,西藏重要的备降机场。",
+        "珠峰大本营之旅的传统起点城市。"
+      ],
+      "coord": [
+        89.29,
+        29.4
+      ]
+    },
+    {
+      "iata": "GOQ",
+      "icao": "ZLGM",
+      "cn": "格尔木机场",
+      "en": "Golmud Airport",
+      "city": "格尔木",
+      "pinyin": "geermu",
+      "province": "青海",
+      "opened": 1974,
+      "elevationM": 2842,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2017,
+          "approx": true,
+          "note": "二期改扩建 2017 年投用,约 1.0 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 4800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1974 年 11 月建站通航,军民合用 4D 级支线机场,海拔 2842 米。",
+        "跑道长达 4800 米,柴达木盆地戈壁上的高原机场。",
+        "青藏线重镇:进藏铁路与航空的重要备降与中转节点。"
+      ],
+      "coord": [
+        94.77,
+        36.42
+      ]
+    },
+    {
+      "iata": "YUS",
+      "icao": "ZLYS",
+      "cn": "玉树巴塘机场",
+      "en": "Yushu Batang Airport",
+      "city": "玉树",
+      "pinyin": "yushu batang",
+      "province": "青海",
+      "opened": 2009,
+      "elevationM": 3950,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2009,
+          "approx": true,
+          "note": "约 4000 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2009 年通航,海拔约 3950 米的高高原机场,2010 年玉树地震的救灾空中生命线。",
+        "距结古镇 26 公里,通天河谷之上的 4C 级机场。",
+        "跑道 3800 米,高高原性能补偿设计。"
+      ],
+      "coord": [
+        97.03,
+        32.85
+      ]
+    },
+    {
+      "iata": "DNH",
+      "icao": "ZLDH",
+      "cn": "敦煌莫高国际机场",
+      "en": "Dunhuang Mogao International Airport",
+      "city": "敦煌",
+      "pinyin": "dunhuang mogao",
+      "province": "甘肃",
+      "opened": 1982,
+      "elevationM": 1120,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T2",
+          "role": "国际",
+          "opened": 2016,
+          "approx": true,
+          "note": "约 5600 平方米"
+        },
+        {
+          "name": "T3",
+          "role": "国内主楼",
+          "opened": 2016,
+          "note": "面积约 1.2 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3400,
+          "width": 45,
+          "approx": true,
+          "note": "2017 年延长至 3400 米,可满足 E 类备降"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1982 年 7 月 31 日通航,丝路名城敦煌的空中门户,2020 年更名莫高国际机场。",
+        "4D 级,满足 E 类飞机备降;距莫高窟仅 15 千米。",
+        "河西走廊旅游龙头,旺季丝路航线密集。"
+      ],
+      "coord": [
+        94.81,
+        40.19
+      ]
+    },
+    {
+      "iata": "JGN",
+      "icao": "ZLJQ",
+      "cn": "嘉峪关酒泉机场",
+      "en": "Jiayuguan Jiuquan Airport",
+      "city": "嘉峪关",
+      "pinyin": "jiayuguan jiuquan",
+      "province": "甘肃",
+      "opened": 1953,
+      "elevationM": 1559,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2013,
+          "approx": true,
+          "note": "约 8300 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1938 年始建于酒泉,西北民航历史最悠久的机场之一,1953 年现址通航。",
+        "高原机场(1559 米),欧亚航路通信导航枢纽与国际紧急迫降机场。",
+        "服务嘉峪关、酒泉与酒泉卫星发射基地,长城脚下的 4D 级机场。"
+      ],
+      "coord": [
+        98.35,
+        39.83
+      ]
+    },
+    {
+      "iata": "IQN",
+      "icao": "ZLQY",
+      "cn": "庆阳西峰机场",
+      "en": "Qingyang Xifeng Airport",
+      "city": "庆阳",
+      "pinyin": "qingyang xifeng",
+      "province": "甘肃",
+      "opened": 1977,
+      "elevationM": 1420,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2012,
+          "approx": true,
+          "note": "约 7150 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1977 年 10 月 1 日通航,黄土高原塬区机场。",
+        "跑道 2800×45 米,4C 级,陇东能源化工基地的空中通道。",
+        "距庆阳市中心仅 8 千米,董志塬上的机场。"
+      ],
+      "coord": [
+        107.64,
+        35.78
+      ]
+    },
+    {
+      "iata": "HZG",
+      "icao": "ZLHZ",
+      "cn": "汉中城固机场",
+      "en": "Hanzhong Chenggu Airport",
+      "city": "汉中",
+      "pinyin": "hanzhong chenggu",
+      "province": "陕西",
+      "opened": 2014,
+      "elevationM": 540,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2014,
+          "note": "约 5600 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2013 年 12 月西关机场转场城固,2014 年 8 月 13 日首航,军民合用 4C。",
+        "汉中盆地油菜花海门户,西汉三遗址与朱鹮之乡。",
+        "跑道 2500×45 米,联络道 303 米。"
+      ],
+      "coord": [
+        107.24,
+        33.14
+      ]
+    },
+    {
+      "iata": "ENY",
+      "icao": "ZLYA",
+      "cn": "延安南泥湾机场",
+      "en": "Yanan Nanniwan Airport",
+      "city": "延安",
+      "pinyin": "yanan nanniwan",
+      "province": "陕西",
+      "opened": 2018,
+      "elevationM": 1090,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2018,
+          "note": "约 1.3 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2018 年 11 月 8 日通航,延安机场第三次迁建(东关→二十里铺→南泥湾)。",
+        "革命圣地门户,军民合用 4C 级。",
+        "跑道 3000 米,黄土沟壑区选址。"
+      ],
+      "coord": [
+        109.6,
+        36.5
+      ]
+    },
+    {
+      "iata": "UYN",
+      "icao": "ZLYL",
+      "cn": "榆林榆阳机场",
+      "en": "Yulin Yuyang Airport",
+      "city": "榆林",
+      "pinyin": "yulin yuyang",
+      "province": "陕西",
+      "opened": 2008,
+      "elevationM": 1140,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2008,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2020,
+          "note": "停机位 26 个"
+        }
+      ],
+      "runways": [
+        {
+          "id": "18/36",
+          "length": 3200,
+          "width": 45,
+          "approx": true,
+          "note": "2018 年切换 3200 米跑道,升 4D"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2008 年转场榆阳,创造全国支线机场发展的『榆林速度』。",
+        "陕西第二大航空港,能源新都的门户,西北发展最快的支线机场。",
+        "前身南郊机场始建于 1936 年,历经西沙、榆阳两次转场。"
+      ],
+      "coord": [
+        109.74,
+        38.27
+      ]
+    },
+    {
+      "iata": "ZHY",
+      "icao": "ZLZW",
+      "cn": "中卫沙坡头机场",
+      "en": "Zhongwei Shapotou Airport",
+      "city": "中卫",
+      "pinyin": "zhongwei shapotou",
+      "province": "宁夏",
+      "opened": 2008,
+      "elevationM": 1240,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2008,
+          "note": "约 3300 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2008 年 12 月 26 日运营,初名香山机场,2012 年更名沙坡头机场。",
+        "沙坡头(大漠黄河)旅游门户,4C 级,可起降 737/A320 系列。",
+        "跑道 2800×45 米,腾格里沙漠边缘的机场。"
+      ],
+      "coord": [
+        105.65,
+        37.52
+      ]
+    },
+    {
+      "iata": "GYU",
+      "icao": "ZLGY",
+      "cn": "固原六盘山机场",
+      "en": "Guyuan Liupanshan Airport",
+      "city": "固原",
+      "pinyin": "guyuan liupanshan",
+      "province": "宁夏",
+      "opened": 2012,
+      "elevationM": 1750,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2012,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2012 年通航,宁夏唯一的高原机场,六盘山下。",
+        "4C 级支线机场,服务宁南山区与红色旅游(六盘山长征景区)。",
+        "跑道 2800×45 米(约)。"
+      ],
+      "coord": [
+        106.24,
+        36.02
+      ]
+    },
+    {
+      "iata": "BAV",
+      "icao": "ZBOW",
+      "cn": "包头东河机场",
+      "en": "Baotou Donghe Airport",
+      "city": "包头",
+      "pinyin": "baotou donghe",
+      "province": "内蒙古",
+      "opened": 1938,
+      "elevationM": 1000,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1998,
+          "approx": true,
+          "note": "国内楼约 3 万平方米"
+        },
+        {
+          "name": "国际航站楼",
+          "role": "国际",
+          "opened": 2015,
+          "approx": true,
+          "note": "约 1.1 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "13/31",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1938 年首次翻建改造,内蒙古历史最悠久的机场之一,俗称二里半机场。",
+        "国家一类航空口岸,2018 年更名东河机场。",
+        "跑道 2800×45 米,2006 年飞行区升至 4D。"
+      ],
+      "coord": [
+        110.01,
+        40.56
+      ]
+    },
+    {
+      "iata": "DSN",
+      "icao": "ZBDS",
+      "cn": "鄂尔多斯伊金霍洛国际机场",
+      "en": "Ordos Ejin Horo International Airport",
+      "city": "鄂尔多斯",
+      "pinyin": "eeerduosi yijinhuoluo",
+      "province": "内蒙古",
+      "opened": 2007,
+      "elevationM": 1385,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2012,
+          "approx": true,
+          "note": "改扩建后达 4E"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2015 年飞行区升 4E,可起降 A330 及以下机型;2016 年更名国际机场。",
+        "国航首选飞行训练基地,南苑机场与首都机场的备降场。",
+        "康巴什新区旁的草原机场,煤都鄂尔多斯的门户。"
+      ],
+      "coord": [
+        109.87,
+        39.5
+      ]
+    },
+    {
+      "iata": "HLD",
+      "icao": "ZBLA",
+      "cn": "呼伦贝尔东山国际机场",
+      "en": "Hulunbuir Hailar Dongshan International Airport",
+      "city": "呼伦贝尔(海拉尔)",
+      "pinyin": "hulunbeier hailaer",
+      "province": "内蒙古",
+      "opened": 1932,
+      "elevationM": 656,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2003,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际",
+          "opened": 2011,
+          "approx": true,
+          "note": "航站楼总面积约 2.8 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "始建于 1932 年,常称海拉尔机场,2011 年更名东山国际机场。",
+        "呼伦贝尔大草原旅游门户,夏季草原航线与旅游包机密集。",
+        "4D 级国际机场,跑道 2800×45 米。"
+      ],
+      "coord": [
+        119.82,
+        49.21
+      ]
+    },
+    {
+      "iata": "NZH",
+      "icao": "ZBMZ",
+      "cn": "满洲里西郊国际机场",
+      "en": "Manzhouli Xijiao International Airport",
+      "city": "满洲里",
+      "pinyin": "manzhouli xijiao",
+      "province": "内蒙古",
+      "opened": 2004,
+      "elevationM": 646,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2004,
+          "approx": true,
+          "note": "约 1.98 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2004 年 12 月 8 日通航,中俄边境最大陆路口岸城市的空中门户。",
+        "对俄蒙航线特色鲜明,4D 级国际机场(2026 年更名获批)。",
+        "跑道 2800×45 米,冬季严寒运行考验大。"
+      ],
+      "coord": [
+        117.38,
+        49.57
+      ]
+    },
+    {
+      "iata": "CIF",
+      "icao": "ZBCF",
+      "cn": "赤峰玉龙机场",
+      "en": "Chifeng Yulong Airport",
+      "city": "赤峰",
+      "pinyin": "chifeng yulong",
+      "province": "内蒙古",
+      "opened": 2008,
+      "elevationM": 540,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2008,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2022,
+          "note": "约 3.15 万平方米,2022 年 8 月转场"
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2008 年转场启用玉龙机场,2022 年 T2 新楼投运,军民合用。",
+        "红山文化『玉龙』之乡,4C 级,跑道 2800×50 米。",
+        "距赤峰市中心约 15 千米,蒙东枢纽节点。"
+      ],
+      "coord": [
+        118.91,
+        42.15
+      ]
+    },
+    {
+      "iata": "TGO",
+      "icao": "ZBTL",
+      "cn": "通辽机场",
+      "en": "Tongliao Airport",
+      "city": "通辽",
+      "pinyin": "tongliao",
+      "province": "内蒙古",
+      "opened": 1959,
+      "elevationM": 200,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2013,
+          "approx": true,
+          "note": "约 1.16 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "11/29",
+          "length": 2700,
+          "width": 50,
+          "approx": true,
+          "note": "2020 年启用 2700 米跑道"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1959 年 5 月 26 日通航,首条航线呼和浩特—北京—赤峰—通辽。",
+        "10 万市民 16 昼夜修建的土质跑道起步,如今为 4D 级(约)。",
+        "科尔沁草原门户,与天津航空开展战略合作。"
+      ],
+      "coord": [
+        122.25,
+        43.56
+      ]
+    },
+    {
+      "iata": "XIL",
+      "icao": "ZBXH",
+      "cn": "锡林浩特机场",
+      "en": "Xilinhot Airport",
+      "city": "锡林浩特",
+      "pinyin": "xilinhaote",
+      "province": "内蒙古",
+      "opened": 1992,
+      "elevationM": 1004,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1992,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1992 年新机场启用,2001 年升 4C、2008 年升 4D(约)。",
+        "锡林郭勒大草原门户,距市区很近的草原机场。",
+        "已开通 18 条国内航线和 2 条国际航线(数据时点)。"
+      ],
+      "coord": [
+        116.08,
+        43.91
+      ]
+    },
+    {
+      "iata": "HLH",
+      "icao": "ZBUL",
+      "cn": "乌兰浩特义勒力特机场",
+      "en": "Ulanhot Yileleete Airport",
+      "city": "乌兰浩特",
+      "pinyin": "wulanhaote yilelite",
+      "province": "内蒙古",
+      "opened": 1995,
+      "elevationM": 300,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1995,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "16/34",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1995 年建成,兴安盟首府门户,4C 级支线机场。",
+        "乌兰浩特—通辽—北京等支线串飞航线的经典节点。",
+        "草原红色之城(内蒙古自治政府诞生地)的空中通道。"
+      ],
+      "coord": [
+        121.99,
+        46.18
+      ]
+    },
+    {
+      "iata": "JNZ",
+      "icao": "ZYJZ",
+      "cn": "锦州湾机场",
+      "en": "Jinzhou Jinzhouwan Airport",
+      "city": "锦州",
+      "pinyin": "jinzhouwan",
+      "province": "辽宁",
+      "opened": 2015,
+      "elevationM": 45,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2015,
+          "note": "约 1.0 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "12/30",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2015 年 12 月 10 日通航,系小岭子军民合用机场迁建,结束辽西无纯民用机场历史。",
+        "临海而建:南距辽东湾仅 8 千米,4C 级。",
+        "跑道 2500×45 米,中远期预留 4D 发展空间。"
+      ],
+      "coord": [
+        121.33,
+        40.88
+      ]
+    },
+    {
+      "iata": "DDG",
+      "icao": "ZYDD",
+      "cn": "丹东浪头机场",
+      "en": "Dandong Langtou Airport",
+      "city": "丹东",
+      "pinyin": "dandong langtou",
+      "province": "辽宁",
+      "opened": 1985,
+      "elevationM": 20,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 1993,
+          "approx": true,
+          "note": "约 2.1 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1985 年正式成立并通航,1993 年改扩建成 4C,军民合用。",
+        "中朝边境城市门户,距鸭绿江断桥仅十余公里。",
+        "跑道 2600×45 米,航站楼 2008 年再次改建。"
+      ],
+      "coord": [
+        119.28,
+        40.05
+      ]
+    },
+    {
+      "iata": "YKH",
+      "icao": "ZYYK",
+      "cn": "营口兰旗机场",
+      "en": "Yingkou Lanqi Airport",
+      "city": "营口",
+      "pinyin": "yingkou lanqi",
+      "province": "辽宁",
+      "opened": 2016,
+      "elevationM": 20,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际",
+          "opened": 2016,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "13/31",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2016 年通航,辽东湾之滨的 4C 级支线机场。",
+        "服务营口与盘锦,辽宁沿海经济带节点。",
+        "跑道 2500×45 米(约)。"
+      ],
+      "coord": [
+        122.22,
+        40.54
+      ]
+    },
+    {
+      "iata": "YNJ",
+      "icao": "ZYYN",
+      "cn": "延吉朝阳川国际机场",
+      "en": "Yanji Chaoyangchuan International Airport",
+      "city": "延吉",
+      "pinyin": "yanji chaoyangchuan",
+      "province": "吉林",
+      "opened": 1985,
+      "elevationM": 25,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1997,
+          "approx": true,
+          "note": "约 2.3 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1952 年始建,1985 年 8 月 29 日开通民航,军民合用 4C。",
+        "延边朝鲜族自治州门户,对韩俄航线特色鲜明,东北亚区域节点。",
+        "跑道 2600×45 米,可全载起降 A321、737-900 及以下机型。"
+      ],
+      "coord": [
+        129.45,
+        42.88
+      ]
+    },
+    {
+      "iata": "NBS",
+      "icao": "ZYBS",
+      "cn": "白山长白山机场",
+      "en": "Baishan Changbaishan Airport",
+      "city": "白山",
+      "pinyin": "baishan changbaishan",
+      "province": "吉林",
+      "opened": 2008,
+      "elevationM": 767,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2008,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2025,
+          "approx": true,
+          "note": "约 2.07 万平方米,2025 年投用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2008 年 8 月 3 日通航,4D 级森林旅游支线机场,距长白山天池 37 千米。",
+        "滑雪季与避暑季客流冰火两重天,2024 年单日纪录屡创新高。",
+        "新航站楼 2025 年投用,机位增至 20 个。"
+      ],
+      "coord": [
+        127.53,
+        42.06
+      ]
+    },
+    {
+      "iata": "MDG",
+      "icao": "ZYMD",
+      "cn": "牡丹江海浪国际机场",
+      "en": "Mudanjiang Hailang International Airport",
+      "city": "牡丹江",
+      "pinyin": "mudanjiang hailang",
+      "province": "黑龙江",
+      "opened": 1985,
+      "elevationM": 270,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1985,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1985 年 9 月 2 日开通民航(首条航线安-24 执飞哈尔滨),军民合用 4C。",
+        "2017 年更名国际机场,黑龙江省第二个国际机场。",
+        "镜泊湖与雪乡门户,跑道 2600×45 米。"
+      ],
+      "coord": [
+        129.57,
+        44.53
+      ]
+    },
+    {
+      "iata": "JMU",
+      "icao": "ZYJM",
+      "cn": "佳木斯东郊国际机场",
+      "en": "Jiamusi Dongjiao International Airport",
+      "city": "佳木斯",
+      "pinyin": "jiamusi dongjiao",
+      "province": "黑龙江",
+      "opened": 1985,
+      "elevationM": 90,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1985,
+          "approx": true,
+          "note": "约 5700 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "三江平原腹地的军民合用国际机场,4C 级。",
+        "对俄远东航线节点,垦区与边贸客流并重。",
+        "跑道 2500×45 米,可满足年旅客 30 万人次。"
+      ],
+      "coord": [
+        130.44,
+        46.84
+      ]
+    },
+    {
+      "iata": "HEK",
+      "icao": "ZYHE",
+      "cn": "黑河瑷珲机场",
+      "en": "Heihe Aihui Airport",
+      "city": "黑河",
+      "pinyin": "heihe aihui",
+      "province": "黑龙江",
+      "opened": 1958,
+      "elevationM": 170,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2003,
+          "approx": true,
+          "note": "约 5800 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1958 年建,历经 1987/2003 两次扩建,2016 年更名瑷珲机场。",
+        "与俄罗斯布拉戈维申斯克隔黑龙江相望,中俄双子城门户。",
+        "跑道 2500×45 米,4C 级。"
+      ],
+      "coord": [
+        127.32,
+        50.24
+      ]
+    },
+    {
+      "iata": "OHE",
+      "icao": "ZYMH",
+      "cn": "漠河古莲机场",
+      "en": "Mohe Gulian Airport",
+      "city": "漠河",
+      "pinyin": "mohe gulian",
+      "province": "黑龙江",
+      "opened": 2008,
+      "elevationM": 500,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2008,
+          "note": "约 6300 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "10/28",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2008 年 6 月通航,中国位置最北、纬度最高的民用机场。",
+        "北极村旅游门户,冬季极寒条件下的运行保障是特色科目。",
+        "2021-2023 年改扩建后复航,保障能力大幅提升。"
+      ],
+      "coord": [
+        122.45,
+        52.97
+      ]
+    },
+    {
+      "iata": "DQA",
+      "icao": "ZYDQ",
+      "cn": "大庆萨尔图机场",
+      "en": "Daqing Sartu Airport",
+      "city": "大庆",
+      "pinyin": "daqing saertu",
+      "province": "黑龙江",
+      "opened": 2009,
+      "elevationM": 148,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2009,
+          "note": "约 1.4 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "17/35",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "cz",
+          "cn": "中国南方航空(黑龙江第二运营基地)"
+        }
+      ],
+      "facts": [
+        "2009 年 9 月 1 日通航,石油之城大庆的门户。",
+        "南航黑龙江分公司第二运营基地,黑龙江西部最大支线枢纽。",
+        "跑道 2600×45 米,4C 级,国际航站楼 2019 年开工。"
+      ],
+      "coord": [
+        125.22,
+        46.71
+      ]
+    },
+    {
+      "iata": "BPE",
+      "icao": "ZBDH",
+      "cn": "秦皇岛北戴河机场",
+      "en": "Qinhuangdao Beidaihe Airport",
+      "city": "秦皇岛",
+      "pinyin": "qinhuangdao beidaihe",
+      "province": "河北",
+      "opened": 2016,
+      "elevationM": 25,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2016,
+          "note": "约 1.06 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2016 年 3 月 31 日山海关机场民航整体转场至此,军民分离后的纯民用机场。",
+        "避暑胜地北戴河的空中门户,临时对外开放口岸。",
+        "跑道 2600×45 米,4C 级,距主城区 47 千米。"
+      ],
+      "coord": [
+        119.19,
+        39.69
+      ]
+    },
+    {
+      "iata": "TVS",
+      "icao": "ZBSN",
+      "cn": "唐山三女河机场",
+      "en": "Tangshan Sannvhe Airport",
+      "city": "唐山",
+      "pinyin": "tangshan sannvhe",
+      "province": "河北",
+      "opened": 2010,
+      "elevationM": 25,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2010,
+          "note": "约 6200 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2700,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2010 年 7 月 13 日开通民航,军民合用,河北第四个客运机场。",
+        "工业重镇唐山的门户,改扩建规划机位翻倍。",
+        "跑道 2700×50 米,适航机型以 737/A320 系列为主。"
+      ],
+      "coord": [
+        118.0,
+        39.72
+      ]
+    },
+    {
+      "iata": "ZQZ",
+      "icao": "ZBZJ",
+      "cn": "张家口宁远机场",
+      "en": "Zhangjiakou Ningyuan Airport",
+      "city": "张家口",
+      "pinyin": "zhangjiakou ningyuan",
+      "province": "河北",
+      "opened": 2013,
+      "elevationM": 720,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 2013,
+          "note": "约 5400 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2020,
+          "note": "约 1.4 万平方米,冬奥会保障项目"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1935 年始建,2013 年 6 月 16 日开通民航,军民合用。",
+        "2022 年北京冬奥会重点交通项目:改扩建 2020 年 8 月建成通航。",
+        "跑道 3000×45 米,T1/T2 双楼。"
+      ],
+      "coord": [
+        114.94,
+        40.62
+      ]
+    },
+    {
+      "iata": "DAT",
+      "icao": "ZBDT",
+      "cn": "大同云冈国际机场",
+      "en": "Datong Yungang International Airport",
+      "city": "大同",
+      "pinyin": "datong yungang",
+      "province": "山西",
+      "opened": 2005,
+      "elevationM": 1050,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国际",
+          "opened": 2005,
+          "approx": true,
+          "note": "约 6300 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2013,
+          "approx": true,
+          "note": "约 1.09 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2005 年 12 月 26 日通航(倍加造机场),2012 年更名云冈机场。",
+        "云冈石窟与古都平城门户,山西省第三大民航机场。",
+        "跑道 3000×45 米,2023 年起投放过夜运力。"
+      ],
+      "coord": [
+        113.48,
+        40.06
+      ]
+    },
+    {
+      "iata": "YCU",
+      "icao": "ZBYC",
+      "cn": "运城盐湖国际机场",
+      "en": "Yuncheng Yanhu International Airport",
+      "city": "运城",
+      "pinyin": "yuncheng yanhu",
+      "province": "山西",
+      "opened": 2005,
+      "elevationM": 379,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国际",
+          "opened": 2005,
+          "approx": true,
+          "note": "约 2.8 万平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2023,
+          "approx": true,
+          "note": "约 2.7 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 3200,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2005 年 2 月 7 日通航(张孝机场),晋陕豫黄河金三角区域枢纽。",
+        "飞行区 4E(约),跑道 3200×45 米,关公故里的空中门户。",
+        "七彩盐湖与永乐宫旅游门户,改扩建后双楼运行。"
+      ],
+      "coord": [
+        110.99,
+        35.15
+      ]
+    },
+    {
+      "iata": "CIH",
+      "icao": "ZBCZ",
+      "cn": "长治王村机场",
+      "en": "Changzhi Wangcun Airport",
+      "city": "长治",
+      "pinyin": "changzhi wangcun",
+      "province": "山西",
+      "opened": 2003,
+      "elevationM": 923,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2021,
+          "approx": true,
+          "note": "扩建后总面积约 2.2 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2440,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "始建于 1958 年,2000 年因跑道风化停航,2003 年复航,军民合用。",
+        "海拔 923 米的上党盆地机场,跑道 2440×45 米。",
+        "2021 年新航站楼投运,太行山大峡谷旅游门户。"
+      ],
+      "coord": [
+        113.06,
+        36.31
+      ]
+    },
+    {
+      "iata": "LFQ",
+      "icao": "ZBLF",
+      "cn": "临汾尧都机场",
+      "en": "Linfen Yaodu Airport",
+      "city": "临汾",
+      "pinyin": "linfen yaodu",
+      "province": "山西",
+      "opened": 2016,
+      "elevationM": 450,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2016,
+          "note": "约 2.6 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "16/34",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1959 年曾通航、1960 年停航;2016 年 1 月 25 日重建复航,2020 年更名尧都机场。",
+        "尧都平阳、黄河壶口瀑布门户,4C 级。",
+        "跑道 2600×45 米,航站楼 2.6 万平方米。"
+      ],
+      "coord": [
+        111.55,
+        36.23
+      ]
+    },
+    {
+      "iata": "WEH",
+      "icao": "ZSWH",
+      "cn": "威海大水泊机场",
+      "en": "Weihai Dashuibo Airport",
+      "city": "威海",
+      "pinyin": "weihai dashuibo",
+      "province": "山东",
+      "opened": 1988,
+      "elevationM": 30,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1988,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "始建于 1955 年,1988 年 7 月 1 日威海—北京首航,军民合用国际机场。",
+        "2002 年升 4D,2004 年获批对外开放,千里海岸线门户。",
+        "跑道 2600 米,停机位 20 个(数据时点)。"
+      ],
+      "coord": [
+        122.23,
+        37.31
+      ]
+    },
+    {
+      "iata": "LYI",
+      "icao": "ZSLY",
+      "cn": "临沂启阳国际机场",
+      "en": "Linyi Qiyang International Airport",
+      "city": "临沂",
+      "pinyin": "linyi qiyang",
+      "province": "山东",
+      "opened": 1998,
+      "elevationM": 70,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1998,
+          "approx": true,
+          "note": "现约 2.3 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 3200,
+          "width": 60,
+          "approx": true,
+          "note": "三期改扩建后 3200×60 米"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "山东首个民用航空机场:沭埠岭机场 1958 年通航,1998 年恢复,2019 年更名启阳。",
+        "定位鲁南苏北区域枢纽与红色旅游(沂蒙老区)门户,4D 级。",
+        "跑道 3200×60 米,2023 年口岸对外开放通过国家验收。"
+      ],
+      "coord": [
+        118.41,
+        35.05
+      ]
+    },
+    {
+      "iata": "RIZ",
+      "icao": "ZSRZ",
+      "cn": "日照山字河机场",
+      "en": "Rizhao Shanzihe Airport",
+      "city": "日照",
+      "pinyin": "rizhao shanzihe",
+      "province": "山东",
+      "opened": 2015,
+      "elevationM": 15,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2015,
+          "note": "约 2.2 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "12/30",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2015 年 12 月 22 日通航,华东地区通航飞行量最大的机场(含通航作业)。",
+        "阳光海岸与东方太阳城门户,4C 级。",
+        "跑道 2600×45 米,同期同类机场货邮增速领先。"
+      ],
+      "coord": [
+        119.22,
+        35.42
+      ]
+    },
+    {
+      "iata": "JNG",
+      "icao": "ZSJG",
+      "cn": "济宁大安机场",
+      "en": "Jining Da'an Airport",
+      "city": "济宁",
+      "pinyin": "jining daan",
+      "province": "山东",
+      "opened": 2023,
+      "elevationM": 60,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2023,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2023 年 12 月 28 日通航,系济宁曲阜机场(嘉祥)民用部分迁建。",
+        "孔孟之乡运河之都的新门户,4C 级,位于兖州漕河。",
+        "通航即平移原机场全部航线,通达 21 城。"
+      ],
+      "coord": [
+        116.84,
+        35.57
+      ]
+    },
+    {
+      "iata": "CZX",
+      "icao": "ZSCG",
+      "cn": "常州奔牛国际机场",
+      "en": "Changzhou Benniu International Airport",
+      "city": "常州",
+      "pinyin": "changzhou benniu",
+      "province": "江苏",
+      "opened": 1986,
+      "elevationM": 5,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2011,
+          "note": "约 3.8 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "12/30",
+          "length": 3400,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1963 年竣工的海军机场,1986 年 3 月 15 日开通民航,军民合用 4E。",
+        "长三角重要客货运机场,2015 年更名国际机场。",
+        "跑道 3400×50 米,新航站楼 2011 年启用。"
+      ],
+      "coord": [
+        119.78,
+        31.92
+      ]
+    },
+    {
+      "iata": "XUZ",
+      "icao": "ZSXZ",
+      "cn": "徐州观音国际机场",
+      "en": "Xuzhou Guanyin International Airport",
+      "city": "徐州",
+      "pinyin": "xuzhou guanyin",
+      "province": "江苏",
+      "opened": 1997,
+      "elevationM": 35,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国际及港澳台",
+          "opened": 1997,
+          "approx": true,
+          "note": "约 2.4 万平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2018,
+          "approx": true,
+          "note": "约 3.4 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 3400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1997 年 11 月 8 日通航,五省通衢徐州的门户,2016 年更名国际机场。",
+        "2018 年二期扩建完成,4D 级,跑道 3400×45 米。",
+        "位于睢宁双沟,距市区 45 千米,是离主城较远的干线机场。"
+      ],
+      "coord": [
+        117.56,
+        34.06
+      ]
+    },
+    {
+      "iata": "YTY",
+      "icao": "ZSYA",
+      "cn": "扬州泰州国际机场",
+      "en": "Yangzhou Taizhou International Airport",
+      "city": "扬州",
+      "pinyin": "yangzhou taizhou",
+      "province": "江苏",
+      "opened": 2012,
+      "elevationM": 10,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2012,
+          "note": "约 3.13 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3200,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "9c",
+          "cn": "春秋航空(基地)"
+        }
+      ],
+      "facts": [
+        "2012 年 5 月 8 日通航,扬州泰州两市合建,4E 级民用机场。",
+        "可起降 747/A340 等四发宽体机,定位长三角旅游门户与禄口辅助机场。",
+        "跑道 3200×45 米,2016 年更名国际机场。"
+      ],
+      "coord": [
+        119.72,
+        32.56
+      ]
+    },
+    {
+      "iata": "HIA",
+      "icao": "ZSSH",
+      "cn": "淮安涟水国际机场",
+      "en": "Huai'an Lianshui International Airport",
+      "city": "淮安",
+      "pinyin": "huaian lianshui",
+      "province": "江苏",
+      "opened": 2010,
+      "elevationM": 15,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2010,
+          "approx": true,
+          "note": "扩建后约 1.77 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2800,
+          "width": 45,
+          "approx": true,
+          "note": "2018 年扩建后升 4D"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2010 年 9 月 26 日通航,2015 年航空口岸正式开放,2020 年更名国际机场。",
+        "周恩家乡淮安的门户,4D 级,货运特色突出( EMS/顺丰区域枢纽)。",
+        "跑道 2800×45 米,最大可用机型 767-200。"
+      ],
+      "coord": [
+        119.18,
+        33.58
+      ]
+    },
+    {
+      "iata": "YNZ",
+      "icao": "ZSYN",
+      "cn": "盐城南洋国际机场",
+      "en": "Yancheng Nanyang International Airport",
+      "city": "盐城",
+      "pinyin": "yancheng nanyang",
+      "province": "江苏",
+      "opened": 2000,
+      "elevationM": 5,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2000,
+          "approx": true,
+          "note": "约 1.39 万平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2018,
+          "approx": true,
+          "note": "约 3.0 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "16/34",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1959 年军民合用建成,2000 年民航站投用,2017 年更名国际机场。",
+        "丹顶鹤与麋鹿故乡的门户,对韩日航线历史久,一类开放口岸。",
+        "军民合用 4C,跑道 2800×50 米。"
+      ],
+      "coord": [
+        120.15,
+        33.41
+      ]
+    },
+    {
+      "iata": "LYG",
+      "icao": "ZSLG",
+      "cn": "连云港花果山国际机场",
+      "en": "Lianyungang Huaguoshan Airport",
+      "city": "连云港",
+      "pinyin": "lianyungang huaguoshan",
+      "province": "江苏",
+      "opened": 2021,
+      "elevationM": 5,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2021,
+          "note": "约 3.0 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "11/29",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2021 年 12 月 2 日转场投运,同步关闭白塔埠机场(转为军用),总投资 37.29 亿元。",
+        "山海之城与西游记文化门户,4D 级,二期扩建同步启动。",
+        "跑道 2800 米,机位 16 个,设计年旅客 250 万人次。"
+      ],
+      "coord": [
+        119.34,
+        34.61
+      ]
+    },
+    {
+      "iata": "YIW",
+      "icao": "ZSYW",
+      "cn": "义乌机场",
+      "en": "Yiwu Airport",
+      "city": "金华(义乌)",
+      "pinyin": "yiwu",
+      "province": "浙江",
+      "opened": 1991,
+      "elevationM": 75,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2006,
+          "approx": true,
+          "note": "约 1.8 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "03/21",
+          "length": 2500,
+          "width": 45,
+          "approx": true,
+          "note": "1993 年扩建后 2500 米"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "华东地区首座县级民航机场:1970 年建(海军机场),1991 年 4 月民航通航。",
+        "世界小商品之都义乌的门户,军民合用 4C。",
+        "跑道 2500×45 米,距市中心仅 5.5 千米。"
+      ],
+      "coord": [
+        120.03,
+        29.34
+      ]
+    },
+    {
+      "iata": "HSN",
+      "icao": "ZSZS",
+      "cn": "舟山普陀山机场",
+      "en": "Zhoushan Putuoshan Airport",
+      "city": "舟山",
+      "pinyin": "zhoushan putuoshan",
+      "province": "浙江",
+      "opened": 1997,
+      "elevationM": 2,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1997,
+          "note": "约 6400 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1997 年 8 月 8 日通航,海岛机场:建于朱家尖岛,观音道场普陀山门户。",
+        "4D 级地方民用机场,海拔仅 1.8 米,PCN 53。",
+        "海上佛国航线与大陆桥互补,台风季影响显著。"
+      ],
+      "coord": [
+        122.36,
+        29.93
+      ]
+    },
+    {
+      "iata": "HYN",
+      "icao": "ZSLQ",
+      "cn": "台州路桥机场",
+      "en": "Taizhou Luqiao Airport",
+      "city": "台州",
+      "pinyin": "taizhou luqiao",
+      "province": "浙江",
+      "opened": 1992,
+      "elevationM": 5,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1992,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "03/21",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "军民合用机场,曾名黄岩路桥机场,2008 年更名台州路桥机场。",
+        "2012 年曾临时关闭改造跑道与导航设施,4C 级。",
+        "山海水城台州与民营经济发祥地的门户。"
+      ],
+      "coord": [
+        121.43,
+        28.56
+      ]
+    },
+    {
+      "iata": "FUG",
+      "icao": "ZSFY",
+      "cn": "阜阳机场",
+      "en": "Fuyang Airport",
+      "city": "阜阳",
+      "pinyin": "fuyang",
+      "province": "安徽",
+      "opened": 1998,
+      "elevationM": 30,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1998,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "03/21",
+          "length": 2400,
+          "width": 60,
+          "approx": true,
+          "note": "预留 800 米延长"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1958 年 2 月 28 日首航,是新中国民航在华东设立的第一个地方航站。",
+        "现机场 1998 年建成通航,4C 级,皖北人口大市门户。",
+        "跑道 2400×60 米(方向 03/21),2007 年曾复航。"
+      ],
+      "coord": [
+        115.82,
+        32.92
+      ]
+    },
+    {
+      "iata": "HKG",
+      "icao": "VHHH",
+      "cn": "香港国际机场",
+      "en": "Hong Kong International Airport",
+      "city": "香港",
+      "pinyin": "xianggang guoji",
+      "province": "香港",
+      "opened": 1998,
+      "elevationM": 9,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "主楼",
+          "opened": 1998,
+          "note": "约 61 万平方米(含天际走廊)"
+        },
+        {
+          "name": "中场客运廊",
+          "role": "国内/国际",
+          "opened": 2016,
+          "note": "约 10.5 万平方米"
+        },
+        {
+          "name": "北卫星客运廊",
+          "role": "国际",
+          "opened": 2010,
+          "note": "约 2 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07L/25R",
+          "length": 3800,
+          "width": 60,
+          "approx": true,
+          "note": "北跑道"
+        },
+        {
+          "id": "07R/25L",
+          "length": 3800,
+          "width": 60,
+          "approx": true,
+          "note": "中跑道"
+        },
+        {
+          "id": "07C/25C",
+          "length": 3800,
+          "width": 60,
+          "approx": true,
+          "note": "第三跑道 2022 年试运行,2024 年三跑系统全面启用"
+        }
+      ],
+      "hubs": [
+        {
+          "id": "cx",
+          "cn": "国泰航空"
+        },
+        {
+          "id": "hx",
+          "cn": "香港航空"
+        },
+        {
+          "id": "uo",
+          "cn": "香港快运"
+        }
+      ],
+      "facts": [
+        "1998 年 7 月 6 日通航,赤鱲角填海而建,取代启德机场成为香港新空港。",
+        "全球顶级国际枢纽:三跑道系统 2024 年 11 月全面启用,三条跑道均 3800×60 米。",
+        "国泰航空主基地,香港航空与香港快运同场运营。"
+      ],
+      "coord": [
+        113.91,
+        22.31
+      ]
+    },
+    {
+      "iata": "HJJ",
+      "icao": "ZGHJ",
+      "cn": "怀化芷江机场",
+      "en": "Huaihua Zhijiang Airport",
+      "city": "怀化",
+      "pinyin": "huaihua zhijiang",
+      "province": "湖南",
+      "opened": 2005,
+      "elevationM": 260,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2005,
+          "approx": true,
+          "note": "约 1.0 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "抗战时期为中美空军重要基地,曾有『远东第二大战略机场』之称。",
+        "2005 年 12 月 19 日复航通航,军民合用 4C 级。",
+        "跑道 2600×45 米,侗乡怀化的空中门户。"
+      ],
+      "coord": [
+        109.98,
+        27.44
+      ]
+    },
+    {
+      "iata": "ZHA",
+      "icao": "ZGZJ",
+      "cn": "湛江吴川机场",
+      "en": "Zhanjiang Wuchuan Airport",
+      "city": "湛江",
+      "pinyin": "zhanjiang wuchuan",
+      "province": "广东",
+      "opened": 2022,
+      "elevationM": 25,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2022,
+          "note": "约 6.2 万平方米,19 座登机廊桥"
+        }
+      ],
+      "runways": [
+        {
+          "id": "11/29",
+          "length": 3200,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2022 年 3 月 24 日『一夜转场』通航,系原湛江机场迁建,老机场同日永久关闭。",
+        "粤西规模最大机场:4E 级,具备 777/787/A350 等宽体机直航欧美能力。",
+        "地处湛江茂名之间,跑道 3200×45 米,一类开放口岸。"
+      ],
+      "coord": [
+        110.36,
+        21.21
+      ]
+    },
+    {
+      "iata": "MXZ",
+      "icao": "ZGMX",
+      "cn": "梅州梅县机场",
+      "en": "Meizhou Meixian Airport",
+      "city": "梅州",
+      "pinyin": "meizhou meixian",
+      "province": "广东",
+      "opened": 1987,
+      "elevationM": 100,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内",
+          "opened": 1987,
+          "approx": true,
+          "note": "约 4300 平方米"
+        },
+        {
+          "name": "国际航站楼",
+          "role": "国际",
+          "opened": 2015,
+          "approx": true,
+          "note": "约 2600 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1987 年 9 月 1 日通航(长岗岌机场),2019 年更名梅州梅县机场。",
+        "世界客都门户,侨乡国际航线特色,一类开放口岸。",
+        "跑道 2400×45 米,4C 级。"
+      ],
+      "coord": [
+        116.1,
+        24.27
+      ]
+    },
+    {
+      "iata": "BHY",
+      "icao": "ZGBH",
+      "cn": "北海福成机场",
+      "en": "Beihai Fucheng Airport",
+      "city": "北海",
+      "pinyin": "beihai fucheng",
+      "province": "广西",
+      "opened": 1987,
+      "elevationM": 25,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2007,
+          "approx": true,
+          "note": "约 2.78 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 3200,
+          "width": 45,
+          "approx": true,
+          "note": "1999 年新跑道启用"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1987 年 3 月 15 日通航,1999 年新跑道启用,滨海旅游名城门户。",
+        "4D 级,跑道 3200×45 米,可全天候起降 A320/738 同类机型。",
+        "2020 年站坪扩建后机位增至 22 个。"
+      ],
+      "coord": [
+        109.29,
+        21.54
+      ]
+    },
+    {
+      "iata": "LZH",
+      "icao": "ZGZH",
+      "cn": "柳州白莲机场",
+      "en": "Liuzhou Bailian Airport",
+      "city": "柳州",
+      "pinyin": "liuzhou bailian",
+      "province": "广西",
+      "opened": 1994,
+      "elevationM": 100,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2016,
+          "approx": true,
+          "note": "扩建后共约 2.28 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2540,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1994 年 12 月 28 日由帽合机场迁建通航,军民合用 4C。",
+        "广西六大机场之一,工业重镇柳州的门户。",
+        "跑道 2540 米,2016 年一期扩建完成。"
+      ],
+      "coord": [
+        109.61,
+        24.21
+      ]
+    },
+    {
+      "iata": "BAR",
+      "icao": "ZJQH",
+      "cn": "琼海博鳌机场",
+      "en": "Qionghai Boao Airport",
+      "city": "琼海",
+      "pinyin": "qionghai boao",
+      "province": "海南",
+      "opened": 2016,
+      "elevationM": 10,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2016,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2016 年建成通航,博鳌亚洲论坛重点配套工程,从开工到通航不足一年。",
+        "论坛年会期间政要专机集中到访,保障规格特殊。",
+        "4C 级,跑道 2600×45 米,距论坛会址 15 千米。"
+      ],
+      "coord": [
+        110.46,
+        19.14
+      ]
+    },
+    {
+      "iata": "WXN",
+      "icao": "ZUWX",
+      "cn": "万州五桥机场",
+      "en": "Wanzhou Wuqiao Airport",
+      "city": "重庆(万州)",
+      "pinyin": "wanzhou wuqiao",
+      "province": "重庆",
+      "opened": 2003,
+      "elevationM": 200,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2003,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2023,
+          "note": "约 2.6 万平方米,2023 年 8 月启用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2003 年 5 月 29 日通航,系梁平机场民用部分迁建,三峡库区空中桥梁。",
+        "重庆第二个对外开放航空口岸,4C 级。",
+        "跑道 2800×45 米,T1/T2 双楼,通航 21 城。"
+      ],
+      "coord": [
+        108.44,
+        30.73
+      ]
+    },
+    {
+      "iata": "JIQ",
+      "icao": "ZUQJ",
+      "cn": "黔江武陵山机场",
+      "en": "Qianjiang Wulingshan Airport",
+      "city": "重庆(黔江)",
+      "pinyin": "qianjiang wulingshan",
+      "province": "重庆",
+      "opened": 2010,
+      "elevationM": 550,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2010,
+          "approx": true,
+          "note": "2023 年扩建至约 1.5 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "原名舟白机场,2010 年 11 月 22 日通航,2011 年更名武陵山机场。",
+        "武陵山区(渝东南)门户机场,4C 级支线。",
+        "跑道 2400 米,2023 年改扩建投用。"
+      ],
+      "coord": [
+        108.75,
+        29.47
+      ]
+    },
+    {
+      "iata": "MIG",
+      "icao": "ZUMY",
+      "cn": "绵阳南郊机场",
+      "en": "Mianyang Nanjiao Airport",
+      "city": "绵阳",
+      "pinyin": "mianyang nanjiao",
+      "province": "四川",
+      "opened": 2001,
+      "elevationM": 470,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2001,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2022,
+          "note": "两楼共约 4.8 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "14/32",
+          "length": 2400,
+          "width": 45,
+          "note": "32 号跑道为 I 类精密进近"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2001 年 4 月 28 日通航,由塘汛机场迁建,4D 级。",
+        "中国民航飞行学院绵阳分院训练机场,科技城绵阳的门户。",
+        "定位成渝枢纽互补的骨干机场,2024 年吞吐量全国第 61 位。"
+      ],
+      "coord": [
+        104.68,
+        31.42
+      ]
+    },
+    {
+      "iata": "YBP",
+      "icao": "ZUYB",
+      "cn": "宜宾五粮液机场",
+      "en": "Yibin Wuliangye Airport",
+      "city": "宜宾",
+      "pinyin": "yibin wuliangye",
+      "province": "四川",
+      "opened": 2019,
+      "elevationM": 380,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2019,
+          "note": "约 2.4 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2019 年 12 月 5 日通航,以酒命名的新机场(菜坝机场转场),军民合用 4C。",
+        "万里长江第一城的门户,跑道 2600 米,站坪 13 个机位。",
+        "乘成贵高铁与金沙江航道,川南组合枢纽节点。"
+      ],
+      "coord": [
+        104.61,
+        28.75
+      ]
+    },
+    {
+      "iata": "LZO",
+      "icao": "ZULZ",
+      "cn": "泸州云龙机场",
+      "en": "Luzhou Yunlong Airport",
+      "city": "泸州",
+      "pinyin": "luzhou yunlong",
+      "province": "四川",
+      "opened": 2018,
+      "elevationM": 300,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2018,
+          "note": "约 3.0 万平方米,8 座登机廊桥"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2018 年 9 月通航,由蓝田坝机场迁建,川南第一大、四川第三大航空港。",
+        "军民合用 4C,可起降 767/A300 等双发宽体机。",
+        "酒城门户,定位『成渝世界级机场群重要补充』。"
+      ],
+      "coord": [
+        105.37,
+        29.16
+      ]
+    },
+    {
+      "iata": "XIC",
+      "icao": "ZUXC",
+      "cn": "西昌青山机场",
+      "en": "Xichang Qingshan Airport",
+      "city": "西昌",
+      "pinyin": "xichang qingshan",
+      "province": "四川",
+      "opened": 1975,
+      "elevationM": 1562,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2011,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "18/36",
+          "length": 3600,
+          "width": 50,
+          "approx": true,
+          "note": "正南北向"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "高原机场(1562 米),西昌卫星发射中心运输机场。",
+        "月城邛海门户,彝族火把节与卫星发射客流叠加。",
+        "跑道 3600×50 米,4D 级军民合用旅游支线机场。"
+      ],
+      "coord": [
+        102.19,
+        27.98
+      ]
+    },
+    {
+      "iata": "PZI",
+      "icao": "ZUZH",
+      "cn": "攀枝花保安营机场",
+      "en": "Panzhihua Baoanying Airport",
+      "city": "攀枝花",
+      "pinyin": "panzhihua baoanying",
+      "province": "四川",
+      "opened": 2003,
+      "elevationM": 1230,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2003,
+          "note": "约 3500 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "10/28",
+          "length": 2800,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2003 年 12 月 6 日通航的高原机场,2011 年曾因地质灾害停航,2013 年复航。",
+        "阳光花城康养门户,跑道 2800×45 米,4C 级。",
+        "山顶机场选址,进近地形复杂。"
+      ],
+      "coord": [
+        101.81,
+        26.53
+      ]
+    },
+    {
+      "iata": "GYS",
+      "icao": "ZUGY",
+      "cn": "广元盘龙机场",
+      "en": "Guangyuan Panlong Airport",
+      "city": "广元",
+      "pinyin": "guangyuan panlong",
+      "province": "四川",
+      "opened": 2000,
+      "elevationM": 530,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2000,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "03/21",
+          "length": 2500,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2000 年 9 月 28 日通航,2004 年曾停航,2009 年 5 月 8 日复航。",
+        "蜀道咽喉、女皇故里门户,4C 级(约)。",
+        "跑道 2500 米(数据时点),剑门关旅游北入口。"
+      ],
+      "coord": [
+        105.69,
+        32.43
+      ]
+    },
+    {
+      "iata": "DAX",
+      "icao": "ZUDA",
+      "cn": "达州金垭机场",
+      "en": "Dazhou Jinya Airport",
+      "city": "达州",
+      "pinyin": "dazhou jinya",
+      "province": "四川",
+      "opened": 2022,
+      "elevationM": 300,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2022,
+          "note": "约 3.16 万平方米,8 条登机廊桥"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2022 年 5 月 19 日通航,河市机场同步关闭,总投资约 26.6 亿元。",
+        "川东北区域中心的新门户,跑道 2600×45 米。",
+        "站坪 16 个机位,设计保障能力显著提升。"
+      ],
+      "coord": [
+        107.6,
+        31.2
+      ]
+    },
+    {
+      "iata": "DCY",
+      "icao": "ZUDC",
+      "cn": "稻城亚丁机场",
+      "en": "Daocheng Yading Airport",
+      "city": "甘孜(稻城)",
+      "pinyin": "daocheng yading",
+      "province": "四川",
+      "opened": 2013,
+      "elevationM": 4411,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2013,
+          "note": "约 8800 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 4200,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2013 年 9 月 16 日通航,海拔 4411 米,世界上海拔最高的民用机场。",
+        "最后的香格里拉(亚丁)门户,海子山上的 4C 级旅游支线机场。",
+        "高高原运行限制严格:仅特定机型与资质机组可执飞。"
+      ],
+      "coord": [
+        100.06,
+        29.28
+      ]
+    },
+    {
+      "iata": "TEN",
+      "icao": "ZUTR",
+      "cn": "铜仁凤凰机场",
+      "en": "Tongren Fenghuang Airport",
+      "city": "铜仁",
+      "pinyin": "tongren fenghuang",
+      "province": "贵州",
+      "opened": 2001,
+      "elevationM": 650,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2001,
+          "approx": true,
+          "note": "约 3000 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2017,
+          "approx": true,
+          "note": "约 2.3 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1972 年大兴机场通航,1981 年停航,2001 年 7 月复航,2009 年更名凤凰机场。",
+        "一座机场跨两省:场址横跨贵州松桃与湖南凤凰交界,湘西凤凰古城门户。",
+        "跑道 2600×45 米,2017 年获批临时对外开放。"
+      ],
+      "coord": [
+        109.23,
+        27.92
+      ]
+    },
+    {
+      "iata": "ACX",
+      "icao": "ZUYI",
+      "cn": "兴义万峰林机场",
+      "en": "Xingyi Wanfenglin Airport",
+      "city": "黔西南(兴义)",
+      "pinyin": "xingyi wanfenglin",
+      "province": "贵州",
+      "opened": 2004,
+      "elevationM": 1250,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2004,
+          "approx": true,
+          "note": "约 1.53 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2800,
+          "width": 45,
+          "approx": true,
+          "note": "2014 年由 2300 米延长"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2004 年 7 月 18 日通航,2014 年更名万峰林机场,喀斯特万峰林间的机场。",
+        "连续四年入围全国百万级机场(数据时点),滇黔桂结合部旅游门户。",
+        "跑道 2800×45 米,4C 级。"
+      ],
+      "coord": [
+        104.9,
+        25.08
+      ]
+    },
+    {
+      "iata": "ZYI",
+      "icao": "ZUZY",
+      "cn": "遵义新舟机场",
+      "en": "Zunyi Xinzhou Airport",
+      "city": "遵义",
+      "pinyin": "zunyi xinzhou",
+      "province": "贵州",
+      "opened": 2012,
+      "elevationM": 830,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2012,
+          "approx": true,
+          "note": "约 1.06 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2800,
+          "width": 50,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "空军遵义机场 1980 年竣工;2012 年 8 月 28 日军民合用开通民航。",
+        "转折之城(遵义会议)门户,2019 年口岸获批对外开放。",
+        "跑道 2800×50 米,4C 级军民合用国际机场(约)。"
+      ],
+      "coord": [
+        107.24,
+        27.83
+      ]
+    },
+    {
+      "iata": "BFJ",
+      "icao": "ZUBJ",
+      "cn": "毕节飞雄机场",
+      "en": "Bijie Feixiong Airport",
+      "city": "毕节",
+      "pinyin": "bijie feixiong",
+      "province": "贵州",
+      "opened": 2013,
+      "elevationM": 1500,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2013,
+          "note": "约 7100 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼(二期)",
+          "opened": 2023,
+          "approx": true,
+          "note": "约 2.5 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 3000,
+          "width": 45,
+          "approx": true,
+          "note": "二期延长至 3000 米"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2013 年 6 月 16 日通航,毕节航空『零』的突破,乌蒙山区扶贫攻坚的标志性工程。",
+        "二期改扩建后跑道 3000 米、T2 约 2.5 万平方米。",
+        "花海毕节(百里杜鹃)旅游门户。"
+      ],
+      "coord": [
+        105.42,
+        27.19
+      ]
+    },
+    {
+      "iata": "DLU",
+      "icao": "ZPDL",
+      "cn": "大理凤仪机场",
+      "en": "Dali Fengyi Airport",
+      "city": "大理",
+      "pinyin": "dali fengyi",
+      "province": "云南",
+      "opened": 1995,
+      "elevationM": 2155,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 1995,
+          "note": "约 2300 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2009,
+          "note": "约 1.77 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "17/35",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1995 年 11 月 28 日通航(荒草坝机场),2022 年更名凤仪机场。",
+        "苍山洱海门户的高原机场(2155 米),西距洱海湖岸 3 千米。",
+        "跑道 2600×45 米,4C 级旅游支线机场。"
+      ],
+      "coord": [
+        100.32,
+        25.65
+      ]
+    },
+    {
+      "iata": "LUM",
+      "icao": "ZPMS",
+      "cn": "德宏芒市机场",
+      "en": "Dehong Mangshi Airport",
+      "city": "德宏(芒市)",
+      "pinyin": "dehong mangshi",
+      "province": "云南",
+      "opened": 1990,
+      "elevationM": 876,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1990,
+          "approx": true,
+          "note": "约 1.3 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2200,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1990 年 4 月 10 日通航,由芒市风平机场改建,滇西边境门户。",
+        "中缅边境口岸城市机场,4C 级,距市区 6.5 千米。",
+        "跑道 2200×45 米,可停放 9 架 737/A319 及以下机型。"
+      ],
+      "coord": [
+        98.53,
+        24.41
+      ]
+    },
+    {
+      "iata": "TCZ",
+      "icao": "ZPTC",
+      "cn": "腾冲驼峰机场",
+      "en": "Tengchong Tuofeng Airport",
+      "city": "保山(腾冲)",
+      "pinyin": "tengchong tuofeng",
+      "province": "云南",
+      "opened": 2009,
+      "elevationM": 1888,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 2009,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2018,
+          "note": "约 2.2 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2350,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2009 年 1 月 23 日通航,以抗战『驼峰航线』命名,极边第一城腾冲的门户。",
+        "2013 年建成国产首套 EMAS 跑道阻拦系统,高原机场(1887.8 米)。",
+        "跑道 2350×45 米,主降方向 I 类精密进近。"
+      ],
+      "coord": [
+        98.51,
+        24.96
+      ]
+    },
+    {
+      "iata": "DIG",
+      "icao": "ZPDQ",
+      "cn": "迪庆香格里拉机场",
+      "en": "Diqing Shangri-La Airport",
+      "city": "迪庆(香格里拉)",
+      "pinyin": "diqing xianggelila",
+      "province": "云南",
+      "opened": 1999,
+      "elevationM": 3280,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国际",
+          "opened": 1999,
+          "approx": true,
+          "note": "约 3500 平方米"
+        },
+        {
+          "name": "T2",
+          "role": "国内主楼",
+          "opened": 2006,
+          "approx": true,
+          "note": "约 1.4 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "17/35",
+          "length": 3600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1999 年 4 月 30 日开航,滇西北高高原机场,雪山草地之间的航空门户。",
+        "梅里雪山与普达措旅游门户,跑道 3600×45 米补偿高原性能。",
+        "通航昆明、成都、拉萨、广州、北京等城市。"
+      ],
+      "coord": [
+        99.66,
+        27.83
+      ]
+    },
+    {
+      "iata": "ZAT",
+      "icao": "ZPZT",
+      "cn": "昭通机场",
+      "en": "Zhaotong Airport",
+      "city": "昭通",
+      "pinyin": "zhaotong",
+      "province": "云南",
+      "opened": 1994,
+      "elevationM": 1936,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1994,
+          "approx": true,
+          "note": "约 1900 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1936 年建成(军用),1950 年起军民合用,1994 年扩建后复航。",
+        "海拔 1935.7 米的高原机场,乌蒙山区的『南丝绸之路』门户。",
+        "跑道 2600×45 米,4C 级,新机场迁建规划推进中。"
+      ],
+      "coord": [
+        103.73,
+        27.34
+      ]
+    },
+    {
+      "iata": "WNH",
+      "icao": "ZPWS",
+      "cn": "文山砚山机场",
+      "en": "Wenshan Yanshan Airport",
+      "city": "文山",
+      "pinyin": "wenshan yanshan",
+      "province": "云南",
+      "opened": 2006,
+      "elevationM": 1550,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2006,
+          "note": "约 3200 平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "曾名文山普者黑机场,2006 年 8 月 30 日首航,2020 年更名砚山机场。",
+        "珠江水系上游第一个民用机场,普者黑山水旅游门户。",
+        "跑道 2400×45 米,4C 级,2026 年改扩建开工。"
+      ],
+      "coord": [
+        104.25,
+        23.57
+      ]
+    },
+    {
+      "iata": "BSD",
+      "icao": "ZPBS",
+      "cn": "保山云瑞机场",
+      "en": "Baoshan Yunrui Airport",
+      "city": "保山",
+      "pinyin": "baoshan yunrui",
+      "province": "云南",
+      "opened": 1994,
+      "elevationM": 1664,
+      "terminals": [
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2020,
+          "approx": true,
+          "note": "约 2.76 万平方米"
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "ky",
+          "cn": "昆明航空"
+        },
+        {
+          "id": "a6",
+          "cn": "湖南航空"
+        }
+      ],
+      "facts": [
+        "始建于 1929 年,滇西抗战名机场;1990 年改扩建,1994 年 6 月复航。",
+        "海拔 1664.5 米,跑道 2400×45 米,4C 级。",
+        "昆明航空与湖南航空两家基地航司驻场运营。"
+      ],
+      "coord": [
+        99.16,
+        25.11
+      ]
+    },
+    {
+      "iata": "TXN",
+      "icao": "ZSTX",
+      "cn": "黄山屯溪国际机场",
+      "en": "Huangshan Tunxi International Airport",
+      "city": "黄山",
+      "pinyin": "huangshan tunxi",
+      "province": "安徽",
+      "opened": 1959,
+      "elevationM": 140,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2014,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1959 年 10 月通航,初为 400 米碎石跑道,几经扩建成为国际旅游机场(4D 级)。",
+        "黄山·西递宏村世界遗产门户,皖南国际文化旅游示范区核心空港。",
+        "曾进驻新舟 60 等机型驻场运营,淡旺季客流差异显著。"
+      ],
+      "coord": [
+        118.26,
+        29.74
+      ]
+    },
+    {
+      "iata": "AQG",
+      "icao": "ZSAQ",
+      "cn": "安庆天柱山机场",
+      "en": "Anqing Tianzhushan Airport",
+      "city": "安庆",
+      "pinyin": "anqing tianzhushan",
+      "province": "安徽",
+      "opened": 1993,
+      "elevationM": 15,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1993,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 2600,
+          "width": 45,
+          "approx": true,
+          "note": "2015 年跑道盖被改造后复航"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "民航 1993 年开通(2023 年为通航三十周年),4D 级民用运输机场(约)。",
+        "天柱山与黄梅戏之乡门户,宜城安庆的空中通道。",
+        "2015 年 2 月 1 日完成跑道盖被,春运前复航;机场迁建议题长期受关注。"
+      ],
+      "coord": [
+        117.05,
+        30.58
+      ]
+    },
+    {
+      "iata": "JUH",
+      "icao": "ZSJH",
+      "cn": "池州九华山机场",
+      "en": "Chizhou Jiuhuashan Airport",
+      "city": "池州",
+      "pinyin": "chizhou jiuhuashan",
+      "province": "安徽",
+      "opened": 2014,
+      "elevationM": 30,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2014,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2014 年通航(约),九华山佛教名山与杏花村门户,4C 级支线机场。",
+        "西部航空、海航等在此投放运力,冬航季新航线密集。",
+        "跑道 2400×45 米(约),扩建讨论持续进行。"
+      ],
+      "coord": [
+        117.74,
+        30.66
+      ]
+    },
+    {
+      "iata": "WUS",
+      "icao": "ZSWY",
+      "cn": "武夷山机场",
+      "en": "Wuyishan Airport",
+      "city": "南平(武夷山)",
+      "pinyin": "wuyishan",
+      "province": "福建",
+      "opened": 1994,
+      "elevationM": 200,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1994,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2400,
+          "width": 45,
+          "approx": true,
+          "note": "迁建规划延至 2800 米并升 4D"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "机场 1958 年建成,民航 1994 年开通,双世遗(武夷山)门户。",
+        "2024 年 11 月因跑道维修停航,2025 年 1 月 28 日完成改造复航。",
+        "迁建拟落兴田镇与麻沙镇交界,4D 跑道延至 2800 米服务旅游客运。"
+      ],
+      "coord": [
+        118.0,
+        27.72
+      ]
+    },
+    {
+      "iata": "KOW",
+      "icao": "ZSGZ",
+      "cn": "赣州黄金机场",
+      "en": "Ganzhou Huangjin Airport",
+      "city": "赣州",
+      "pinyin": "ganzhou huangjin",
+      "province": "江西",
+      "opened": 2008,
+      "elevationM": 120,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2008,
+          "approx": true,
+          "note": "T2 扩建推进中"
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "新黄金机场 2008 年启用(约),江西第二大机场,赣南脐橙之乡门户。",
+        "红色故都瑞金与客家摇篮赣州的空中通道,口岸开放推进中。",
+        "跑道 2600×45 米(约),4D 级(约)。"
+      ],
+      "coord": [
+        114.8,
+        25.85
+      ]
+    },
+    {
+      "iata": "JDZ",
+      "icao": "ZSJD",
+      "cn": "景德镇罗家机场",
+      "en": "Jingdezhen Luojia Airport",
+      "city": "景德镇",
+      "pinyin": "jingdezhen luojia",
+      "province": "江西",
+      "opened": 1996,
+      "elevationM": 50,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1996,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "千年瓷都门户机场(约 1996 年通航),4C 级支线机场。",
+        "陶瓷文化与婺源、三清山旅游环线的空港节点。",
+        "跑道 2400×45 米(约)。"
+      ],
+      "coord": [
+        117.27,
+        29.2
+      ]
+    },
+    {
+      "iata": "JIU",
+      "icao": "ZSJJ",
+      "cn": "九江庐山机场",
+      "en": "Jiujiang Lushan Airport",
+      "city": "九江",
+      "pinyin": "jiujing lushan",
+      "province": "江西",
+      "opened": 1996,
+      "elevationM": 30,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1996,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "庐山脚下机场(约 1996 年通航),历经停航与复航,4C 级(约)。",
+        "世界文化景观庐山与鄱阳湖生态旅游的空港入口。",
+        "跑道 2400×45 米(约)。"
+      ],
+      "coord": [
+        116.2,
+        29.6
+      ]
+    },
+    {
+      "iata": "YIH",
+      "icao": "ZHYC",
+      "cn": "宜昌三峡国际机场",
+      "en": "Yichang Sanxia International Airport",
+      "city": "宜昌",
+      "pinyin": "yichang sanxia",
+      "province": "湖北",
+      "opened": 1996,
+      "elevationM": 70,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1996,
+          "approx": true,
+          "note": "扩建后规模提升"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "三峡工程所在地宜昌的主机场(约 1996 年通航),4D 级。",
+        "三峡大坝与长江三峡游轮线路的空中门户。",
+        "跑道 2600×45 米(约),鄂西渝东枢纽节点。"
+      ],
+      "coord": [
+        111.48,
+        30.54
+      ]
+    },
+    {
+      "iata": "XFN",
+      "icao": "ZHXF",
+      "cn": "襄阳刘集机场",
+      "en": "Xiangyang Liuji Airport",
+      "city": "襄阳",
+      "pinyin": "xiangyang liuji",
+      "province": "湖北",
+      "opened": 1989,
+      "elevationM": 70,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1989,
+          "approx": true,
+          "note": "扩建后新楼投用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "04/22",
+          "length": 2400,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "古城襄阳门户机场(约 1989 年通航),汉江流域中心城市节点。",
+        "737/A320 级机型保障能力,跑道 2400×45 米(约)。",
+        "高铁时代与郑州、武汉两枢纽错位发展。"
+      ],
+      "coord": [
+        112.27,
+        32.08
+      ]
+    },
+    {
+      "iata": "ENH",
+      "icao": "ZHES",
+      "cn": "恩施许家坪机场",
+      "en": "Enshi Xujiaping Airport",
+      "city": "恩施",
+      "pinyin": "enshi xujiaping",
+      "province": "湖北",
+      "opened": 1993,
+      "elevationM": 460,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2015,
+          "approx": true,
+          "note": "新航站楼投用"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2400,
+          "width": 45,
+          "approx": true,
+          "note": "由 2000 米延长"
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1993 年(约)通航,武陵山区恩施州门户,山区河谷机场。",
+        "跑道延长至 2400 米后 737/A320 全重起降能力增强(约)。",
+        "恩施大峡谷与土家族苗乡旅游门户。"
+      ],
+      "coord": [
+        109.48,
+        30.34
+      ]
+    },
+    {
+      "iata": "WDS",
+      "icao": "ZHSY",
+      "cn": "十堰武当山机场",
+      "en": "Shiyan Wudangshan Airport",
+      "city": "十堰",
+      "pinyin": "shiyan wudangshan",
+      "province": "湖北",
+      "opened": 2016,
+      "elevationM": 300,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2016,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "2016 年 2 月 5 日通航,鄂西北山区新机场,武当山与丹江口水库门户。",
+        "4C 级支线机场,通车后与汉十高铁联运。",
+        "跑道 2600×45 米(约)。"
+      ],
+      "coord": [
+        110.66,
+        32.4
+      ]
+    },
+    {
+      "iata": "DYX",
+      "icao": "ZGDY",
+      "cn": "张家界荷花国际机场",
+      "en": "Zhangjiajie Hehua International Airport",
+      "city": "张家界",
+      "pinyin": "zhangjiajie hehua",
+      "province": "湖南",
+      "opened": 1994,
+      "elevationM": 200,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内(旧楼)",
+          "opened": 1994,
+          "approx": true
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2015,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "05/23",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "1994 年(约)通航,山岳型景区机场的代表:四周峰林环绕。",
+        "中国第一个国家森林公园张家界与天门山门户,国际旅游包机密集。",
+        "跑道 2600×45 米(约),4D 级。"
+      ],
+      "coord": [
+        110.45,
+        29.11
+      ]
+    },
+    {
+      "iata": "CGD",
+      "icao": "ZGCD",
+      "cn": "常德桃花源机场",
+      "en": "Changde Taohuayuan Airport",
+      "city": "常德",
+      "pinyin": "changde taohuayuan",
+      "province": "湖南",
+      "opened": 1996,
+      "elevationM": 40,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 1996,
+          "approx": true,
+          "note": "扩建后规模提升"
+        }
+      ],
+      "runways": [
+        {
+          "id": "08/26",
+          "length": 2600,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "以陶渊明《桃花源记》命名的机场(约 1996 年通航),湘西北门户。",
+        "4D 级(约),跑道 2600×45 米。",
+        "洞庭湖平原与武陵山过渡带的空港节点。"
+      ],
+      "coord": [
+        111.64,
+        28.92
+      ]
+    },
+    {
+      "iata": "MFM",
+      "icao": "VMMC",
+      "cn": "澳门国际机场",
+      "en": "Macau International Airport",
+      "city": "澳门",
+      "pinyin": "aomen guoji",
+      "province": "澳门",
+      "opened": 1995,
+      "elevationM": 6,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "主楼",
+          "opened": 1995,
+          "approx": true,
+          "note": "填海人工岛上的机场"
+        }
+      ],
+      "runways": [
+        {
+          "id": "16/34",
+          "length": 3360,
+          "width": 45,
+          "approx": true,
+          "note": "填海跑道,联络桥连接航站区"
+        }
+      ],
+      "hubs": [
+        {
+          "id": "nx",
+          "cn": "澳门航空"
+        }
+      ],
+      "facts": [
+        "1995 年 11 月通航,全球第二个填海造地建成的海上机场。",
+        "澳门航空以之为基地,大陆与台湾中转航线曾是特色业务。",
+        "跑道 3360×45 米(约),人工岛与航站楼以联络桥相连。"
+      ],
+      "coord": [
+        113.59,
+        22.15
+      ]
+    },
+    {
+      "iata": "TPE",
+      "icao": "RCTP",
+      "cn": "台湾桃园国际机场",
+      "en": "Taiwan Taoyuan International Airport",
+      "city": "桃园",
+      "pinyin": "taoyuan guoji",
+      "province": "台湾",
+      "opened": 1979,
+      "elevationM": 32,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "主楼",
+          "opened": 1979,
+          "note": "2013 年完成大规模改扩建"
+        },
+        {
+          "name": "T2",
+          "role": "主楼",
+          "opened": 2000
+        },
+        {
+          "name": "T3",
+          "role": "新主楼",
+          "opened": 2025,
+          "approx": true,
+          "note": "三期建设主体工程,启用时间以官方公告为准"
+        }
+      ],
+      "runways": [
+        {
+          "id": "05L/23R",
+          "length": 3660,
+          "width": 60,
+          "approx": true
+        },
+        {
+          "id": "05R/23L",
+          "length": 3800,
+          "width": 60,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "ci",
+          "cn": "中华航空"
+        },
+        {
+          "id": "br",
+          "cn": "长荣航空"
+        },
+        {
+          "id": "jx",
+          "cn": "星宇航空"
+        },
+        {
+          "id": "it",
+          "cn": "台湾虎航"
+        }
+      ],
+      "facts": [
+        "1979 年 2 月启用(时名中正国际机场),台湾最大国际枢纽、4F 级。",
+        "中华航空与长荣航空双主基地,星宇航空 2020 年开航后亦以桃园为主场。",
+        "双跑道 3660+3800 米,捷运机场线连接台北市区。"
+      ],
+      "coord": [
+        121.23,
+        25.08
+      ]
+    },
+    {
+      "iata": "TSA",
+      "icao": "RCSS",
+      "cn": "台北松山机场",
+      "en": "Taipei Songshan Airport",
+      "city": "台北",
+      "pinyin": "taibei songshan",
+      "province": "台湾",
+      "opened": 1950,
+      "elevationM": 6,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/两岸航线",
+          "opened": 1971,
+          "approx": true,
+          "note": "2008 年整建"
+        },
+        {
+          "name": "T2",
+          "role": "国内线",
+          "opened": 1990,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "10/28",
+          "length": 2602,
+          "width": 60,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "台湾民航的摇篮,市区机场:距台北车站仅数公里,基隆河畔。",
+        "两岸直航与日韩首都机场对飞航线特色(羽田/金浦/虹桥/虹桥系)。",
+        "单跑道 2602 米,观测飞机起降的著名拍机点。"
+      ],
+      "coord": [
+        121.55,
+        25.07
+      ]
+    },
+    {
+      "iata": "KHH",
+      "icao": "RCKH",
+      "cn": "高雄国际机场",
+      "en": "Kaohsiung International Airport",
+      "city": "高雄",
+      "pinyin": "gaoxiong guoji",
+      "province": "台湾",
+      "opened": 1965,
+      "elevationM": 9,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国际主楼",
+          "opened": 1965,
+          "approx": true,
+          "note": "2016 年整建"
+        },
+        {
+          "name": "T2",
+          "role": "国内/国际主楼",
+          "opened": 2000,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 3150,
+          "width": 60,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "ci",
+          "cn": "中华航空(南部)"
+        },
+        {
+          "id": "it",
+          "cn": "台湾虎航(高雄基地)"
+        }
+      ],
+      "facts": [
+        "1965 年民航启用(小港机场),台湾南部门户、南进南出枢纽。",
+        "台湾虎航设高雄基地,东南亚与两岸航线密集。",
+        "跑道 3150×60 米,捷运红线直达。"
+      ],
+      "coord": [
+        120.35,
+        22.58
+      ]
+    },
+    {
+      "iata": "RMQ",
+      "icao": "RCMQ",
+      "cn": "台中清泉岗机场",
+      "en": "Taichung Chingchuankang Airport",
+      "city": "台中",
+      "pinyin": "taizhong qingquangang",
+      "province": "台湾",
+      "opened": 2004,
+      "elevationM": 202,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2004,
+          "approx": true,
+          "note": "2013 年扩建"
+        }
+      ],
+      "runways": [
+        {
+          "id": "18/36",
+          "length": 3658,
+          "width": 61,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "军民合用机场:2004 年民航自水湳机场迁入清泉岗,台湾中部门户。",
+        "跑道长达 3658 米(约),与空军清泉岗基地共用。",
+        "两岸航线与对港航线曾为业务主力。"
+      ],
+      "coord": [
+        120.62,
+        24.26
+      ]
+    },
+    {
+      "iata": "KNH",
+      "icao": "RCBS",
+      "cn": "金门尚义机场",
+      "en": "Kinmen Shangyi Airport",
+      "city": "金门",
+      "pinyin": "jinmen shangyi",
+      "province": "台湾",
+      "opened": 1994,
+      "elevationM": 30,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1994,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "06/24",
+          "length": 1830,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "b7",
+          "cn": "立荣航空"
+        }
+      ],
+      "facts": [
+        "离岛机场:金门与厦门近在咫尺,『小三通』与空运双通道并存。",
+        "立荣航空等穿梭台湾本岛,班次密集如巴士。",
+        "跑道 1830 米(约),东北季风季雾与侧风影响明显。"
+      ],
+      "coord": [
+        118.36,
+        24.43
+      ]
+    },
+    {
+      "iata": "MZG",
+      "icao": "RCQC",
+      "cn": "澎湖马公机场",
+      "en": "Penghu Magong Airport",
+      "city": "澎湖",
+      "pinyin": "penghu magong",
+      "province": "台湾",
+      "opened": 1957,
+      "elevationM": 20,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 2002,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "02/20",
+          "length": 3000,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "b7",
+          "cn": "立荣航空"
+        }
+      ],
+      "facts": [
+        "菊岛(澎湖)空中门户,军民合用(约 1957 年启用民航)。",
+        "夏季观光旺季与冬季风季客流悬殊,跑道 3000 米(约)。",
+        "离岛航线由立荣航空等执飞。"
+      ],
+      "coord": [
+        119.63,
+        23.57
+      ]
+    },
+    {
+      "iata": "HUN",
+      "icao": "RCYU",
+      "cn": "花莲机场",
+      "en": "Hualien Airport",
+      "city": "花莲",
+      "pinyin": "hualian",
+      "province": "台湾",
+      "opened": 1962,
+      "elevationM": 16,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内/国际主楼",
+          "opened": 2004,
+          "approx": true
+        }
+      ],
+      "runways": [
+        {
+          "id": "09/27",
+          "length": 2750,
+          "width": 45,
+          "approx": true
+        }
+      ],
+      "hubs": [],
+      "facts": [
+        "东台湾门户,军民合用机场,紧临太平洋岸。",
+        "太鲁阁与纵谷旅游航线节点,西部航线上跨中央山脉。",
+        "跑道 2750 米(约),曾开两岸与出境包机。"
+      ],
+      "coord": [
+        121.62,
+        24.02
+      ]
+    },
+    {
+      "iata": "TTT",
+      "icao": "RCF",
+      "cn": "台东丰年机场",
+      "en": "Taitung Fengnian Airport",
+      "city": "台东",
+      "pinyin": "taidong fengnian",
+      "province": "台湾",
+      "opened": 1981,
+      "elevationM": 43,
+      "approx": true,
+      "terminals": [
+        {
+          "name": "T1",
+          "role": "国内主楼",
+          "opened": 1981,
+          "approx": true,
+          "note": "2016 年整建"
+        }
+      ],
+      "runways": [
+        {
+          "id": "07/25",
+          "length": 1137,
+          "width": 30,
+          "approx": true
+        }
+      ],
+      "hubs": [
+        {
+          "id": "b7",
+          "cn": "立荣航空"
+        }
+      ],
+      "facts": [
+        "台东市区的小型离岛型机场,跑道仅千余米,支线螺旋桨与支线喷气混飞。",
+        "热气球之乡与南回线旅游门户;长程航班由志航基地另有分工。",
+        "立荣航空执飞台北航线为主。"
+      ],
+      "coord": [
+        121.1,
+        22.75
       ]
     }
   ]

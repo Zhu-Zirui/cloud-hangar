@@ -213,6 +213,66 @@
       "en": "SHANGHAI AIRLINES",
       "color": "#CE0E2D",
       "logo": "assets/logos/fm.png"
+    },
+    "cx": {
+      "cn": "国泰航空",
+      "en": "CATHAY PACIFIC",
+      "color": "#006564",
+      "logo": "assets/logos/cx.png"
+    },
+    "br": {
+      "cn": "长荣航空",
+      "en": "EVA AIR",
+      "color": "#007A53",
+      "logo": "assets/logos/br.png"
+    },
+    "jx": {
+      "cn": "星宇航空",
+      "en": "STARLUX",
+      "color": "#1A1A1A",
+      "logo": "assets/logos/jx.png"
+    },
+    "it": {
+      "cn": "台湾虎航",
+      "en": "TIGERAIR TAIWAN",
+      "color": "#F26522",
+      "logo": "assets/logos/it.png"
+    },
+    "b7": {
+      "cn": "立荣航空",
+      "en": "UNI AIR",
+      "color": "#E60012",
+      "logo": "assets/logos/b7.png"
+    },
+    "nx": {
+      "cn": "澳门航空",
+      "en": "AIR MACAU",
+      "color": "#1B3C73",
+      "logo": "assets/logos/nx.png"
+    },
+    "hx": {
+      "cn": "香港航空",
+      "en": "HONGKONG AIRLINES",
+      "color": "#D6001C",
+      "logo": "assets/logos/hx.png"
+    },
+    "uo": {
+      "cn": "香港快运",
+      "en": "HK EXPRESS",
+      "color": "#7B2E8E",
+      "logo": "assets/logos/uo.png"
+    },
+    "a6": {
+      "cn": "湖南航空",
+      "en": "HUNAN AIRLINES",
+      "color": "#C7000B",
+      "logo": "assets/logos/a6.png"
+    },
+    "ci": {
+      "cn": "中华航空",
+      "en": "CHINA AIRLINES",
+      "color": "#CE0E2D",
+      "logo": "assets/logos/ci.png"
     }
   },
   "liveries": [
