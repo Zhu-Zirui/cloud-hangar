@@ -1336,3 +1336,59 @@ button { font-family: inherit; }
 
 /* 关键修复:display:flex 会压过 UA 的 [hidden] 规则,导致面板"关了却还在" */
 .cmdk-overlay[hidden] { display: none; }
+
+/* ============================================================
+   §I18N — P10 多语言:语言切换器 / 内容语言提示条 / RTL
+   ============================================================ */
+
+/* ---------- 语言切换器(header 内) ---------- */
+.lang-switch { position: relative; }
+.header-lang {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 10px;
+  background: rgba(56, 189, 248, .06);
+  border: 1px solid rgba(56, 189, 248, .25);
+  border-radius: 10px;
+  color: var(--ink-dim); font-size: 12.5px; font-family: inherit;
+  cursor: pointer; transition: border-color .15s, color .15s, background .15s;
+  white-space: nowrap;
+}
+.header-lang:hover { color: var(--accent); border-color: rgba(56, 189, 248, .55); background: rgba(56, 189, 248, .1); }
+.header-lang svg { flex: none; opacity: .8; }
+#lang-current { max-width: 96px; overflow: hidden; text-overflow: ellipsis; }
+.lang-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 1200;
+  min-width: 168px; padding: 6px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+/* 与 cmdk 同款:hidden 需显式压过 display:flex */
+.lang-menu[hidden] { display: none; }
+.lang-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 10px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--ink-dim);
+  font-size: 13px; font-family: inherit; text-align: start;
+  cursor: pointer; transition: background .12s, color .12s;
+}
+.lang-item:hover { background: rgba(56, 189, 248, .1); color: var(--ink); }
+.lang-item.on { color: var(--accent); font-weight: 600; }
+.lang-item.on::after { content: '✓'; font-size: 11px; }
+
+/* ---------- 内容语言提示条(页面顶部) ---------- */
+.i18n-note {
+  margin: 14px auto 0; max-width: 1080px;
+  padding: 8px 14px;
+  border: 1px dashed rgba(56, 189, 248, .35);
+  border-radius: 10px;
+  background: rgba(56, 189, 248, .05);
+  color: var(--ink-faint); font-size: 12.5px; line-height: 1.6;
+}
+
+/* ---------- RTL(阿拉伯语等) ---------- */
+[dir="rtl"] body { font-feature-settings: 'kern'; }
+[dir="rtl"] .hud-frame { direction: ltr; }   /* 角框装饰保持几何朝向,内容子元素恢复 */
+[dir="rtl"] .hud-frame > * { direction: rtl; }
+[dir="rtl"] kbd, [dir="rtl"] .cmdk-kbd { direction: ltr; }
+[dir="rtl"] .v-title .t-en, [dir="rtl"] .hero-en, [dir="rtl"] .pc-en, [dir="rtl"] .sub { direction: ltr; unicode-bidi: embed; }
+[dir="rtl"] .ap-iata, [dir="rtl"] .ap-hero-iata { direction: ltr; unicode-bidi: embed; }
+[dir="rtl"] .v-bottom .spacer, [dir="rtl"] .g-quiz-top .spacer { margin-left: 0; }

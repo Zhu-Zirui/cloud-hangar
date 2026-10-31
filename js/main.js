@@ -9,6 +9,7 @@
 import { getSession } from './core/auth.js';
 import { initConsentBanner } from './core/consent.js';
 import { initSearchPalette } from './ui/search.js';
+import { initI18n, applyDOM, contentNotice } from './core/i18n.js';
 
 const app = document.getElementById('app');
 
@@ -72,9 +73,21 @@ async function navigate() {
   const cleanup = mod.render(app, { segments, route });
   currentCleanup = typeof cleanup === 'function' ? cleanup : null;
   setActiveNav(ROUTES[route].nav);
+
+  /* P10 多语言:内容型页面在专用槽位挂"深度内容暂仅中文"提示(不进 #app,
+     避免被各页异步数据加载的整体重写冲掉)+ 渲染树文本翻译 */
+  const note = contentNotice();
+  const noteSlot = document.getElementById('i18n-note-slot');
+  if (noteSlot) {
+    noteSlot.innerHTML = (note && ['wiki', 'game', 'airports', 'aircraft', 'terms', 'privacy', 'cookies'].includes(route)) ? note : '';
+  }
+  applyDOM(app);
 }
 
 window.addEventListener('hashchange', navigate);
+
+/* 语言切换:语言包已在 i18n 内部就绪,重渲染当前路由即可 */
+window.addEventListener('cav3d:langchange', () => navigate());
 
 /* ---------- header 账号徽标(登录入口 / 已登录头像) ---------- */
 
@@ -100,4 +113,5 @@ if (!location.hash) history.replaceState(null, '', '#/hangar');
 renderHeaderAuth();
 initConsentBanner();
 initSearchPalette();
-navigate();
+/* P10:先就绪语言包(含首访语言检测),再做首屏渲染与 header/footer 翻译 */
+initI18n().then(() => navigate());

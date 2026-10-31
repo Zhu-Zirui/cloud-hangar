@@ -155,7 +155,7 @@ function provGroupsHTML(list) {
   });
   return keys.map((prov) => `
   <section class="ap-prov">
-    <h2 class="ap-prov-title">${prov}<span class="sub">${byProv.get(prov).length} 座</span></h2>
+    <h2 class="ap-prov-title">${prov}<span class="sub">${byProv.get(prov).length} 座机场</span></h2>
     <div class="ap-grid">${byProv.get(prov).map((a) => apCardHTML(a)).join('')}</div>
   </section>`).join('');
 }
