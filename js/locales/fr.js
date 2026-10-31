@@ -449,6 +449,7 @@ export default {
     '运行与导航': "Exploitation et navigation",
     '历史与机场': "Histoire et aéroports",
     '本站为非商业科普项目,不使用 Cookie、不采集个人数据, 仅通过浏览器本地存储(localStorage)保存你的浏览进度、偏好与本机账号,数据不会离开你的设备。 详见': "Ce site est un projet éducatif non commercial : pas de cookies, aucune donnée personnelle collectée. Votre progression, vos préférences et votre compte local sont enregistrés uniquement dans votre navigateur (localStorage) et ne quittent jamais votre appareil. voir",
+    '(首次访问语言探测):当你尚未手动选择过语言时,浏览器会向该免费接口发送一次 IP 归属地查询(约 1.2 秒超时),仅用于选择默认界面语言;查询到的国家码只保存在你本机(localStorage,30 天)且可随时清除,本站自身不记录、不上传该信息。你可在页头手动切换语言,此后不再触发探测。': "(Sonde de langue à la première visite) : tant que vous n’avez pas choisi de langue manuellement, le navigateur envoie une seule requête de géolocalisation IP à ce service gratuit (délai expiré ~1,2 s), uniquement pour choisir la langue d’interface par défaut ; le code pays obtenu n’est conservé que sur votre appareil (localStorage, 30 jours) et peut être effacé à tout moment. Le site lui-même ne l’enregistre ni ne le transmet. Dès que vous changez de langue dans l’en-tête, la sonde cesse de s’exécuter.",
   },
   provinces: {
     '北京': 'Pékin', '上海': 'Shanghai', '广东': 'Guangdong', '四川': 'Sichuan',

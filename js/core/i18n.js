@@ -37,18 +37,76 @@ let chromeSnapshot = null;
 
 /* ---------- 语言选择与语言包加载 ---------- */
 
-function detectLang() {
-  const saved = storeGet('lang', null);
-  if (saved && LANGS.some((l) => l.code === saved)) return saved;
-  const nav = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''])
-    .map((s) => String(s).toLowerCase());
-  for (const tag of nav) {
-    if (/^zh-(tw|hk|hant)/.test(tag)) return 'zh-TW';
-    if (/^zh/.test(tag)) return 'zh-CN';
-    const hit = LANGS.find((l) => l.code !== 'zh-CN' && l.code !== 'zh-TW' && (tag === l.code || tag.startsWith(l.code + '-')));
-    if (hit) return hit.code;
+/**
+ * 首访默认语言优先级(用户 2026-10-31 指定:不看浏览器语言,一律走 IP):
+ *   URL ?lang= 参数 > 已保存的手动选择 > IP 归属地主要语言 > 英语
+ * IP 探测用 get.geojs.io 免费接口(1.2s 超时),国家码本机缓存 30 天;
+ * 探测失败或国家不在映射表 → 英语。
+ */
+
+/** 国家/地区 → 本站语言(仅列主要通用语言属于 10 语种的国家;未列出的默认英语) */
+const LANG_BY_COUNTRY = {
+  zhCN: ['CN', 'SG'],
+  'zh-TW': ['TW', 'HK', 'MO'],
+  fr: ['FR', 'BE', 'LU', 'MC', 'SN', 'CI', 'ML', 'BF', 'NE', 'TG', 'BJ', 'CD', 'CG', 'GA', 'CM', 'HT'],
+  ru: ['RU', 'BY', 'KZ', 'KG'],
+  es: ['ES', 'MX', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'UY', 'PY', 'BO', 'CR', 'PA', 'GT', 'HN', 'SV', 'NI', 'DO', 'CU', 'PR', 'GQ'],
+  ar: ['SA', 'AE', 'EG', 'QA', 'KW', 'BH', 'OM', 'JO', 'LB', 'IQ', 'SY', 'YE', 'LY', 'DZ', 'MA', 'TN', 'SD', 'PS', 'MR', 'KM', 'DJ'],
+  ja: ['JP'],
+  ko: ['KR', 'KP'],
+  hi: ['IN'],
+};
+
+/** 纯函数,便于测试:ISO 3166-1 alpha-2 国家码 → 本站语言码或 null(=英语) */
+export function langForCountry(cc) {
+  const c = String(cc || '').toUpperCase();
+  if (!c) return null;
+  for (const [code, list] of Object.entries(LANG_BY_COUNTRY)) {
+    if (list.includes(c)) return code === 'zhCN' ? 'zh-CN' : code;
   }
-  return 'zh-CN';
+  return null;
+}
+
+const GEO_CACHE_KEY = 'geo';
+const GEO_TTL = 30 * 24 * 3600 * 1000; // 国家码缓存 30 天
+
+async function geoCountry(timeoutMs = 1200) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), timeoutMs);
+  try {
+    const res = await fetch('https://get.geojs.io/v1/ip/country.json', { signal: ctl.signal });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (data && data.country) || null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/** 同步检测:URL 参数 / 已保存的手动选择;都不命中返回 null(交给 IP 探测) */
+function detectLangSync() {
+  const param = new URLSearchParams(location.search).get('lang');
+  if (param && LANGS.some((l) => l.code === param)) return { code: param, via: 'param' };
+  const saved = storeGet('lang', null);
+  if (saved && LANGS.some((l) => l.code === saved)) return { code: saved, via: 'saved' };
+  return null;
+}
+
+async function detectLang() {
+  const sync = detectLangSync();
+  if (sync) return sync;
+  // 浏览器语言不命中 → IP 归属地(缓存 30 天)→ 未映射/失败 → 英语
+  const cached = storeGet(GEO_CACHE_KEY, null);
+  let cc = cached && cached.cc && (Date.now() - (cached.ts || 0) < GEO_TTL) ? cached.cc : null;
+  if (!cc) {
+    cc = await geoCountry();
+    if (cc) storeSet(GEO_CACHE_KEY, { cc, ts: Date.now() });
+  }
+  const mapped = langForCountry(cc);
+  if (mapped) return { code: mapped, via: 'geo' };
+  return { code: 'en', via: 'fallback-en' };
 }
 
 async function loadLocale(code) {
@@ -224,7 +282,9 @@ function restoreChrome() {
 
 /** 启动入口:main.js 首渲染前 await */
 export async function initI18n() {
-  lang = LANGS.find((l) => l.code === detectLang()) || LANGS[0];
+  const picked = await detectLang();
+  if (picked.via === 'param') storeSet('lang', picked.code); // ?lang= 视为明确选择,持久化
+  lang = LANGS.find((l) => l.code === picked.code) || LANGS[0];
   await loadLocale(lang.code);
   document.documentElement.lang = lang.code;
   document.documentElement.dir = lang.dir;

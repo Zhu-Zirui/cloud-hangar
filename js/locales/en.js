@@ -520,6 +520,7 @@ export default {
     '运行与导航': "Operations & Navigation",
     '历史与机场': "History & Airports",
     '本站为非商业科普项目,不使用 Cookie、不采集个人数据, 仅通过浏览器本地存储(localStorage)保存你的浏览进度、偏好与本机账号,数据不会离开你的设备。 详见': "This is a non-commercial aviation project: no cookies, no personal data collection. Your browsing progress, preferences and local account are saved only in your browser (localStorage) and never leave your device. see",
+    '(首次访问语言探测):当你尚未手动选择过语言时,浏览器会向该免费接口发送一次 IP 归属地查询(约 1.2 秒超时),仅用于选择默认界面语言;查询到的国家码只保存在你本机(localStorage,30 天)且可随时清除,本站自身不记录、不上传该信息。你可在页头手动切换语言,此后不再触发探测。': "(First-visit language probe): unless you have already chosen a language manually, the browser sends one IP-geolocation query to this free service (about 1.2 s timeout) purely to pick the default interface language; the resulting country code is stored only on your device (localStorage, 30 days) and can be cleared anytime. This site itself neither records nor uploads it. Once you switch languages manually in the header, the probe stops firing.",
   },
   provinces: {
     '北京': 'Beijing', '上海': 'Shanghai', '广东': 'Guangdong', '四川': 'Sichuan',
