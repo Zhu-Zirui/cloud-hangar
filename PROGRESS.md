@@ -43,6 +43,23 @@
 
 ## 会话记录
 
+### 2026-10-31 · P9 体验升级包:换装缩放修复 + 地图标签避让 + 导出/导入 + 每日一题/错题本 + 收藏夹 + Ctrl+K 搜索 + 机型对比
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:按上轮建议清单进行网站改进升级(本机账号/法律文档 P8 已完成)。
+- **技术债清偿**:
+  - **换装双倍缩放(P2 遗留,已彻底修复)**:`buildGltfAircraftUrl` 改为每次 `(await loadGltfTemplate(url)).clone(true)`——缓存模板永不被 `normalizeAircraft` 原地改写 scale/rotation,同 URL 二次加载(A→涂装B→切回A)不再叠加缩放;clone(true) 共享几何/材质,显存不翻倍。页内回归测试:同 URL 双取模板,归一化克隆后模板 scale 仍为 1 ✓。
+  - **地图标签重叠(P5 遗留,大幅缓解)**:`mapHTML` 重写打点标注——按规模分(航站楼×2+跑道数)降序抢占标签位,四向候选(右/左/上/下)矩形碰撞检测,全碰撞则隐藏常驻标签(287 点实测 139 显/148 隐),`.ap-lbl.off` + 悬停/聚焦强制显示兜底;圆点 halo 9→7。
+- **新增功能**:
+  - **进度导出/导入**(个人中心·账号管理):导出全部 `cav3d.*` 键为带版本头的 JSON 下载(`waitForEvent("download")` 实测触发 ✓);导入校验 app/version/前缀 → confirm 覆盖 → 先清后写(删除性同步)→ reload。IAB 不支持 file chooser,导入实测留待真浏览器。
+  - **每日一题 + 错题本**(成就中心):题目以 quiz.json 下标为稳定 ID;每日一题按本地日期串哈希出题(当日全站同题,`cav3d.daily` 记录后锁定,显示对错+解析);闯关答错自动入本(`cav3d.wrongBook`,去重),hub 显示计数,"错题重做"以错题为题池开局,答对即销账(实测 [0,5,12]→答对 12→[0,5] ✓)。
+  - **收藏夹**:`core/favs.js` 三类(aircraft/airport/wiki)存 `{id,name}`,收藏时记录展示名,个人中心汇总免回查数据文件;viewer 机型参数区/机场详情 hero/词条详情头部各一枚星标 chip(`favChipHTML`+`bindFavChips` 共用,键盘可达),个人中心"我的收藏"分组展示;兼容历史裸字符串 id。
+  - **全站搜索 Ctrl+K**(`ui/search.js` 命令面板):索引懒构建(首次打开才拉 loadAllVariants + airports/wiki JSON),标题前缀>包含>hay 包含三级评分 + 权重,前 12 条;↑↓/Enter/Esc 键盘导航,header 搜索按钮同入口;实测"c919"→词条、"海拉尔"→机场、点击跳转+关闭 ✓(注:IAB 外壳拦截真实 Ctrl+K,合成事件已验证处理逻辑,真浏览器无碍)。
+  - **机型对比 `#/compare`**(`ui/compare.js`):双下拉 + 交换按钮,9 行参数并排表 + 5 项指标双向条形(较大值=100%);入口:机库 hero"机型对比"、个人中心快捷入口、路由归"机库"高亮。首版 bug:"家族"行缺 fmt 抛 TypeError 被 catch 吞成错误卡,已修。
+- **改动文件**:`js/engine/gltfModel.js`、`js/ui/airports.js`、`js/ui/game.js`、`js/ui/account.js`、`js/ui/viewer.js`、`js/ui/wiki.js`、`js/ui/hangar.js`、`js/main.js`、`index.html`、`css/main.css`,新增 `js/core/favs.js`、`js/ui/search.js`、`js/ui/compare.js`、`PROGRESS.md`。
+- **本地实测(8161,IAB)**:机库 hero 3D/搜索按钮/对比入口 ✓;viewer b738 三角数 24,998 正常+星标 ✓;对比页 9 行 5 条+交换 ✓;地图 287 点/139 显 148 隐/PEK 跳详情 ✓;每日一题出题→作答→锁定→次日状态 ✓;错题重做开局→销账 ✓;三类收藏 toggle+个人中心汇总 ✓;导出下载 ✓;全流程控制台无报错。
+- **遗留/建议**:①导入流程真浏览器过一遍(IAB 无 file chooser);②收藏/错题本未入成就徽章体系,可加"收藏家"徽章;③地图标签在特别密集区(华东)仍可再叠加缩放分级;④Ctrl+K 真浏览器键盘实测;⑤机场数据 ~80 座 approx 校核与本轮无关,仍挂账。
+
 ### 2026-10-31 · P8 账号系统 + 法律文档(注册/登录/个人中心/条款/隐私/Cookie/同意横幅)
 
 - **所用模型**:GLM-5.3Flash

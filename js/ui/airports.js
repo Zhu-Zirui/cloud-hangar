@@ -4,6 +4,7 @@
  * 浏览打卡:cav3d.seenAirports(localStorage,经 core/store.js)
  */
 import { storeGet, storeSet, storeUpdate } from '../core/store.js';
+import { favChipHTML, bindFavChips } from '../core/favs.js';
 
 const seenAirports = () => storeGet('seenAirports', []) || [];
 function markSeen(iata) {
@@ -207,6 +208,7 @@ function renderDetail(container, list, liv, iata) {
           <span class="chip">海拔 ${ap.elevationM} m${ap.approx ? '(约)' : ''}</span>
           <span class="chip">${ap.runways.length} 条跑道</span>
           ${seenNow ? '<span class="chip seen-chip">● 已浏览打卡</span>' : ''}
+          ${favChipHTML('airport', apId(ap), ap.cn)}
         </div>
       </div>
     </header>
@@ -249,6 +251,8 @@ function renderDetail(container, list, liv, iata) {
       </section>
     </div>
   </div>`;
+
+  bindFavChips(container);
 }
 
 function hubChips(liv, ap) {
@@ -496,19 +500,37 @@ function mapHTML(list) {
         <text x="468" y="412" text-anchor="middle" font-size="12.5" fill="#9fc4e8">南海诸岛</text>
         <text x="468" y="548" text-anchor="middle" font-size="10" fill="#6b7f99">(示意)</text>
       </g>
-      <!-- 机场打点(近距离双场自动错位标注) -->
+      <!-- 机场打点(标签贪心避让:按规模排序抢占四向候选位,放不下则隐藏、悬停显示) -->
       ${(() => {
-        const placed = [];
-        return list.map((a) => {
+        /* 已放置标签的包围盒,用于碰撞检测(SVG 用户单位) */
+        const boxes = [];
+        const hit = (b) => boxes.some((o) => b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y);
+        /* 规模分:航站楼×2 + 跑道数,枢纽机场优先拿到好位置 */
+        const score = (a) => (a.terminals?.length || 0) * 2 + (a.runways?.length || 0);
+        const sorted = [...list].sort((p, q) => score(q) - score(p));
+        const out = new Map(); // apId → {x, y, text, lx, ly, anchor, show}
+        for (const a of sorted) {
           const [x, y] = toXY(a.coord[0], a.coord[1]);
-          const clash = placed.some((p) => Math.abs(p[0] - x) < 16 && Math.abs(p[1] - y) < 12);
-          placed.push([x, y]);
-          const lx = clash ? x - 9 : x + 10, ly = clash ? y + 15 : y + 4, anchor = clash ? 'end' : 'start';
+          const code = a.iata || a.icao || '';
+          const w = code.length * 7 + 4, h = 13;
+          /* 四向候选:右/左/上/下,第一个不碰撞的获胜;全碰撞则本点不显示常驻标签 */
+          const cands = [
+            { lx: x + 9, ly: y + 4, anchor: 'start', bx: x + 7, by: y - h + 4 },
+            { lx: x - 9, ly: y + 4, anchor: 'end', bx: x - 7 - w, by: y - h + 4 },
+            { lx: x, ly: y - 8, anchor: 'middle', bx: x - w / 2, by: y - 8 - h + 3 },
+            { lx: x, ly: y + 16, anchor: 'middle', bx: x - w / 2, by: y + 8 },
+          ];
+          const pick = cands.find((c) => !hit({ x: c.bx, y: c.by, w, h }));
+          if (pick) boxes.push({ x: pick.bx, y: pick.by, w, h });
+          out.set(apId(a), { x, y, code, ...pick, show: !!pick });
+        }
+        return list.map((a) => {
+          const p = out.get(apId(a));
           return `<g class="ap-dot" tabindex="0" data-iata="${apId(a)}" role="link" aria-label="${a.cn}">
-          <title>${a.cn} · ${a.iata || a.icao || ''}(点击查看详情)</title>
-          <circle cx="${x}" cy="${y}" r="9" fill="rgba(56,189,248,.18)"/>
-          <circle class="ap-dot-core" cx="${x}" cy="${y}" r="4" fill="#38bdf8" stroke="#0b1526" stroke-width="1.4"/>
-          <text x="${lx}" y="${ly}" text-anchor="${anchor}" font-size="10.5" fill="#cfe3f5" font-family="var(--mono)">${a.iata || a.icao}</text>
+          <title>${a.cn} · ${p.code}(点击查看详情)</title>
+          <circle cx="${p.x}" cy="${p.y}" r="7" fill="rgba(56,189,248,.18)"/>
+          <circle class="ap-dot-core" cx="${p.x}" cy="${p.y}" r="3.4" fill="#38bdf8" stroke="#0b1526" stroke-width="1.3"/>
+          <text class="ap-lbl ${p.show ? '' : 'off'}" x="${p.lx}" y="${p.ly}" text-anchor="${p.anchor}" font-size="10.5" fill="#cfe3f5" font-family="var(--mono)">${p.code}</text>
         </g>`;
         }).join('');
       })()}

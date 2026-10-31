@@ -8,6 +8,7 @@
 
 import { getSession } from './core/auth.js';
 import { initConsentBanner } from './core/consent.js';
+import { initSearchPalette } from './ui/search.js';
 
 const app = document.getElementById('app');
 
@@ -19,6 +20,7 @@ const ROUTES = {
   airports: { module: () => import('./ui/airports.js'),  nav: 'airports' },
   wiki:     { module: () => import('./ui/wiki.js'),      nav: 'wiki' },
   game:     { module: () => import('./ui/game.js'),      nav: 'game' },
+  compare:  { module: () => import('./ui/compare.js'),   nav: 'hangar' },  // 机型对比,归"机库"高亮
   login:    { module: () => import('./ui/auth.js'),      nav: '' },
   register: { module: () => import('./ui/auth.js'),      nav: '' },
   account:  { module: () => import('./ui/account.js'),   nav: '' },
@@ -97,4 +99,5 @@ window.addEventListener('cav3d:authchange', renderHeaderAuth);
 if (!location.hash) history.replaceState(null, '', '#/hangar');
 renderHeaderAuth();
 initConsentBanner();
+initSearchPalette();
 navigate();

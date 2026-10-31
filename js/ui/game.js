@@ -160,9 +160,9 @@ export function render(container, params) {
   let disposed = false;
 
   /* ---- 中心页(仪表盘 + 等级 + 徽章墙 + 开局入口) ---- */
-  Promise.all([getTotals(), loadQuiz()]).then(([totals]) => {
+  Promise.all([getTotals(), loadQuiz()]).then(([totals, quiz]) => {
     if (disposed) return;
-    renderHub(hubEl, totals);
+    renderHub(hubEl, totals, quiz);
     /* 从百科"去答题(本分类)"等入口带 slug 进入:直接开局 */
     if (autoSlug) startRound(autoSlug);
     /* 全量补检(部件/机场等在别处打卡、页内刷新不掉的徽章在此触发 toast) */
@@ -173,12 +173,21 @@ export function render(container, params) {
   });
 
   /* ---- 答题闯关 ---- */
-  let round = null; // { pool, idx, correct, wrong[], cat }
+  let round = null; // { pool, idx, correct, wrong[], cat, redo }
 
   function startRound(slugKey) {
     loadQuiz().then((quiz) => {
-      const cat = SLUG_CAT[slugKey] ?? null;
-      const cand = quiz.filter((q) => !cat || q.category === cat);
+      let cat = SLUG_CAT[slugKey] ?? null;
+      let cand;
+      if (slugKey === 'redo') {
+        /* 错题重做:题池 = 错题本里仍记录的题(按下标回查) */
+        const book = storeGet('wrongBook', []) || [];
+        cand = quiz.map((q, i) => { q.__i = i; return q; }).filter((q) => book.includes(q.__i));
+        cat = null;
+        if (!cand.length) { showToast('错题本是空的,先去闯关吧', 'warn'); return; }
+      } else {
+        cand = quiz.map((q, i) => { q.__i = i; return q; }).filter((q) => !cat || q.category === cat);
+      }
       /* 按当前等级加权抽题:等级越高难题占比越大(不放回加权抽样) */
       const rank = Math.min(RANK_MAX, storeGet('pilotRank', 0) || 0);
       const items = cand.map((q) => ({ q, w: diffWeight(q.difficulty || 1, rank) }));
@@ -191,7 +200,7 @@ export function render(container, params) {
         items.splice(i, 1);
       }
       if (!pool.length) { showToast('该分类暂无题目', 'warn'); return; }
-      round = { pool, idx: 0, correct: 0, wrong: [], cat };
+      round = { pool, idx: 0, correct: 0, wrong: [], cat, redo: slugKey === 'redo' };
       renderQuestion();
       quizEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }).catch((err) => console.error('[game] 题库加载失败:', err));
@@ -233,6 +242,11 @@ export function render(container, params) {
       const pick = Number(btn.dataset.i);
       const ok = pick === q.answer;
       if (ok) round.correct++; else round.wrong.push(q);
+      /* 错题本联动:普通局答错入本,错题重做答对销账 */
+      if (q.__i != null) {
+        if (!ok && !round.redo) storeUpdate('wrongBook', (arr) => [...new Set([...(arr || []), q.__i])], []);
+        if (ok && round.redo) storeUpdate('wrongBook', (arr) => (arr || []).filter((i) => i !== q.__i), []);
+      }
       optsEl.querySelectorAll('.g-opt').forEach((b) => {
         const i = Number(b.dataset.i);
         if (i === q.answer) b.classList.add('right');
@@ -288,15 +302,16 @@ export function render(container, params) {
     quizEl.querySelector('#g-again').addEventListener('click', () => startRound(round.cat ? Object.keys(SLUG_CAT).find((k) => SLUG_CAT[k] === round.cat) : 'all'));
     quizEl.querySelector('#g-back').addEventListener('click', () => {
       round = null; quizEl.innerHTML = '';
-      getTotals().then((t) => { if (!disposed) renderHub(hubEl, t); });
+      Promise.all([getTotals(), loadQuiz()]).then(([t, q]) => { if (!disposed) renderHub(hubEl, t, q); });
     });
   }
 
-  /* ---- 中心页渲染(等级卡 / 仪表盘 / 徽章墙 / 开局入口) ---- */
-  function renderHub(hub, totals) {
+  /* ---- 中心页(等级卡 / 仪表盘 / 每日一题 / 徽章墙 / 开局入口) ---- */
+  function renderHub(hub, totals, quiz) {
     const st = collectState();
     const rank = st.pilotRank;
     const stars = rank === RANK_MAX ? 5 : rank;
+    const wrongN = (storeGet('wrongBook', []) || []).length;
 
     /* 四条收集进度(总数按真实数据文件计算) */
     const bars = [
@@ -347,7 +362,13 @@ export function render(container, params) {
         <button class="btn btn-primary" data-slug="all">综合闯关</button>
         ${Object.entries(SLUG_CAT).filter(([k]) => k !== 'all').map(([k, c]) => `
           <button class="btn btn-ghost" data-slug="${k}">${c}</button>`).join('')}
+        <button class="btn btn-ghost g-redo-btn" data-slug="redo" title="重做错题本里的题,答对即销账">错题重做${wrongN ? `(${wrongN})` : ''}</button>
       </div>
+    </section>
+
+    <section class="g-daily-sec anim-fade-up">
+      <h2 class="section-title">每日一题 <span class="sub">DAILY · 每天一题,答完明天再来</span></h2>
+      <div id="g-daily"></div>
     </section>
 
     <section class="g-badges anim-fade-up">
@@ -357,6 +378,63 @@ export function render(container, params) {
 
     hub.querySelectorAll('[data-slug]').forEach((btn) => {
       btn.addEventListener('click', () => startRound(btn.dataset.slug));
+    });
+
+    /* 每日一题(按本地日期出题,答过当天锁定) */
+    if (quiz) renderDaily(hub.querySelector('#g-daily'), quiz);
+  }
+
+  /* ---- 每日一题 ---- */
+
+  /** 本地日期串(避免 toISOString 的 UTC 偏移导致晚上提前换题) */
+  function todayStr() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
+  /** 日期种子 → 题目下标(同一天所有人同一题,稳定可复现) */
+  function dailyIndex(quiz, dateStr) {
+    let h = 0;
+    for (const ch of dateStr) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    return h % quiz.length;
+  }
+
+  function renderDaily(el, quiz) {
+    if (!el) return;
+    const t = todayStr();
+    const idx = dailyIndex(quiz, t);
+    const q = quiz[idx];
+    if (!q) return;
+    const rec = storeGet('daily', null);
+    const answered = rec && rec.date === t && rec.idx === idx;
+    const letters = (i) => String.fromCharCode(65 + i);
+
+    el.innerHTML = `
+    <div class="g-daily glass-card hud-frame">
+      <div class="g-quiz-top">
+        <span class="v-chip">${t}</span>
+        <span class="v-chip">难度 ${'★'.repeat(Math.min(3, q.difficulty || 1))}</span>
+        <span class="v-chip">${q.category || '综合'}</span>
+        ${answered ? `<span class="v-chip ${rec.correct ? 'ok' : 'no'}">${rec.correct ? '✓ 今日已答对' : '✗ 今日已答错'}</span>` : '<span class="v-chip">尚未作答</span>'}
+      </div>
+      <h3 class="g-q">${q.q}</h3>
+      <div class="g-opts">
+        ${q.options.map((o, i) => `
+          <button class="g-opt ${answered && i === q.answer ? 'right' : ''} ${answered && rec.pick === i && i !== q.answer ? 'wrong' : ''}"
+                  type="button" data-i="${i}" ${answered ? 'disabled' : ''}>${letters(i)}. ${o}</button>`).join('')}
+      </div>
+      ${answered ? `<div class="g-explain"><div class="g-explain-verdict ${rec.correct ? 'ok' : 'no'}">${rec.correct ? '✓ 答对了' : `✗ 答错了,正确答案:${letters(q.answer)}`}</div><p>${q.explain}</p></div>` : ''}
+    </div>`;
+
+    if (answered) return;
+    el.querySelector('.g-opts').addEventListener('click', (e) => {
+      const btn = e.target.closest('.g-opt');
+      if (!btn) return;
+      const pick = Number(btn.dataset.i);
+      const ok = pick === q.answer;
+      storeSet('daily', { date: t, idx, pick, correct: ok });
+      showToast(ok ? '每日一题 ✓ 答对啦' : '每日一题 ✗ 答错了,明天再来');
+      renderDaily(el, quiz);
     });
   }
 

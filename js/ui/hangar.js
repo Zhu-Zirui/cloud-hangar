@@ -178,6 +178,7 @@ export function render(container) {
         </div>
         <div class="hero-actions">
           <button class="btn btn-primary" id="btn-goto-fleet">浏览机队 ↓</button>
+          <a class="btn btn-ghost" href="#/compare">机型对比</a>
           <a class="btn btn-ghost" href="#/wiki">了解项目</a>
         </div>
       </div>

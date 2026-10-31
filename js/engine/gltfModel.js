@@ -103,7 +103,10 @@ export function normalizeAircraft(scene, dims, yaw = 0) {
  */
 export async function buildGltfAircraftUrl(url, renderer, dims) {
   const assetId = url;
-  const scene = await loadGltfTemplate(assetId);
+  /* 缓存的是未归一化模板;每次发深克隆——模板一旦被 normalizeAircraft 原地改过
+     scale/rotation,同 URL 二次加载(A→涂装B→切回A)就会在已缩放基础上再乘,
+     即"换装双倍缩放"。clone(true) 共享几何/材质,显存不翻倍。 */
+  const scene = (await loadGltfTemplate(assetId)).clone(true);
   const root = normalizeAircraft(scene, dims, sourceNoseYaw(assetId));
 
   // 环境反射:GLB 材质接入 PMREM RoomEnvironment,观感与参数化通道一致

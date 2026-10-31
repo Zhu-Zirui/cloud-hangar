@@ -14,6 +14,7 @@ import { buildHangarEnv, registerHangarBrand } from '../engine/hangarEnv.js';
 import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/details.js';
 import { getAllLiveries, liveriesForVariant } from '../engine/livery.js';
 import { createPartsLayer } from './parts.js';
+import { favChipHTML, bindFavChips } from '../core/favs.js';
 
 function toast(msg, type = '') {
   let wrap = document.querySelector('.toast-wrap');
@@ -96,6 +97,7 @@ export function render(container, params) {
           <div class="v-chips">
             <span class="v-chip" id="v-tri" title="整机三角形数(预算 ≤15万)">△ --</span>
             <span class="v-chip btn-like" id="v-ruler" title="地面米数标尺(比例自检)">标尺</span>
+            ${favChipHTML('aircraft', variantId, v.cnName)}
           </div>
         </div>
         <div class="v-bottom">
@@ -157,6 +159,8 @@ export function render(container, params) {
         </section>
       </aside>
     </div>`;
+
+    bindFavChips(container);
 
     /* ---------- 3D 场景 ---------- */
     const stageEl = container.querySelector('#v-3d');

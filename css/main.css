@@ -1150,3 +1150,145 @@ button { font-family: inherit; }
   .user-name { display: none; }
   .user-chip { padding: 4px; }
 }
+
+/* ===== §AP-MAP 标签避让补充(P9):被遮挡的常驻标签隐藏,悬停圆点时强制显示 ===== */
+.ap-map .ap-lbl.off { display: none; }
+.ap-map .ap-dot:hover .ap-lbl,
+.ap-map .ap-dot:focus .ap-lbl { display: block; }
+
+/* ===== §GAME-DAILY 每日一题 + 错题重做(P9) ===== */
+.g-daily-sec { margin-top: 6px; }
+.g-daily {
+  padding: 24px 30px 28px;
+  margin-bottom: 10px;
+}
+.g-daily .g-opts { display: grid; gap: 10px; }
+.g-daily .v-chip.ok { color: var(--ok); border-color: rgba(52, 211, 153, .45); }
+.g-daily .v-chip.no { color: var(--danger); border-color: rgba(248, 113, 113, .45); }
+.g-redo-btn { margin-left: auto; }
+
+/* ===== §FAV 收藏星标 + 个人中心收藏区(P9) ===== */
+.fav-chip { cursor: pointer; user-select: none; transition: color .2s, border-color .2s; }
+.fav-chip:hover { color: var(--warn); border-color: rgba(251, 191, 36, .5); }
+.fav-chip.on { color: var(--warn); border-color: rgba(251, 191, 36, .55); background: rgba(251, 191, 36, .10); }
+.acct-fav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.acct-fav-card { padding: 20px 22px; }
+.acct-fav-card h3 { font-size: 15.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.acct-fav-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.acct-fav-item {
+  font-size: 13px; color: var(--ink-dim);
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: rgba(56, 189, 248, .05);
+  transition: color .2s, border-color .2s, background .2s;
+}
+.acct-fav-item:hover { color: var(--ink); border-color: rgba(56, 189, 248, .5); background: var(--accent-soft); }
+.acct-fav-empty { padding: 22px 26px; font-size: 13.5px; color: var(--ink-faint); }
+
+/* ===== §CMDK 全站搜索命令面板(P9) ===== */
+.header-search {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; margin-left: 6px; flex-shrink: 0;
+  font-size: 13px; color: var(--ink-dim);
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: rgba(56, 189, 248, 0.06);
+  cursor: pointer; transition: color .2s, border-color .2s, background .2s;
+}
+.header-search:hover { color: var(--ink); border-color: rgba(56, 189, 248, 0.5); background: var(--accent-soft); }
+.header-search kbd {
+  font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
+  padding: 1px 6px; border: 1px solid var(--line); border-radius: 5px;
+  background: rgba(11, 21, 38, 0.6);
+}
+
+.cmdk-overlay {
+  position: fixed; inset: 0; z-index: 95;
+  background: rgba(4, 10, 20, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 12vh 20px 20px;
+}
+.cmdk {
+  width: min(620px, 100%);
+  max-height: 66vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.cmdk-input-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.cmdk-icon { font-size: 20px; color: var(--accent); }
+.cmdk-input {
+  flex: 1; border: none; background: transparent;
+  font-size: 15.5px; font-family: inherit; color: var(--ink);
+}
+.cmdk-input:focus { outline: none; }
+.cmdk-input::placeholder { color: var(--ink-faint); }
+.cmdk-kbd {
+  font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
+  padding: 2px 7px; border: 1px solid var(--line); border-radius: 5px;
+}
+.cmdk-list { overflow-y: auto; padding: 8px; }
+.cmdk-empty { padding: 28px 0; text-align: center; font-size: 13.5px; color: var(--ink-faint); }
+.cmdk-item {
+  width: 100%; display: flex; align-items: center; gap: 13px;
+  padding: 11px 14px; text-align: left;
+  border: none; border-radius: var(--radius-sm);
+  background: transparent; color: var(--ink);
+  cursor: pointer;
+}
+.cmdk-item.on, .cmdk-item:hover { background: var(--accent-soft); }
+.cmdk-item-icon { font-size: 17px; flex-shrink: 0; }
+.cmdk-item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.cmdk-item-main b { font-size: 14px; font-weight: 600; }
+.cmdk-item-main span {
+  font-size: 12px; color: var(--ink-faint);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cmdk-item-type {
+  flex-shrink: 0; font-size: 11px; color: var(--accent);
+  padding: 2px 9px; border: 1px solid rgba(56, 189, 248, .35); border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .header-search span, .header-search kbd { display: none; }
+  .header-search { padding: 7px 9px; }
+}
+
+/* ===== §COMPARE 机型对比页(P9) ===== */
+.cmp-pick {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.cmp-select { min-width: 220px; flex: 0 1 260px; }
+.cmp-table-wrap { padding: 8px 26px 18px; }
+.cmp-table { width: 100%; border-collapse: collapse; }
+.cmp-table th, .cmp-table td {
+  padding: 11px 14px; text-align: center;
+  border-bottom: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.cmp-table tbody th { color: var(--ink-dim); font-weight: 500; font-size: 12.5px; letter-spacing: 1px; width: 130px; }
+.cmp-table td.cmp-val { color: var(--ink); font-family: var(--mono); }
+.cmp-table thead th { padding: 16px 10px 12px; }
+.cmp-table thead .cmp-head a { color: var(--ink); font-size: 15.5px; letter-spacing: 1px; }
+.cmp-table thead .cmp-head a:hover { color: var(--accent); }
+.cmp-table thead .sub { color: var(--ink-faint); font-family: var(--mono); font-size: 11px; }
+.cmp-bars { margin-top: 18px; padding: 22px 28px 26px; }
+.cmp-bars h3 { font-size: 15.5px; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cmp-bar-row { display: grid; grid-template-columns: 1fr 92px 1fr; align-items: center; gap: 12px; margin-bottom: 13px; }
+.cmp-bar-label { text-align: center; font-size: 12.5px; color: var(--ink-dim); letter-spacing: 1px; }
+.cmp-bar-line { display: flex; align-items: center; gap: 9px; }
+.cmp-bar-line:last-child { flex-direction: row-reverse; }
+.cmp-bar { flex: 1; height: 12px; border-radius: 6px; background: rgba(234, 243, 252, .08); overflow: hidden; }
+.cmp-bar i { display: block; height: 100%; border-radius: 6px; }
+.cmp-bar i.a { background: linear-gradient(90deg, var(--accent-deep), var(--accent)); }
+.cmp-bar i.b { background: linear-gradient(90deg, var(--accent), var(--accent-deep)); }
+.cmp-bar-n { font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .cmp-bar-row { grid-template-columns: 1fr 64px 1fr; }
+  .cmp-table thead .sub { display: none; }
+}

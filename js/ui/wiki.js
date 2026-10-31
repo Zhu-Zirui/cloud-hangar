@@ -4,6 +4,7 @@
  * 阅读即打卡:进词条详情写 cav3d.readWiki,并触发成就补检(徽章 toast)。
  */
 import { storeUpdate, storeGet } from '../core/store.js';
+import { favChipHTML, bindFavChips } from '../core/favs.js';
 import { checkAchievements } from './game.js';
 
 /* wiki 六分类 → 答题分类 slug(game 页路由 #/game/<slug>;"旅客与旅行"并入综合) */
@@ -169,6 +170,7 @@ function renderDetail(container, entryId) {
         <div class="w-detail-top">
           <span class="w-card-cat">${entry.category}</span>
           <span class="v-chip">${idx} / ${data.length} · 本分类 ${catCount} 条</span>
+          ${favChipHTML('wiki', entry.id, entry.title)}
         </div>
         <h2>${entry.title}</h2>
         <div class="w-detail-tags">${entry.tags.map((t) => `<span class="w-tag">${t}</span>`).join('')}</div>
@@ -184,6 +186,7 @@ function renderDetail(container, entryId) {
         </div>
       </article>
     </div>`;
+    bindFavChips(container);
   }).catch((err) => {
     console.error('[wiki] 词条加载失败:', err);
     container.innerHTML = `

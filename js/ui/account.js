@@ -6,6 +6,7 @@
  */
 import { storeGet } from '../core/store.js';
 import { getSession, logout, deleteAccount, getUsers } from '../core/auth.js';
+import { getFavs } from '../core/favs.js';
 import { RANKS } from './game.js';
 
 /* 部件总数为 30(parts.json);与 game.js 同口径,不 import parts.js 以免引入 three 依赖 */
@@ -88,6 +89,7 @@ export function render(container) {
         <h3>快捷入口</h3>
         <div class="auth-actions">
           <a class="btn btn-ghost" href="#/game">成就中心</a>
+          <a class="btn btn-ghost" href="#/compare">机型对比</a>
           <a class="btn btn-ghost" href="#/hangar">前往机库</a>
           <a class="btn btn-ghost" href="#/airports">机场图鉴</a>
         </div>
@@ -102,9 +104,23 @@ export function render(container) {
       </div>
     </section>
 
+    <section class="acct-favs anim-fade-up">
+      <h2 class="section-title">我的收藏 <span class="sub">FAVORITES</span></h2>
+      <div class="acct-fav-grid" id="acct-favs"></div>
+    </section>
+
     <section class="acct-danger anim-fade-up">
       <h2 class="section-title">账号管理 <span class="sub">MANAGE</span></h2>
       <div class="glass-card acct-danger-card">
+        <div class="acct-danger-row">
+          <div><b>进度导出</b><span>把本机全部进度(含账号)打包为 JSON 文件,用于备份或迁移到其他设备。</span></div>
+          <button class="btn btn-ghost" id="acct-export">导出 JSON</button>
+        </div>
+        <div class="acct-danger-row">
+          <div><b>进度导入</b><span>从导出的 JSON 文件恢复;<b>将覆盖本机现有全部进度</b>。</span></div>
+          <button class="btn btn-ghost" id="acct-import">导入 JSON</button>
+          <input type="file" id="acct-import-file" accept="application/json,.json" hidden>
+        </div>
         <div class="acct-danger-row">
           <div><b>退出登录</b><span>清除本机会话,账号与进度保留。</span></div>
           <button class="btn btn-ghost" id="acct-logout">退出登录</button>
@@ -116,6 +132,26 @@ export function render(container) {
       </div>
     </section>
   </div>`;
+
+  /* 我的收藏:三类分组,链接直达详情 */
+  const favGroups = [
+    { kind: 'aircraft', label: '机型', href: (id) => `#/aircraft/${id}` },
+    { kind: 'airport', label: '机场', href: (id) => `#/airports/${id}` },
+    { kind: 'wiki', label: '词条', href: (id) => `#/wiki/${id}` },
+  ];
+  const favsEl = container.querySelector('#acct-favs');
+  const anyFav = favGroups.some((g) => getFavs(g.kind).length);
+  favsEl.innerHTML = anyFav ? favGroups.map((g) => {
+    const items = getFavs(g.kind);
+    if (!items.length) return '';
+    return `
+    <div class="glass-card acct-fav-card">
+      <h3>${g.label} <span class="v-chip">${items.length}</span></h3>
+      <div class="acct-fav-list">
+        ${items.map((it) => `<a class="acct-fav-item" href="${g.href(it.id)}">★ ${it.name || it.id}</a>`).join('')}
+      </div>
+    </div>`;
+  }).join('') : '<div class="glass-card acct-fav-empty">还没有收藏。在机型 / 机场 / 词条详情页点「☆ 收藏」,就会出现在这里。</div>';
 
   /* 进度九宫格(总数按真实数据文件计算) */
   getTotals().then((t) => {
@@ -131,6 +167,56 @@ export function render(container) {
     container.querySelector('#acct-stats').innerHTML = stats.map((it) => `
       <div class="glass-card acct-stat"><b>${it.v}</b><span>${it.s}</span></div>`).join('');
   }).catch((err) => console.error('[account] 进度统计加载失败:', err));
+
+  /* 进度导出:打包全部 cav3d.* 键为 JSON 下载 */
+  container.querySelector('#acct-export').addEventListener('click', () => {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('cav3d.')) data[k] = localStorage.getItem(k);
+    }
+    const payload = { app: 'cloud-hangar', version: 1, exportedAt: new Date().toISOString(), data };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `cloud-hangar-progress-${payload.exportedAt.slice(0, 10)}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  });
+
+  /* 进度导入:校验 → 用户确认覆盖 → 整体写入 → 刷新生效 */
+  const fileInput = container.querySelector('#acct-import-file');
+  container.querySelector('#acct-import').addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files && fileInput.files[0];
+    fileInput.value = ''; // 允许重复选择同一文件
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const payload = JSON.parse(reader.result);
+        if (payload.app !== 'cloud-hangar' || !payload.data || typeof payload.data !== 'object') {
+          throw new Error('不是本站的进度备份文件');
+        }
+        const keys = Object.keys(payload.data).filter((k) => k.startsWith('cav3d.'));
+        if (!keys.length) throw new Error('备份文件里没有可导入的数据');
+        if (!confirm(`将导入 ${keys.length} 项数据并覆盖本机现有全部进度,确定继续?`)) return;
+        /* 先清后写,保证删除性同步(避免旧键残留) */
+        const stale = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('cav3d.')) stale.push(k);
+        }
+        stale.forEach((k) => localStorage.removeItem(k));
+        keys.forEach((k) => localStorage.setItem(k, payload.data[k]));
+        alert('导入成功,页面即将刷新。');
+        location.reload();
+      } catch (err) {
+        alert(`导入失败:${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  });
 
   /* 退出登录 */
   container.querySelector('#acct-logout').addEventListener('click', () => {
