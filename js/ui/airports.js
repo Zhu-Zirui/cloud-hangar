@@ -3,12 +3,14 @@
  * 三个视图:列表(卡片栅格+搜索+拼音排序)/ 详情(#/airports/<iata>:数据表+程序化跑道布局 SVG+冷知识)/ 地图(SVG 中国轮廓打点)
  * 浏览打卡:cav3d.seenAirports(localStorage,经 core/store.js)
  */
-import { storeGet, storeUpdate } from '../core/store.js';
+import { storeGet, storeSet, storeUpdate } from '../core/store.js';
 
 const seenAirports = () => storeGet('seenAirports', []) || [];
 function markSeen(iata) {
   storeUpdate('seenAirports', (arr) => (Array.isArray(arr) && arr.includes(iata) ? arr : [...(arr || []), iata]), []);
 }
+/** 记住最近浏览的机场详情路由键,返回列表时自动定位到该卡片 */
+function rememberLast(id) { if (id) storeSet('lastAirport', id); }
 
 /* ---------- 数据加载(模块级缓存) ---------- */
 let apPromise = null;
@@ -96,6 +98,27 @@ function renderIndex(container, list, liv) {
     });
   }
   bindCards(container);
+
+  // 从详情页返回时,自动滚到上次浏览的机场卡片并高亮(列表模式且未在搜索态)
+  const lastId = storeGet('lastAirport', null);
+  if (mode === 'list' && lastId && !query) {
+    const focusCard = (card) => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('ap-focus');
+      setTimeout(() => card.classList.remove('ap-focus'), 2000);
+    };
+    setTimeout(() => {
+      const card = document.getElementById(`ap-${lastId}`);
+      if (card) focusCard(card);
+    }, 60);
+    // 兜底:浏览器对 hash 导航的滚动恢复可能打断平滑滚动,稍后再校验一次
+    setTimeout(() => {
+      const card = document.getElementById(`ap-${lastId}`);
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      if (rect.top < 0 || rect.bottom > innerHeight) card.scrollIntoView({ block: 'center' });
+    }, 450);
+  }
 }
 
 function filterAirports(list) {
@@ -142,7 +165,7 @@ function apId(a) { return a.iata || a.icao || encodeURIComponent(a.cn); }
 function apCardHTML(a) {
   const isSeen = seenAirports().includes(apId(a));
   return `
-    <a class="ap-card glass-card hud-frame ${isSeen ? 'seen' : ''}" href="#/airports/${apId(a)}">
+    <a class="ap-card glass-card hud-frame ${isSeen ? 'seen' : ''}" id="ap-${apId(a)}" href="#/airports/${apId(a)}">
       <div class="ap-card-top">
         <span class="ap-iata">${a.iata || a.icao || '—'}</span>
         <span class="ap-rw-badge">${a.runways.length} 跑道</span>
@@ -164,6 +187,7 @@ function bindCards(container) { /* 卡片为 <a> 纯跳转,无需额外绑定,�
 function renderDetail(container, list, liv, iata) {
   const ap = list.find((x) => apId(x) === iata || x.cn === iata);
   markSeen(iata);
+  rememberLast(iata);
   if (!ap) {
     container.innerHTML = `<div class="container"><div class="placeholder-page glass-card"><h2>未收录机场 ${iata}</h2><p>当前图鉴共收录 ${list.length} 座机场。</p><p><a class="pc-pill" href="#/airports">返回列表</a></p></div></div>`;
     return;

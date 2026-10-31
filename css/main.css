@@ -968,6 +968,12 @@ button { font-family: inherit; }
 
 /* ===== §P5.2 机场图鉴分省分组(P5 扩容 165 座) ===== */
 .ap-prov { margin: 0 0 30px; }
+/* 从详情页返回时,上次浏览卡片的定位高亮脉冲 */
+@keyframes apFocusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+  25%, 65% { box-shadow: 0 0 0 3px rgba(56, 189, 248, .55); }
+}
+.ap-card.ap-focus { animation: apFocusPulse 1.8s ease 1; }
 .ap-prov-title {
   display: flex; align-items: baseline; gap: 10px;
   margin: 0 0 12px; padding: 0 2px 8px;
