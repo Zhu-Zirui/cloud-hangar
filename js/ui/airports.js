@@ -475,7 +475,12 @@ function mapHTML(list) {
   const [tx, ty] = [0, 0]; // viewBox 原点即投影原点
   return `
   <div class="ap-map-wrap glass-card">
-    <svg class="ap-map" viewBox="0 0 560 570" role="img" aria-label="中国机场分布示意图">
+    <div class="ap-map-ctrl" role="group" aria-label="地图缩放">
+      <button type="button" data-zoom="in" title="放大(也可用滚轮)">＋</button>
+      <button type="button" data-zoom="out" title="缩小">－</button>
+      <button type="button" data-zoom="reset" title="复位视图">复位</button>
+    </div>
+    <svg class="ap-map" viewBox="0 0 560 570" role="img" aria-label="中国机场分布示意图(可滚轮缩放、拖拽平移)">
       <defs>
         <radialGradient id="apLand" cx=".5" cy=".4" r=".8">
           <stop offset="0" stop-color="rgba(56,189,248,.10)"/><stop offset="1" stop-color="rgba(56,189,248,.03)"/>
@@ -548,4 +553,83 @@ document.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   const dot = e.target && e.target.closest && e.target.closest('.ap-dot');
   if (dot && dot.dataset.iata) location.hash = `#/airports/${dot.dataset.iata}`;
+});
+
+/* ============================================================
+   地图缩放/平移(事件委托,列表↔地图切换重渲染后依然生效)
+   实现:直接操作 SVG viewBox;滚轮以光标为锚缩放,按住拖拽平移;
+   标签碰撞盒按基准比例计算,放大后点距自然拉开、视觉重叠随之减轻。
+   ============================================================ */
+const MAP_W = 560, MAP_H = 570;
+const MAP_ZOOM_MIN = 1, MAP_ZOOM_MAX = 9; // 倍率域
+
+function mapGetVb(svg) {
+  const b = svg.viewBox.baseVal;
+  return { x: b.x, y: b.y, w: b.width, h: b.height };
+}
+function mapSetVb(svg, vb) {
+  const w = Math.min(MAP_W, Math.max(MAP_W / MAP_ZOOM_MAX, vb.w));
+  const h = w * (MAP_H / MAP_W); // 等比,锁定宽高比
+  const x = Math.min(MAP_W - w, Math.max(0, vb.x));
+  const y = Math.min(MAP_H - h, Math.max(0, vb.y));
+  svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
+}
+function mapClamp(svg) { mapSetVb(svg, mapGetVb(svg)); }
+
+/** 客户端坐标 → SVG 用户坐标(按当前 viewBox) */
+function mapToSvg(svg, clientX, clientY) {
+  const r = svg.getBoundingClientRect();
+  const vb = mapGetVb(svg);
+  return [vb.x + ((clientX - r.left) / r.width) * vb.w,
+          vb.y + ((clientY - r.top) / r.height) * vb.h];
+}
+/** 缩放 factor 倍,锚点为 SVG 用户坐标 (sx, sy):锚点指向的地图点缩放前后不动 */
+function mapZoomAt(svg, factor, sx, sy) {
+  const vb = mapGetVb(svg);
+  const w = vb.w * factor, h = vb.h * factor;
+  mapSetVb(svg, { x: sx - ((sx - vb.x) * w) / vb.w, y: sy - ((sy - vb.y) * h) / vb.h, w, h });
+}
+
+/* 滚轮缩放(必须非 passive 才能 preventDefault;以光标为锚) */
+document.addEventListener('wheel', (e) => {
+  const svg = e.target && e.target.closest && e.target.closest('.ap-map');
+  if (!svg) return;
+  e.preventDefault();
+  const [sx, sy] = mapToSvg(svg, e.clientX, e.clientY);
+  mapZoomAt(svg, e.deltaY > 0 ? 1.18 : 1 / 1.18, sx, sy);
+}, { passive: false });
+
+/* 拖拽平移:按下记录起点,移动改 viewBox;移动过的拖拽吞掉落点 click 防误跳详情 */
+let mapDrag = null; // { svg, startX, startY, vb, moved }
+document.addEventListener('pointerdown', (e) => {
+  const svg = e.target && e.target.closest && e.target.closest('.ap-map');
+  if (!svg || !e.isPrimary) return;
+  mapDrag = { svg, startX: e.clientX, startY: e.clientY, vb: mapGetVb(svg), moved: false };
+});
+document.addEventListener('pointermove', (e) => {
+  if (!mapDrag) return;
+  const r = mapDrag.svg.getBoundingClientRect();
+  const dx = ((e.clientX - mapDrag.startX) / r.width) * mapDrag.vb.w;
+  const dy = ((e.clientY - mapDrag.startY) / r.height) * mapDrag.vb.h;
+  if (Math.abs(e.clientX - mapDrag.startX) + Math.abs(e.clientY - mapDrag.startY) > 4) mapDrag.moved = true;
+  if (mapDrag.moved) mapSetVb(mapDrag.svg, { x: mapDrag.vb.x - dx, y: mapDrag.vb.y - dy, w: mapDrag.vb.w, h: mapDrag.vb.h });
+});
+document.addEventListener('pointerup', () => { if (mapDrag) { mapClamp(mapDrag.svg); if (mapDrag.moved) suppressNextDotClick = true; mapDrag = null; } });
+let suppressNextDotClick = false;
+document.addEventListener('click', (e) => {
+  if (!suppressNextDotClick) return;
+  if (e.target && e.target.closest && e.target.closest('.ap-map')) { e.stopPropagation(); e.preventDefault(); }
+  suppressNextDotClick = false;
+}, true); // 捕获阶段先于详情跳转委托执行
+
+/* 缩放按钮(以当前视图中心为锚) */
+document.addEventListener('click', (e) => {
+  const btn = e.target && e.target.closest && e.target.closest('.ap-map-ctrl [data-zoom]');
+  if (!btn) return;
+  const svg = btn.closest('.ap-map-wrap').querySelector('.ap-map');
+  if (!svg) return;
+  const act = btn.dataset.zoom;
+  if (act === 'reset') { svg.setAttribute('viewBox', `0 0 ${MAP_W} ${MAP_H}`); return; }
+  const vb = mapGetVb(svg);
+  mapZoomAt(svg, act === 'in' ? 1 / 1.6 : 1.6, vb.x + vb.w / 2, vb.y + vb.h / 2);
 });

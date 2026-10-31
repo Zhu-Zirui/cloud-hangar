@@ -43,6 +43,17 @@
 
 ## 会话记录
 
+### 2026-10-31 · P9.1 反馈修复:搜索面板真关不掉(根因 CSS)+ 地图缩放/平移 + 机型对比全目录 78 款
+
+- **所用模型**:GLM-5.3Flash
+- **用户反馈**:①搜索面板退出不了;②机场地图要能缩放;③机型对比扩充为全系列主要民航机型(波音/空客/巴航/ATR/德哈维兰/商飞/麦道/图/安/伊尔/苏霍伊等)。
+- **①搜索"关不掉"根因(用户报告属实,比表象更深)**:关闭逻辑(hidden 属性)一直生效,但 `.cmdk-overlay { display:flex }` 是作者样式,压过浏览器 UA 对 `[hidden] { display:none }` 的默认规则,面板逻辑上已关、视觉上永驻。**修复 = 一行 `.cmdk-overlay[hidden] { display:none }`**。同时补齐三通道退出:✕ 关闭按钮、点卡片以外任意遮罩区、Esc 全局监听(焦点不必在输入框)。实测 computed display 随 hidden 正确切换 ✓。
+- **②地图缩放/平移**:SVG viewBox 直操——右上角 ＋/－/复位 按钮(视图中心锚)、滚轮以光标为锚缩放(passive:false)、按住拖拽平移(pointer events + clamp 到地图范围);拖拽移动过的点击在捕获阶段吞掉,防拖完松手误跳详情。事件委托挂在 document,列表↔地图切换重渲染后依然生效。实测按钮/合成 wheel/合成 pointer 拖拽/复位/防误点全 ✓。放大后标签自然拉开,密集区(华东)观感显著改善。
+- **③机型对比全目录**:`data/aircraft-catalog.json` 新建,78 款 × 12 厂商(波音 22/空客 21/巴航工业 8/ATR 2/德哈维兰加拿大 3/中国商飞 3/麦道 5/图波列夫 3/安东诺夫 3/伊柳申 3/苏霍伊 1/其他经典 4 含福克 70/100、Avro RJ100、协和号)。字段:oem/family/model/id/cn/first(首飞年)/status/length/span/height/seats(典型两级)/engines/engineCount/cruise/mtow/approx。**数据口径:公开资料整理的参考值,页面脚注声明"以厂商官方为准";不确定条目 approx=true(俄系/E2/MAX7·10/C929 等约 40 款)**;9 个真实 GLB 变体 id 保持与 GLB_VARIANTS 一致(b738/b789/a20n/a21n/a332/a333/b788/a359/b748),对比页标题可跳 3D 查看页。compare.js 重写:下拉按厂商 optgroup 分组、默认 737-800 vs A320neo、12 行参数并排 + 5 指标条形、approx 条目显示"约"角标、页头显示"78 款机型 · 12 个厂商"。数据文件已过 JSON 结构校验(字段完整/id 无重复)。
+- **测试坑**:CUA 的 scroll/drag 送不进 IAB 页面(合成 WheelEvent/PointerEvent 验证替代);SVG 元素无 .click() 方法(HTMLElement 专属),须 dispatchEvent(MouseEvent);evaluate 只收单表达式(多语句用 `(function(){...})()` 包裹可以)。
+- **改动文件**:`js/ui/search.js`、`js/ui/airports.js`、`js/ui/compare.js`(重写)、`data/aircraft-catalog.json`(新建 78 款)、`css/main.css`、`PROGRESS.md`。
+- **遗留**:①目录数值多为单源整理,欢迎社区纠错(可在 CREDITS/条款口径下迭代);②C929/MAX7/MAX10/E175-E2 等在研机型数据随进展更新;③地图拖拽在触屏上未做双指捏合(按钮可用);④目录与机库卡片两套数据源并存,未来可统一。
+
 ### 2026-10-31 · P9 体验升级包:换装缩放修复 + 地图标签避让 + 导出/导入 + 每日一题/错题本 + 收藏夹 + Ctrl+K 搜索 + 机型对比
 
 - **所用模型**:GLM-5.3Flash

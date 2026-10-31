@@ -90,6 +90,7 @@ function ensurePanel() {
         <input type="text" class="cmdk-input" placeholder="搜索机型 / 机场 / 词条…(支持 IATA、中英文)"
                aria-label="搜索关键词">
         <kbd class="cmdk-kbd">ESC</kbd>
+        <button class="cmdk-close" type="button" aria-label="关闭搜索">✕</button>
       </div>
       <div class="cmdk-list" role="listbox"></div>
     </div>`;
@@ -100,8 +101,10 @@ function ensurePanel() {
   let results = [];
   let active = 0;
 
+  /* 关闭:✕ 按钮、点卡片以外任意遮罩区域、Esc(全局监听,不要求焦点在输入框) */
   const close = () => { panel.hidden = true; input.value = ''; };
-  panel.addEventListener('click', (e) => { if (e.target === panel) close(); });
+  panel.querySelector('.cmdk-close').addEventListener('click', close);
+  panel.addEventListener('click', (e) => { if (!e.target.closest('.cmdk')) close(); });
 
   const renderList = () => {
     if (!results.length) {
@@ -164,7 +167,10 @@ export function initSearchPalette() {
     if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
       e.preventDefault();
       toggle();
+      return;
     }
+    /* Esc 随时关闭面板,不要求焦点在输入框 */
+    if (e.key === 'Escape' && panel && !panel.hidden) closePanel();
   });
   const btn = document.getElementById('header-search');
   if (btn) btn.addEventListener('click', openPanel);
