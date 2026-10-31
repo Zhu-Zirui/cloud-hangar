@@ -43,6 +43,26 @@
 
 ## 会话记录
 
+### 2026-10-31 · P8 账号系统 + 法律文档(注册/登录/个人中心/条款/隐私/Cookie/同意横幅)
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:做用户注册登录界面,以及服务条款、Cookie 等法律页面。
+- **架构决策**:站点为 GitHub Pages 纯静态、无后端,故实现**本机账号**(纯前端):凭据(用户名 + 16 字节随机盐 + WebCrypto SHA-256 哈希)只存访客浏览器 localStorage(`cav3d.users`/`cav3d.session`),不上服务器;页面文案对用户明确说明。未来接 Supabase Auth 等真后端时只需保持 `core/auth.js` 导出签名替换实现。
+- **本次完成项**:
+  - `js/core/auth.js`:注册/登录/登出/注销本机账号;用户名校验(2-20 字中英文数字下划线)、密码 ≥6 位、两次一致性、密码不含用户名;`cav3d:authchange` 事件驱动 header 刷新;validateUsername/validatePassword 导出。
+  - `js/ui/auth.js`(#/login、#/register 双 tab 卡片):注册需勾选同意三份法律文档(未勾选前端拦截);成功 toast + 跳 #/account。
+  - `js/ui/account.js`(#/account):头像/注册与最近登录时间/等级 chip、七格进度仪表盘(与成就中心同口径,liveries/airports/wiki 从数据文件动态计算)、快捷入口、退出登录、二次确认式注销本机账号;未登录渲染引导卡。
+  - `js/ui/legal.js`(#/terms、#/privacy、#/cookies):服务条款(非商业性质/本机账号/知识产权—航司商标归权利人/使用规范/免责)/隐私政策(不收集个人数据、仅 localStorage、GitHub Pages 与 jsDelivr 标准日志)/Cookie 说明(本站不用 Cookie,仅 localStorage,含键位表);三页互切 nav。
+  - `js/core/consent.js` + main.js 启动调用:首访底部同意横幅(说明仅用 localStorage),点"知道了"记 `cav3d.consent`,之后不再打扰。
+  - `js/main.js`:新增 6 条路由;header 右侧 `#header-auth` 徽标(未登录"登录 / 注册"按钮/已登录头像 chip),监听 authchange。
+  - `index.html`:header 账号槽位;footer 增加三份法律文档链接。
+  - `css/main.css` 末尾追加 §AUTH(header 徽标/登录卡/个人中心/法律文档排版/横幅)。
+- **关键修复**:横幅初始用 `left:50%+translateX(-50%)` 居中,被 `fadeUp` 关键帧 `transform: translateY(0)` 覆盖导致右偏——改为 `left:0;right:0;margin:0 auto`(不复用 transform 居中)。
+- **本地实测(8153,IAB)**:注册(含未勾选拦截)→自动登录→个人中心数据齐;登出→header 复位;错误密码报"密码错误";正确登录恢复;localStorage 凭据仅 salt(32 hex)+hash(64 hex),全文无明文密码;连续 reload 会话保持;三法律页 + Cookie 键位表渲染正常;未登录 #/account 引导卡;横幅首现/记录/复现逻辑正确。控制台无报错。
+- **测试环境坑(非代码 bug)**:IAB webview 在多次 reload 间可能恢复旧 hash 历史条目,曾误现"已登出"假象,干净复测会话稳定;evaluate 只接受单表达式(多语句 IIFE 报 SyntaxError);横幅未关时会遮挡表单提交按钮(locator click 超时),先关横幅再操作。
+- **改动文件**:`js/core/auth.js`、`js/core/consent.js`、`js/ui/auth.js`、`js/ui/account.js`、`js/ui/legal.js`、`js/main.js`、`index.html`、`css/main.css`、`PROGRESS.md`。
+- **遗留/建议**:①本机账号无跨设备同步与找回,页面已如实提示,真账号体系建议接 Supabase(免费层够用);②个人中心进度仪表盘与成就中心口径重复,未来可把 getTotals 抽到 core 共享;③同意横幅会短暂遮挡页面底部内容,可考虑改为顶部细条。
+
 ### 2026-10-31 · 机场图鉴三轮扩容(165→287 座,全国支线全覆盖)+ 机场名更正
 
 - **所用模型**:GLM-5.3Flash
