@@ -136,12 +136,15 @@ function provGroupsHTML(list) {
   </section>`).join('');
 }
 
+/** 详情路由键:优先 IATA;未获配三字码的机场(通航/在建)回退 ICAO 或中文名 */
+function apId(a) { return a.iata || a.icao || encodeURIComponent(a.cn); }
+
 function apCardHTML(a) {
-  const isSeen = seenAirports().includes(a.iata);
+  const isSeen = seenAirports().includes(apId(a));
   return `
-    <a class="ap-card glass-card hud-frame ${isSeen ? 'seen' : ''}" href="#/airports/${a.iata}">
+    <a class="ap-card glass-card hud-frame ${isSeen ? 'seen' : ''}" href="#/airports/${apId(a)}">
       <div class="ap-card-top">
-        <span class="ap-iata">${a.iata}</span>
+        <span class="ap-iata">${a.iata || a.icao || '—'}</span>
         <span class="ap-rw-badge">${a.runways.length} 跑道</span>
       </div>
       <h3>${a.cn}</h3>
@@ -159,18 +162,18 @@ function bindCards(container) { /* 卡片为 <a> 纯跳转,无需额外绑定,�
    视图二:详情页
    ============================================================ */
 function renderDetail(container, list, liv, iata) {
-  const ap = list.find((x) => x.iata === iata);
+  const ap = list.find((x) => apId(x) === iata || x.cn === iata);
   markSeen(iata);
   if (!ap) {
     container.innerHTML = `<div class="container"><div class="placeholder-page glass-card"><h2>未收录机场 ${iata}</h2><p>当前图鉴共收录 ${list.length} 座机场。</p><p><a class="pc-pill" href="#/airports">返回列表</a></p></div></div>`;
     return;
   }
-  const seenNow = seenAirports().includes(ap.iata);
+  const seenNow = seenAirports().includes(apId(ap));
   container.innerHTML = `
   <div class="container">
     <a class="ap-back" href="#/airports">← 返回机场图鉴</a>
     <header class="ap-hero glass-card hud-frame">
-      <div class="ap-hero-iata">${ap.iata}</div>
+      <div class="ap-hero-iata">${ap.iata || ap.icao || '✈'}</div>
       <div class="ap-hero-main">
         <h2>${ap.cn}</h2>
         <p class="ap-hero-en">${ap.en || ''} · ${ap.icao} · ${ap.city}</p>
@@ -194,7 +197,7 @@ function renderDetail(container, list, liv, iata) {
         <h3 class="section-title">基础数据<span class="sub">FACT SHEET</span></h3>
         <table class="ap-table"><tbody>
           <tr><th>四字码 ICAO</th><td>${ap.icao}</td></tr>
-          <tr><th>三字码 IATA</th><td>${ap.iata}</td></tr>
+          <tr><th>三字码 IATA</th><td>${ap.iata || '—(暂未获配)'}</td></tr>
           <tr><th>通航年份</th><td>${ap.opened}</td></tr>
           <tr><th>海拔</th><td>${ap.elevationM} m${ap.approx ? '(约)' : ''}</td></tr>
           <tr><th>基地航司</th><td>${hubChips(liv, ap)}</td></tr>
@@ -477,11 +480,11 @@ function mapHTML(list) {
           const clash = placed.some((p) => Math.abs(p[0] - x) < 16 && Math.abs(p[1] - y) < 12);
           placed.push([x, y]);
           const lx = clash ? x - 9 : x + 10, ly = clash ? y + 15 : y + 4, anchor = clash ? 'end' : 'start';
-          return `<g class="ap-dot" tabindex="0" data-iata="${a.iata}" role="link" aria-label="${a.cn}">
-          <title>${a.cn} · ${a.iata}(点击查看详情)</title>
+          return `<g class="ap-dot" tabindex="0" data-iata="${apId(a)}" role="link" aria-label="${a.cn}">
+          <title>${a.cn} · ${a.iata || a.icao || ''}(点击查看详情)</title>
           <circle cx="${x}" cy="${y}" r="9" fill="rgba(56,189,248,.18)"/>
           <circle class="ap-dot-core" cx="${x}" cy="${y}" r="4" fill="#38bdf8" stroke="#0b1526" stroke-width="1.4"/>
-          <text x="${lx}" y="${ly}" text-anchor="${anchor}" font-size="10.5" fill="#cfe3f5" font-family="var(--mono)">${a.iata}</text>
+          <text x="${lx}" y="${ly}" text-anchor="${anchor}" font-size="10.5" fill="#cfe3f5" font-family="var(--mono)">${a.iata || a.icao}</text>
         </g>`;
         }).join('');
       })()}
