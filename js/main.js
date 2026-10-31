@@ -1,7 +1,7 @@
 /**
  * main.js — 启动 + hash 路由
  * 路由表:#/hangar(默认) #/aircraft/<variantId> #/airports #/wiki #/game
- *         #/login #/register #/account(本机账号) #/terms #/privacy #/cookies(法律文档)
+ *         #/login #/register #/account(本机账号) #/terms #/privacy #/cookies(法律文档) #/links(友情链接)
  * 页面模块约定:导出 render(container, params) → 返回清理函数或 null。
  * 切换路由时先调用上一页的清理函数(释放 3D 场景 RAF/监听器),再挂载新页。
  */
@@ -28,6 +28,7 @@ const ROUTES = {
   terms:    { module: () => import('./ui/legal.js'),     nav: '' },
   privacy:  { module: () => import('./ui/legal.js'),     nav: '' },
   cookies:  { module: () => import('./ui/legal.js'),     nav: '' },
+  links:    { module: () => import('./ui/links.js'),     nav: '' },  // 友情链接
 };
 
 let currentCleanup = null; // 当前页面的清理函数

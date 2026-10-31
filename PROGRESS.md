@@ -21,6 +21,8 @@
 | P3 | 部件热点图鉴:partId 命名/空间双通道重建 + 30 知识卡 + 左清单右卡片 UI | 2026-10-26 |
 | P6 | 民航百科 40 词条 + 题库 120 题 + 答题闯关/收集仪表盘/10 徽章成就 | 2026-10-26 |
 | P4 | 舱内漫游:驾驶舱(6 屏/演示/口令)+ 客舱(第一人称/细节) | 2026-10-28 |
+| P10 | 多语言:10 语种运行时 DOM 翻译 + IP 首访语言探测 | 2026-10-31 |
+| P11 | 友情链接:页脚友链行 + #/links 分组卡片页(10 语种全覆盖) | 2026-11-01 |
 
 ## 待办
 
@@ -42,6 +44,20 @@
 - 特殊彩绘(熊猫号/联合梦想号等 8 款已核实真实存在)暂无现成贴图,未实现。
 
 ## 会话记录
+
+### 2026-11-01 · P11 友情链接:页脚友链行 + #/links 分组卡片页
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:给站点做友情链接。
+- **本次完成项**:
+  - `js/ui/links.js`(新):#/links 友情链接页,四组卡片——官方机构(民航局/ICAO)、数据与航班追踪(飞常准/航旅纵横/Flightradar24/FlightAware)、图库与爱好者社区(民航资源网/Airliners.net/Planespotters.net/JetPhotos)、素材来源与开源项目(FGMEMBERS/FlightAirMap-3dmodels/Three.js/GitHub Pages,兼作开源许可对外展示);页尾「申请友链」卡片指向 GitHub Issues(口径:民航科普与航空文化类站点优先)。所有外链 target=_blank + rel=noopener。
+  - `index.html`:页脚新增 `.footer-friends` 友链行(4 个代表站 + 「全部友情链接」入口),标签冒号由 CSS ::after 生成(避免文本节点带标点破坏 i18n 键匹配)。
+  - `js/main.js`:路由表加 `links`(nav 空,不占主导航高亮);header 注释同步。
+  - `css/main.css` §FRIENDS:页脚友链行(flex 换行居中)+ 友链页样式(auto-fill 卡片栅格/悬浮上浮/名称溢出省略)+ RTL 修正(域名与外链站名 direction:ltr embed,内链「全部友情链接」不强制方向)。
+  - **i18n 全覆盖**:28 条 CJK 文案(页面标题/4 组名/14 条站点描述/申请友链文案/5 个中文站名等)补入全部 9 个语言包(键=简中源文案,与 links.js 渲染文本严格一致,脚本校验通过);纯拉丁站名(Flightradar24/Three.js 等)由 CJK_RE 天然跳过,无需键。links 页为界面级文案、无深度内容,故**不加入** contentNotice 的"暂仅中文"提示路由列表。
+- **本地实测(8046 端口,IAB;注意 #lang-btn/#lang-item locator click 会超时,改 evaluate 里 click 即可)**:中文页四组卡片/申请友链/页脚友链行渲染 ✓;英语全链路翻译(卡片名 CAAC→Civil Aviation Administration of China、飞常准→VariFlight 等)✓;阿拉伯语 dir=rtl 布局镜像 + 域名保持 LTR ✓;切回 zh-CN 后 header/footer 快照还原正常 ✓;路由往返(机库↔友链)window error/unhandledrejection 捕获零报错 ✓;375px 窄屏单列正常 ✓。
+- **改动文件**:`js/ui/links.js`(新)、`js/main.js`、`index.html`、`css/main.css`、`js/locales/`×9、`PROGRESS.md`。
+- **给下一会话的建议**:友链收录口径与 GitHub Issues 入口集中在 `links.js` 顶部 GROUPS/GITHUB_ISSUES 常量,增删站点只改这一个文件(新增中文文案记得 9 个语言包同步补键);若未来加英文站名描述,纯拉丁文本不需要进语言包。
 
 ### 2026-10-31 · P10 一键切换语言:10 语种界面国际化(简中/繁中/英/法/俄/阿/西/日/朝/印地)
 
