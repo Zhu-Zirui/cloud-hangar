@@ -63,6 +63,9 @@
 - **追加(同日反馈②货运航司基地标注)**:liveries.json airlines 46→**51 家**,新增 5 家货运航司色卡芯片(暂无 LOGO,同 baw/ana 色块兜底):sf 顺丰航空/jg 京东航空/cao 中国国际货运航空/ck 中国货运航空/fx 联邦快递;hubs 标注(经百度百科核实):**鄂州花湖=顺丰航空**(用户指出,顺丰货运枢纽)、**深圳宝安=顺丰航空**(主运营基地,词条原文核实)、**南通兴东=京东航空**(主运营基地,IATA JG/ICAO JDL)、**上海浦东=国货航(远程货机主运营基地)+中货航(浦东/虹桥运营基地)**、**广州白云=联邦快递**(亚太转运中心,通行常识未单独核);中国邮政航空/圆通航空/中州航空基地未核实暂不标。实测 EHU/PVG/NTG/CAN/SZX 详情页芯片渲染正常。
 - **改动文件(追加)**:`data/liveries.json`、`data/airports.json`。
 
+- **追加(同日反馈③LOGO 补齐)**:7 家无 LOGO 航司全部补图——sf/jg/cao/ck/fx(货运 5 家)+ baw/ana(2026-10-26 下载失败的坏文件替换),百度图片搜索(image.baidu.com,360 图片接口限流后切换;浏览器搜页 evaluate 提取 img src→curl 下载)→PIL 白底修边/裁水印(头条号/socologo/品牌星球)/长边≤800→assets/logos/*.png;liveries.json 51 家现全带 logo。实测 EHU/SZX/NTG/PVG/CAN 芯片 img naturalWidth 全 >0。注意:候选图同图源有白底/黑底变体,目检时别选错(cao 曾误用黑底版返工)。
+- **改动文件(追加)**:`assets/logos/`(7 png)、`assets/CREDITS.md`。
+
 ### 2026-10-29 · 机场图鉴二轮扩容(52→165 座,分省视图)+ 港澳台与 10 家新航司 LOGO
 
 - **所用模型**:GLM-5.3Flash

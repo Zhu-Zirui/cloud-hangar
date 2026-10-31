@@ -117,7 +117,8 @@
   "baw": {
    "cn": "英国航空",
    "en": "BRITISH AIRWAYS",
-   "color": "#075AAA"
+   "color": "#075AAA",
+   "logo": "assets/logos/baw.png"
   },
   "ual": {
    "cn": "美国联合航空",
@@ -128,7 +129,8 @@
   "ana": {
    "cn": "全日空",
    "en": "ANA",
-   "color": "#13448f"
+   "color": "#13448f",
+   "logo": "assets/logos/ana.png"
   },
   "qd": {
    "cn": "青岛航空",
@@ -277,27 +279,32 @@
   "sf": {
    "cn": "顺丰航空",
    "en": "SF AIRLINES",
-   "color": "#DC1E32"
+   "color": "#DC1E32",
+   "logo": "assets/logos/sf.png"
   },
   "jg": {
    "cn": "京东航空",
    "en": "JD AIRLINES",
-   "color": "#E1251B"
+   "color": "#E1251B",
+   "logo": "assets/logos/jg.png"
   },
   "cao": {
    "cn": "中国国际货运航空",
    "en": "AIR CHINA CARGO",
-   "color": "#9E1B32"
+   "color": "#9E1B32",
+   "logo": "assets/logos/cao.png"
   },
   "ck": {
    "cn": "中国货运航空",
    "en": "CHINA CARGO AIRLINES",
-   "color": "#2B4C9B"
+   "color": "#2B4C9B",
+   "logo": "assets/logos/ck.png"
   },
   "fx": {
    "cn": "联邦快递",
    "en": "FEDEX EXPRESS",
-   "color": "#4D148C"
+   "color": "#4D148C",
+   "logo": "assets/logos/fx.png"
   }
  },
  "liveries": [
