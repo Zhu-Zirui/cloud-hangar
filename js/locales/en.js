@@ -3,7 +3,7 @@
  * keys 为简中源文案(与渲染后的文本节点一致,含 {} 占位);名称/省份/厂商见同目录。
  */
 export default {
-  meta: { title: 'Cloud Hangar · China Civil Aviation 3D Encyclopedia' },
+  meta: { title: 'AeroAtlas · China Civil Aviation 3D Encyclopedia' },
   notice: 'Deep content (encyclopedia articles, quiz questions, airport trivia, parts cards and legal documents) is currently available in Chinese only — the interface, aircraft/airline/airport names and data tables are translated.',
   ui: {
     /* ---------- 分享(P12)---------- */
@@ -41,7 +41,6 @@ export default {
     '驱动本站 3D 场景的开源渲染引擎(MIT 许可)。': 'The open-source rendering engine behind our 3D scenes (MIT license).',
     '为本站提供免费静态托管服务。': 'Free static hosting that keeps this site online.',
     /* ---------- 通用/导航 ---------- */
-    '云端机库': 'Cloud Hangar',
     '中国民航 3D 图鉴': 'China Civil Aviation 3D Encyclopedia',
     '机库': 'Hangar',
     '机场': 'Airports',

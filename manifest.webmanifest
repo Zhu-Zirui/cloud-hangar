@@ -1,6 +1,6 @@
 {
-  "name": "云端机库 · 中国民航 3D 图鉴",
-  "short_name": "云端机库",
+  "name": "AeroAtlas · 中国民航 3D 图鉴",
+  "short_name": "AeroAtlas",
   "description": "面向中国民航爱好者的 3D 图鉴平台:真实机型 3D 模型、涂装切换、部件图鉴、机场图鉴、民航百科与答题闯关。",
   "lang": "zh-CN",
   "start_url": "./",

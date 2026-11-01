@@ -45,6 +45,21 @@
 
 ## 会话记录
 
+### 2026-11-01 · P14 品牌改版:更名 AeroAtlas +「AA 双翼编队」LOGO + README 重写
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:①网站名改为 AeroAtlas;②设计契合主题的美观 LOGO;③更新 GitHub 仓库 README。中途补充创意方向:AeroAtlas 简称 AA 恰为中国民航 CAAC 中间两个字母,希望以此做令人印象深刻的 LOGO。
+- **本次完成项**:
+  - **LOGO「AA 双翼编队」**:`assets/logo.svg`(新,主矢量源文件)+ `dev/gen-icons.py` 重写——徽章环(atlas/地球)+ 轨道弧 + 两架「A=三角翼飞机」编队爬升(无横杠几何 A,fill-rule=evenodd 的字腔即座舱;PIL 用 fill=(0,0,0,0) 写入全透明像素实现挖孔);重产 icon-192/512/maskable/apple-touch-icon/og-image ×5 + `assets/logos/brand.png`(新,README 品牌横图——原 README 一直引用该路径但文件并不存在);favicon 改为同源新构图的内联 data URI;
+  - **全站更名**:index.html(title/og:site_name/og:title/favicon/header 品牌名/页脚)、manifest.webmanifest(name/short_name)、core/i18n.js DEFAULT_TITLE、core/share.js 分享卡页脚、ui/legal.js 条款首段、ui/hangar.js hero(h1 + hero-en);grep 全站确认无「云端机库/Cloud Hangar/雲端機庫」残留(`D:\云端机库-assets` 硬盘路径注释除外,非站名);
+  - **9 语言包同步**:meta.title 品牌名改 AeroAtlas(各语副题译文保留),删除失效 UI 键 '云端机库'(品牌为纯拉丁文本,i18n CJK_RE 天然跳过,无需键);node --check 全过;
+  - **README 重写**:brand.png 头图 + 「AA=CAAC 中间两个字母」品牌故事 + 真实功能口径(43 变体/287 机场/40 词条/260 题/10 语种/PWA 离线)+ 快速开始/技术栈/项目结构/贡献/许可;原 README 冗长且功能口径停在早期阶段;
+  - `sw.js` CACHE_VER → **ch-aero-1**(图标/壳资源变更,防旧缓存喂旧图标)。
+- **本地实测(8210,dev-server + IAB)**:index/manifest/图标/brand/logo.svg 全 200;manifest JSON 可解析 3 图标;header 品牌/hero/页脚全 AeroAtlas;英语(IP 探测兜底)与 `?lang=zh-CN` 双语下标题正确、品牌名 Latin 不被误译、导航中文正常;控制台零报错(仅 ResizeObserver 浏览器噪音);DOM 计数验证 header/hero 唯一、无横向溢出。
+- **坑(复用)**:①gen-icons 首版把 64 单位坐标与像素半径混写进同一表达式(`32 - orb_r`),圆形元素(环/弧/椭圆)全部跑偏而多边形(飞机)正确——像素坐标必须统一经 `U(v)=v/96*s` 换算;②IAB 截图残帧曾呈现"页面水平重复两份"假象,以 DOM 计数(headers=1, brands=1)证伪,数值证据优先的老纪律再次生效。
+- **改动文件**:`index.html`、`manifest.webmanifest`、`sw.js`、`assets/logo.svg`(新)、`assets/icons/`×5(重产)、`assets/logos/brand.png`(新)、`dev/gen-icons.py`(重写)、`js/core/i18n.js`、`js/core/share.js`、`js/ui/legal.js`、`js/ui/hangar.js`、`js/locales/`×9、`README.md`、`PROGRESS.md`。
+- **给下一会话**:改品牌图形只动 `assets/logo.svg` 与 `dev/gen-icons.py` 并重跑脚本;线上图标若仍旧先查 SW 缓存版本;hero 文案「高精度参数化还原」为 P1 前旧口径、hero 3D 仍是 P0 占位验证机,均与本阶段无关但可挂账择机处理。
+
 ### 2026-11-01 · P13(五) FGMEMBERS 批量二:9 变体上线(34→43)+ SW 旧缓存喂旧 GLB 之坑
 
 - **所用模型**:GLM-5.3Flash

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <!--
+    AeroAtlas 品牌 LOGO(主矢量源文件)——「AA 双翼编队」
+    创意:AeroAtlas 简称 AA,恰为中国民航 CAAC 的中间两个字母;
+    每个字母 A 同时是一架三角翼飞机(翼形字母),双机沿轨道弧编队爬升,
+    外圈圆环 = 图集(atlas)/ 地球。fill-rule=evenodd 的内三角既是 A 的字腔也是座舱。
+    dev/gen-icons.py 的 PNG 图标(含 favicon/manifest/og-image)与本文件同源,改此图后需重跑。
+  -->
+  <defs>
+    <linearGradient id="aa-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <!-- 徽章环(atlas / 地球) -->
+  <circle cx="48" cy="54" r="40" fill="none" stroke="url(#aa-g)" stroke-width="3.4"/>
+  <!-- 轨道弧:编队的飞行路径,尾端引向长机 apex -->
+  <path d="M19.4 70.5 A33 33 0 0 1 64.5 25.4" fill="none" stroke="#38bdf8" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+  <!-- 地球经纬(极淡,衬托而不抢戏) -->
+  <ellipse cx="48" cy="54" rx="16" ry="38" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity=".16"/>
+  <path d="M10.5 42h75M10.5 66h75" stroke="#38bdf8" stroke-width="1.2" opacity=".16" fill="none"/>
+  <!-- 僚机 A(左后,略小略低) -->
+  <path transform="translate(37 45) scale(.85)" fill-rule="evenodd" fill="url(#aa-g)"
+        d="M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z"/>
+  <!-- 长机 A(右前,更大更高,领航爬升) -->
+  <path transform="translate(59 36)" fill-rule="evenodd" fill="url(#aa-g)"
+        d="M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z"/>
+</svg>

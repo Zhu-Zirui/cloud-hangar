@@ -3,7 +3,7 @@
  * Las claves son los textos fuente en chino simplificado (iguales a los nodos de texto, {} = placeholder).
  */
 export default {
-  meta: { title: 'Cloud Hangar · Enciclopedia 3D de la aviación civil de China' },
+  meta: { title: 'AeroAtlas · Enciclopedia 3D de la aviación civil de China' },
   notice: 'Los contenidos profundos (artículos de la enciclopedia, preguntas del cuestionario, curiosidades de aeropuertos, fichas de piezas y documentos legales) están por ahora solo en chino; la interfaz, los nombres de aviones / aerolíneas / aeropuertos y las tablas de datos sí están traducidos.',
   ui: {
     /* ---------- 分享(P12)---------- */
@@ -40,7 +40,6 @@ export default {
     '本站 GLB 机型模型来源之一(GPL-2.0)。': 'Una de las fuentes de nuestros modelos GLB (GPL-2.0).',
     '驱动本站 3D 场景的开源渲染引擎(MIT 许可)。': 'El motor de renderizado de código abierto que impulsa nuestras escenas 3D (licencia MIT).',
     '为本站提供免费静态托管服务。': 'El alojamiento estático gratuito que mantiene este sitio en línea.',
-    '云端机库': 'Cloud Hangar',
     '中国民航 3D 图鉴': 'Enciclopedia 3D de la aviación civil de China',
     '机库': 'Hangar',
     '机场': 'Aeropuertos',

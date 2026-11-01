@@ -24,7 +24,7 @@ export const LANGS = [
   { code: 'hi', name: 'हिन्दी', dir: 'ltr' },
 ];
 
-const DEFAULT_TITLE = '云端机库 · 中国民航 3D 图鉴';
+const DEFAULT_TITLE = 'AeroAtlas · 中国民航 3D 图鉴';
 const CJK_RE = /[\u3400-\u9fff\uf900-\ufaff]/;
 
 let lang = null;          // 当前 LANGS 项

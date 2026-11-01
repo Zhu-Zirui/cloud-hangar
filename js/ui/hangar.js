@@ -205,8 +205,8 @@ export function render(container) {
   <div class="container">
     <section class="hero">
       <div class="hero-copy glass-card anim-fade-up">
-        <div class="hero-en">CLOUD HANGAR · CHINA CIVIL AVIATION 3D</div>
-        <h1>云端机库</h1>
+        <div class="hero-en">AEROATLAS · CHINA CIVIL AVIATION 3D</div>
+        <h1>AeroAtlas</h1>
         <p class="hero-desc">高精度参数化还原中国各航司主力客机与国产 C919:
           360° 赏机、切换真实涂装、点选部件学知识——你的私人民航图鉴机库。</p>
         <div class="hero-chips">

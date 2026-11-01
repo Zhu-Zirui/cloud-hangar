@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>云端机库 · 中国民航 3D 图鉴</title>
+  <title>AeroAtlas · 中国民航 3D 图鉴</title>
   <meta name="description" content="面向中国民航爱好者的 3D 图鉴平台:真实机型 3D 模型与涂装切换、部件热点图鉴、舱内漫游、全国机场图鉴、民航百科与答题闯关,免安装、支持离线。">
   <meta name="keywords" content="中国民航,3D 图鉴,机型,涂装,机场,C919,波音,空客,民航百科,航空爱好者">
   <meta name="theme-color" content="#0b1526">
@@ -12,8 +12,8 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <!-- 分享卡片(微信/微博/Twitter 等抓取静态 head) -->
-  <meta property="og:site_name" content="云端机库">
-  <meta property="og:title" content="云端机库 · 中国民航 3D 图鉴">
+  <meta property="og:site_name" content="AeroAtlas">
+  <meta property="og:title" content="AeroAtlas · 中国民航 3D 图鉴">
   <meta property="og:description" content="真实机型 3D 模型与涂装切换、部件热点图鉴、舱内漫游、全国机场图鉴、民航百科与答题闯关。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zhu-zirui.github.io/cloud-hangar/">
@@ -21,8 +21,8 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- 图标:内联 SVG data URI,无二进制资源文件 -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230b1526' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Cpath d='M16 5 L18 14 L27 18 L27 20 L18 18 L17.5 24 L21 26 L21 27.5 L16 26 L11 27.5 L11 26 L14.5 24 L14 18 L5 20 L5 18 L14 14 Z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <!-- 图标:内联 SVG data URI(与 assets/logo.svg 同源的 AeroAtlas「AA 双翼编队」),无二进制资源文件 -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15.5' fill='%230b1526'/%3E%3Ccircle cx='16' cy='18' r='13.33' fill='none' stroke='%2338bdf8' stroke-width='1.1'/%3E%3Cpath d='M6.5 23.5 A11 11 0 0 1 21.5 8.5' fill='none' stroke='%2338bdf8' stroke-width='.8' stroke-linecap='round' opacity='.6'/%3E%3Cpath transform='translate(12.33 15) scale(.2833)' fill-rule='evenodd' fill='%2338bdf8' d='M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z'/%3E%3Cpath transform='translate(19.67 12) scale(.3333)' fill-rule='evenodd' fill='%2338bdf8' d='M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/main.css">
   <!-- three r160 版本锁死,仅允许按总纲 §2 整体切换为 npmmirror 镜像 -->
   <script type="importmap">
@@ -39,11 +39,15 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#/hangar">
-        <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true">
-          <circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
-          <path d="M16 5 L18 14 L27 18 L27 20 L18 18 L17.5 24 L21 26 L21 27.5 L16 26 L11 27.5 L11 26 L14.5 24 L14 18 L5 20 L5 18 L14 14 Z" fill="currentColor"/>
+        <svg class="brand-logo" viewBox="0 0 96 96" aria-hidden="true">
+          <circle cx="48" cy="54" r="40" fill="none" stroke="currentColor" stroke-width="3.4"/>
+          <path d="M19.4 70.5 A33 33 0 0 1 64.5 25.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+          <ellipse cx="48" cy="54" rx="16" ry="38" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".16"/>
+          <path d="M10.5 42h75M10.5 66h75" stroke="currentColor" stroke-width="1.2" opacity=".16" fill="none"/>
+          <path transform="translate(37 45) scale(.85)" fill-rule="evenodd" fill="currentColor" d="M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z"/>
+          <path transform="translate(59 36)" fill-rule="evenodd" fill="currentColor" d="M0 -13 L9 13 L3.4 13 L0 7.5 L-3.4 13 L-9 13 Z M0 -5.2 L3.1 2.6 L-3.1 2.6 Z"/>
         </svg>
-        <span class="brand-name">云端机库</span>
+        <span class="brand-name">AeroAtlas</span>
         <span class="brand-sub">中国民航 3D 图鉴</span>
       </a>
       <nav class="main-nav" id="main-nav" aria-label="主导航">
@@ -72,7 +76,7 @@
   <main id="app"></main>
 
   <footer class="site-footer">
-    <p>云端机库 · 民航爱好者非商业项目 ｜ 机型几何与涂装为真实素材/程序化矢量再现,数据仅供参考</p>
+    <p>AeroAtlas · 民航爱好者非商业项目 ｜ 机型几何与涂装为真实素材/程序化矢量再现,数据仅供参考</p>
     <p class="footer-link">
       <a href="#/terms">服务条款</a> · <a href="#/privacy">隐私政策</a> · <a href="#/cookies">Cookie 说明</a>
       ｜ 线上地址:<a href="https://zhu-zirui.github.io/cloud-hangar/" target="_blank" rel="noopener">zhu-zirui.github.io/cloud-hangar</a>

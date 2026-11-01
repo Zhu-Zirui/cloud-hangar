@@ -52,7 +52,7 @@ export function drawShareCard({ title, subtitle, params = [], url = '', accent =
 
   d.fillStyle = '#8ca0b8';
   d.font = '400 28px ' + cn;
-  d.fillText('云端机库 · 中国民航 3D 图鉴', 104, CARD_H - 138);
+  d.fillText('AeroAtlas · 中国民航 3D 图鉴', 104, CARD_H - 138);
   d.fillStyle = accent;
   d.font = '600 30px ' + en;
   d.fillText(url, 104, CARD_H - 86);
