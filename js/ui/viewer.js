@@ -15,6 +15,7 @@ import { buildHumanStandee, buildStairTruck, buildGroundRuler } from '../engine/
 import { getAllLiveries, liveriesForVariant } from '../engine/livery.js';
 import { createPartsLayer } from './parts.js';
 import { favChipHTML, bindFavChips } from '../core/favs.js';
+import { drawShareCard, downloadCanvas, copyText } from '../core/share.js';
 
 function toast(msg, type = '') {
   let wrap = document.querySelector('.toast-wrap');
@@ -98,6 +99,7 @@ export function render(container, params) {
             <span class="v-chip" id="v-tri" title="整机三角形数(预算 ≤15万)">△ --</span>
             <span class="v-chip btn-like" id="v-ruler" title="地面米数标尺(比例自检)">标尺</span>
             ${favChipHTML('aircraft', variantId, v.cnName)}
+            <button class="v-chip btn-like" id="v-share" type="button" title="生成分享卡片并复制链接">分享</button>
           </div>
         </div>
         <div class="v-bottom">
@@ -180,6 +182,7 @@ export function render(container, params) {
 
     /* P2 涂装库:航司品牌注册进机库环境(切换涂装时机库厂房品牌联动) */
     let LV_LIST = [], ALL_LV = { airlines: {} };
+    let curAccent = '#38bdf8'; // 分享卡片主题色:默认品牌天蓝,换装后跟随航司主色
     try {
       ALL_LV = await getAllLiveries();
       for (const [key, a] of Object.entries(ALL_LV.airlines)) {
@@ -250,6 +253,8 @@ export function render(container, params) {
           length: v.length, span: v.span, height: v.height,
         });
         acRef.model = def.model;
+        const am = ALL_LV.airlines[def.airline] || {};
+        if (am.color) curAccent = am.color; // P12:分享卡片主题色跟随涂装
         base.scene.add(acRef.ac.root);
         if (partsLayer) partsLayer.rebind();   // P3:换装后重建 partId 索引与热点圆点
         // 新模型起落架姿态不同,重校取景基线
@@ -331,6 +336,38 @@ export function render(container, params) {
     };
     rulerBtn.addEventListener('click', onRuler);
     run(() => rulerBtn.removeEventListener('click', onRuler));
+
+    /* ---------- P12:分享卡片(canvas 位图,文案固定中文)+ 链接复制 ---------- */
+    const shareBtn = container.querySelector('#v-share');
+    if (shareBtn) {
+      const onShare = async () => {
+        try {
+          const url = `${location.origin}${location.pathname}#/aircraft/${variantId}`;
+          const cv = drawShareCard({
+            title: v.cnName,
+            subtitle: `${familyCn} · ${v.id.toUpperCase()}`,
+            params: [
+              ['机身长', `${v.length.toFixed(2)} m`],
+              ['翼展', `${v.span.toFixed(2)} m`],
+              ['两级座位', `${v.seats}`],
+              ['巡航', `${v.cruise}`],
+              ['航程', `${v.range.toLocaleString()} km`],
+              ['MTOW', `${v.mtow.toFixed(1)} t`],
+            ],
+            url,
+            accent: curAccent,
+          });
+          await downloadCanvas(cv, `cloud-hangar-${variantId}.png`);
+          const ok = await copyText(url);
+          toast(ok ? '链接已复制,分享卡片已下载' : '分享卡片已下载');
+        } catch (err) {
+          console.error('[viewer] 分享失败:', err);
+          toast('分享卡片生成失败', 'danger');
+        }
+      };
+      shareBtn.addEventListener('click', onShare);
+      run(() => shareBtn.removeEventListener('click', onShare));
+    }
 
     /* ---------- 交互:相机预设(平滑过渡) ---------- */
     const finH = P ? P.fin.height : v.height * 0.36;

@@ -45,6 +45,29 @@
 
 ## 会话记录
 
+### 2026-11-01 · P12 PWA + SEO/分享卡片(可安装/离线/社交分享)+ 国内可达性方案挂账
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:按上轮改进清单逐项做(本阶段为 P12;国内可达性中"域名/Cloudflare"为用户操作项,见下)。
+- **本次完成项**:
+  - **PWA 可安装 + 离线**:
+    - `manifest.webmanifest`(新):standalone、start_url/scope 均相对路径(GitHub Pages 子路径兼容)、theme/background #0b1526、3 图标;
+    - `sw.js`(新,根作用域):预缓存壳(index/css/manifest/图标);策略——导航与 JS/CSS/JSON **网络优先+缓存兜底**(更新永远可达),GLB/PNG/字体等二进制**缓存优先**,jsdelivr 上版本锁死的 three/three-mesh-bvh 同样缓存优先(断网 3D 可渲染);activate 清旧缓存;缓存版本 `CACHE_VER = 'ch-p12-1'`(改代码/预缓存清单时手动 +1);
+    - `main.js`:https/localhost 下注册 SW(相对模块 URL 解析,子路径与本地服务器都落对);
+    - **图标**:`dev/gen-icons.py`(新,入库)以 favicon 同源飞机多边形用 PIL 高分辨率绘制后缩放抗锯齿,产出 `assets/icons/` 5 件——icon-192/512(圆角+外环)、icon-maskable-512(满幅安全区)、apple-touch-icon(180)、og-image(1200×630 分享大图)。
+  - **SEO/社交分享**:`index.html` head 补 meta description(更新口径)/keywords/theme-color/canonical、Open Graph 全套(og:image 用绝对 URL 指向 og-image.png)、twitter:card;`robots.txt` + `sitemap.xml`(SPA hash 路由仅收录根入口,已注释说明)。
+  - **分享卡片**(`#/aircraft/<id>` 顶栏"分享"chip 按钮):
+    - `js/core/share.js`(新,通用模块):drawShareCard 1200×675 canvas(品牌深蓝渐变/装饰线/主题色竖条/大标题/副题/3 列×2 行参数——值按键 measureText 实宽对齐/底部站点名+链接)、downloadCanvas(PNG 下载)、copyText(clipboard API 优先,execCommand 兜底);
+    - viewer 接线:分享 = 下载 `cloud-hangar-<id>.png` + 复制本页深链;**卡片主题色跟随当前涂装航司主色**(默认品牌天蓝,applyLivery 时取 airlines[def.airline].color);卡片为位图文案固定中文(与 og-image 同风格,未走 i18n);
+    - **i18n**:4 条新文案(分享/生成分享卡片并复制链接/链接已复制,分享卡片已下载/分享卡片生成失败)以脚本批量插入 9 个语言包,译文逐语种人工核对;node --check 全过。
+- **本地实测(8190 端口,IAB 全新会话)**:SW 注册成功且 controller 接管、作用域根、缓存桶 `ch-p12-1`(预缓存)+ `ch-p12-1-code`(运行时)建立;manifest/robots/sitemap/图标/og-image 全 200 且 manifest JSON 可解析 3 图标;首页 meta(og:image/canonical)注入 ✓;b738 分享点击 → download 事件触发 + toast「链接已复制,分享卡片已下载」✓;卡片布局两轮整改(键值贴字、参数与页脚重叠、URL 压装饰线)后目检整洁 ✓;?lang=en 下按钮 "Share"/title 翻译 ✓;b788 换装(10 涂装)回归 ✓;全程 error/unhandledrejection 捕获零报错 ✓。
+- **测试环境说明**:程序化 evaluate click 无用户激活,剪贴板 writeText 可能走 execCommand 兜底(本次第二轮返回 false,toast 显示"分享卡片已下载")——真实用户点击有激活,writeText 正常,非代码 bug。
+- **改动文件**:`manifest.webmanifest`、`sw.js`、`robots.txt`、`sitemap.xml`、`dev/gen-icons.py`(新)、`assets/icons/`×5(新)、`index.html`、`js/main.js`、`js/core/share.js`(新)、`js/ui/viewer.js`、`js/locales/`×9、`PROGRESS.md`。
+- **国内可达性(用户操作项,挂账)**:GitHub Pages 大陆访问不稳(geojs 探测被墙超时已有记录)。方案 A:买域名 + Cloudflare 免费计划代理 Pages(改 DNS 即可,仓库零改动);方案 B:直接迁 Cloudflare Pages(部署方式不变)。定了域名后告诉我,我来接 CNAME/文案与页脚地址更新。
+- **遗留/给下一会话的建议**:①PWA 安装横幅/离线打开需真浏览器(HTTPS)人工验收,IAB 无法完整模拟;②改代码后记得视情况 bump `sw.js` 的 CACHE_VER(网络优先策略下主要影响 GLB/图标类);③分享卡片可扩展到机场/词条页(share.js 已通用化,补各自 params 即可);④下一阶段按上轮建议为 P13:C919 等新机型专攻 + 涂装扩充。
+
+
+
 ### 2026-11-01 · P11 友情链接:页脚友链行 + #/links 分组卡片页
 
 - **所用模型**:GLM-5.3Flash

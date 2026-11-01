@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zhu-zirui.github.io/cloud-hangar/sitemap.xml

@@ -1,0 +1,17 @@
+{
+  "name": "云端机库 · 中国民航 3D 图鉴",
+  "short_name": "云端机库",
+  "description": "面向中国民航爱好者的 3D 图鉴平台:真实机型 3D 模型、涂装切换、部件图鉴、机场图鉴、民航百科与答题闯关。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0b1526",
+  "background_color": "#0b1526",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -6,6 +6,11 @@ export default {
   meta: { title: 'Cloud Hangar · China Civil Aviation 3D Encyclopedia' },
   notice: 'Deep content (encyclopedia articles, quiz questions, airport trivia, parts cards and legal documents) is currently available in Chinese only — the interface, aircraft/airline/airport names and data tables are translated.',
   ui: {
+    /* ---------- 分享(P12)---------- */
+    '分享': 'Share',
+    '生成分享卡片并复制链接': 'Create a share card and copy the link',
+    '链接已复制,分享卡片已下载': 'Link copied — share card downloaded',
+    '分享卡片生成失败': 'Failed to create the share card',
     /* ---------- 友情链接 ---------- */
     '友情链接': 'Friend Links',
     '全部友情链接': 'All friend links',

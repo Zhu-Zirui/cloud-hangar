@@ -116,3 +116,10 @@ initConsentBanner();
 initSearchPalette();
 /* P10:先就绪语言包(含首访语言检测),再做首屏渲染与 header/footer 翻译 */
 initI18n().then(() => navigate());
+
+/* P12 PWA:注册 Service Worker(仅 https/localhost 生效;相对模块路径解析,
+   GitHub Pages 子路径与本地服务器均正确落到站点根的 sw.js) */
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname))) {
+  navigator.serviceWorker.register(new URL('../sw.js', import.meta.url).href)
+    .catch((err) => console.warn('[pwa] Service Worker 注册失败:', err));
+}
