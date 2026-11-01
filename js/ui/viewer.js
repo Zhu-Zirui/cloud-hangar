@@ -28,6 +28,8 @@ const VARIANT_OEM = {
   at42: 'atr', at72: 'atr',
   e145: 'embraer', e170: 'embraer', e175: 'embraer', e190: 'embraer',
   md11: 'mdc', t134: 'tupolev',
+  a346: 'airbus', a318: 'airbus', a319: 'airbus',
+  b753: 'boeing', b764: 'boeing', dh8d: 'dhc',
 };
 
 function toast(msg, type = '') {

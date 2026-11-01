@@ -1,0 +1,22 @@
+{
+  "family": "dhc",
+  "familyCn": "德·哈维兰加拿大 冲 8 家族",
+  "variants": [
+    {
+      "id": "dh8d",
+      "name": "DHC-8-402(Q400)",
+      "cnName": "德·哈维兰 DHC-8-402 冲 8 Q400",
+      "length": 32.8,
+      "span": 28.4,
+      "height": 8.5,
+      "engines": "PW150A",
+      "engineCount": 2,
+      "seats": 78,
+      "cruise": "667 km/h",
+      "range": 2040,
+      "mtow": 29.3,
+      "doors": 2,
+      "notes": "冲 8 系列最新型,涡桨支线的速度标杆;巡航速度逼近喷气支线。"
+    }
+  ]
+}

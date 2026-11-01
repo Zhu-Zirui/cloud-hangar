@@ -17,6 +17,22 @@
       "mtow": 186.9,
       "doors": 4,
       "notes": "国内曾由上海航空等运营;现多为货机与洲际租赁市场主力。"
+    },
+    {
+      "id": "b764",
+      "name": "767-400ER",
+      "cnName": "波音 767-400ER",
+      "length": 61.4,
+      "span": 51.9,
+      "height": 16.8,
+      "engines": "CF6-80C2",
+      "engineCount": 2,
+      "seats": 270,
+      "cruise": "M0.80",
+      "range": 10415,
+      "mtow": 204.1,
+      "doors": 4,
+      "notes": "767 系列最大客运型,仅达美等少数航司运营。"
     }
   ]
 }

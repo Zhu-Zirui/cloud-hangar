@@ -53,8 +53,19 @@ e170/e175(文件名 E75L)/e190(E 喷气)、md11(MD-11)、t134(Tu-134A)。
 oem-atr.png(File:ATR Logo (French-Italian).svg,源文件 viewBox 画歪,已修正后经浏览器
 canvas 栅格化)、oem-embraer.png(File:Embraer logo.svg)、oem-mdc.png
 (File:McDonnell Douglas logo.svg)、oem-tupolev.png(File:Tupolev Logo historisch.svg,
-历史版与 Tu-134 年代匹配)。白色剪影用于机库柱幅。各字标为各自公司注册商标,
+历史版与 Tu-134 年代匹配)、oem-dhc.png(File:Logo text De Havilland Aircraft of
+Canada.png)。白色剪影用于机库柱幅。各字标为各自公司注册商标,
 本项目为非商业爱好者图鉴的标识性引用,不再分发;如需商用须取得权利人授权。
+
+### P13(三) FR24 源转换 6 变体 `models/<id>/<id>.glb`(2026-11-01)
+
+来源仓库:**[Flightradar24/fr24-3d-models](https://github.com/Flightradar24/fr24-3d-models)**
+的 `source/<id>/*.zip`(dae + 贴图,仓库 models/*.glb 为 glTF1 不可用)。
+许可:**GPL-2.0**(见原仓库 LICENSE)。经 `dev/dae2glb.py`(pycollada/trimesh 管线,
+与 P1 b738/b789 同法)转 glTF2;dae 为 Z-up,已烘焙根旋转四元数 [0,√2/2,√2/2,0]
+(高度 Z→Y、机身 Y→Z,P7 b738 同法)。a346(A340-600)、a318、a319、b753(757-300)、
+b764(767-400ER)、dh8d(DHC-8-402 Q400);机鼻朝向以页内 matrixWorld 命名网格证据
+逐一实测(COCKPIT/GeardoorN 在 +Z,HSTAB/Elevator/VStab 在 -Z)。
 
 ## 厂商标志 `logos/`(机库内景品牌面板用)
 

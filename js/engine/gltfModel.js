@@ -42,6 +42,13 @@ export const GLB_VARIANTS = {
   e190: 'e190',   // e190/glTF2/E190.glb
   md11: 'md11',   // md11/glTF2/MD11.glb
   t134: 't134',   // t134/glTF2/T134.glb
+  /* P13(三)FR24 dae 源转换(dev/dae2glb.py,pycollada 管线,Z-up 已烘焙矫正) */
+  a346: 'a346',   // fr24-3d-models source/a346/a340.zip
+  a318: 'a318',   // source/a318
+  a319: 'a319',   // source/a319
+  b753: 'b753',   // source/b753/757-300.zip
+  b764: 'b764',   // source/b764/764.zip
+  dh8d: 'dh8d',   // source/q400/q400.zip(DHC-8-402 Q400)
 };
 /* 仍舍弃(上游无免费可分发真实模型,含 .ac 格式需转换器):b38m/c919/a35k 及
    目录其余约 50 款(737 系/777/A330neo/787-10/CRJ/Q400/福克/协和等)。 */

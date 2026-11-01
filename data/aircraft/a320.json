@@ -53,6 +53,38 @@
       ]
     },
     {
+      "id": "a318",
+      "name": "A318",
+      "cnName": "空客 A318",
+      "length": 31.4,
+      "span": 34.1,
+      "height": 11.8,
+      "engines": "CFM56-5B / PW6000",
+      "engineCount": 2,
+      "seats": 107,
+      "cruise": "M0.78",
+      "range": 5200,
+      "mtow": 61.5,
+      "doors": 4,
+      "notes": "A320 家族最小成员,国内曾由少数航司运营。"
+    },
+    {
+      "id": "a319",
+      "name": "A319",
+      "cnName": "空客 A319",
+      "length": 33.8,
+      "span": 34.1,
+      "height": 11.8,
+      "engines": "CFM56-5B / V2500",
+      "engineCount": 2,
+      "seats": 124,
+      "cruise": "M0.78",
+      "range": 6950,
+      "mtow": 75.5,
+      "doors": 4,
+      "notes": "A320 缩短型,国内高高原与支线干线的主力经典款。"
+    },
+    {
       "id": "a320",
       "name": "A320-200",
       "cnName": "空客 A320-200",

@@ -45,6 +45,24 @@
 
 ## 会话记录
 
+### 2026-11-01 · P13(三) FR24 源补 6 变体(26→32)+ FGMEMBERS 侦察(Concorde/fokker100 可转,需 AC3D 转换器)
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:不只用 FlightAirMap 一个源,把另外几个模型源站点里目录机型的现成模型也挖出来。
+- **三源盘点结论**:
+  - **Ysurac/FlightAirMap-3dmodels**(P13二已挖完):17 款已入库;
+  - **Flightradar24/fr24-3d-models**:`models/*.glb` 全为 glTF1 不可用,但 `source/<id>/*.zip` 含 **dae + 贴图**,pycollada 管线可转(P1 验证过)——本轮转换 6 款:a346/a318/a319/b753/b764/dh8d(Q400);其余 source(a320/a343/a359/b738 等)与已入库机型重复或目录外(citation/beluga/crj 等);
+  - **FGMEMBERS**:直探仓库名确认 **Concorde 与 fokker100 存在**(目录 conc/f100!),全 .ac 格式需自写 AC3D→glTF2 转换器(P2 已记录格式规格:MATERIAL/OBJECT/loc/rot/texture/numvert/SURF/refs、kids 变换累积、UV v 翻转);Tu-154/Il-96/DC-9 系等未搜到对应仓库(GitHub 仓库搜索只匹配名字,命名花样多,后续可翻 org repo 列表)。
+- **本次完成项(变体 26→32)**:
+  - `dev/dae2glb.py`(新,入库):zip 解包 → trimesh/pycollada 读 dae → 导出 GLB(PBR,metallic 0/roughness 0.92);
+  - **Z-up 矫正**:六个 dae 均为 Z-up(包围盒高度在 Z),烘焙根旋转四元数 [0,√2/2,√2/2,0](高度 Z→Y、机身 Y→Z,P7 b738 同法)后机身落 Z 轴;
+  - 接入:GLB_VARIANTS +6;家族 a340/a320/b757/b767 variants 追加 + **新家族 dhc.js** + data JSON(dhc.json 新建,a340/a320/b757/b767.json 追加);CARD_DESC ×6;VARIANT_OEM(dh8d→dhc);HANGAR_BRANDS 新增 dhc(德·哈维兰加拿大多伦多工厂)+ oem-dhc.png(Wikimedia 文字标);
+  - **页内逐款验证**:a318/a319/b753/b764/dh8d 命名证据完美(COCKPIT/Glass_Front/GeardoorN 在 +Z,HSTAB/Elevator/VStab/Rudder 在 -Z);a346 用顶点高度分布定案(垂尾 15.6m 在 -Z);scale 0.978~1.020,zLen 与权威机长全部一致;三角形 13,161~35,320 ≤15 万 ✓;FR24 机型名规范("Boeing 757-300" 等,aircraft 数据 cnName 中文)。
+- **改动文件**:`assets/models/`(6 GLB)、`dev/dae2glb.py`(新)、`assets/logos/oem-dhc.png`、`js/engine/gltfModel.js`、`js/engine/aircraft.js`、`js/engine/families/`(a340/a320/b757/b767 改 + dhc 新)、`js/ui/hangar.js`、`js/ui/viewer.js`、`js/engine/hangarEnv.js`、`data/aircraft/`(4 追加 + dhc.json 新)、`assets/CREDITS.md`、`PROGRESS.md`。
+- **给下一会话的建议(挂账)**:①AC3D 转换器(解锁 FGMEMBERS/Concorde + fokker100,规格见 P2 会话记录);②FGMEMBERS org 逐页翻仓库名找 Tu-154/Il-96/SSJ/DC-9 系等;③SW CACHE_VER 在下批代码改动时记得 bump。
+
+
+
 ### 2026-11-01 · P13 机型大扩容:9→26 变体(a320/a321 + 上游 glTF2 批量 15 款)+ 机库厂商品牌
 
 - **所用模型**:GLM-5.3Flash

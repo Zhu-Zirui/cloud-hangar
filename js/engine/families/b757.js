@@ -6,7 +6,7 @@
 export const b757Family = {
   id: 'b757',
   cn: '波音 757 家族',
-  variants: ['b752'],
+  variants: ['b753', 'b752'],
 };
 
 export function tuneB757() {

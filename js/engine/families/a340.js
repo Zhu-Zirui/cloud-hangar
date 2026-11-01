@@ -6,7 +6,7 @@
 export const a340Family = {
   id: 'a340',
   cn: '空客 A340 家族',
-  variants: ['a343'],
+  variants: ['a346', 'a343'],
 };
 
 export function tuneA340() {

@@ -7,7 +7,7 @@
 export const a320Family = {
   id: 'a320',
   cn: '空客 A320 家族',
-  variants: ['a20n', 'a21n', 'a320', 'a321'],
+  variants: ['a318', 'a319', 'a20n', 'a21n', 'a320', 'a321'],
 };
 
 export function tuneA320(v) {

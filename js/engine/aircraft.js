@@ -28,6 +28,7 @@ import { b767Family, tuneB767 } from './families/b767.js';
 import { embraerFamily, tuneEmbraer } from './families/embraer.js';
 import { mdcFamily, tuneMdc } from './families/mdc.js';
 import { tupolevFamily, tuneTupolev } from './families/tupolev.js';
+import { dhcFamily, tuneDhc } from './families/dhc.js';
 
 import { GLB_VARIANTS } from './gltfModel.js';
 
@@ -49,6 +50,7 @@ const FAMILIES = [
   { meta: embraerFamily, tune: tuneEmbraer },
   { meta: mdcFamily, tune: tuneMdc },
   { meta: tupolevFamily, tune: tuneTupolev },
+  { meta: dhcFamily, tune: tuneDhc },
 ];
 
 /** 展示变体顺序:以真实 GLB 模型为准(无真实模型的机型已舍弃,经用户批准) */

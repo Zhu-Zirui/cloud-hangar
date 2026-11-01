@@ -61,6 +61,13 @@ export const HANGAR_BRANDS = {
     logoUrl: 'assets/logos/oem-tupolev.png',
     primary: '#1d3a6d', panelBg: '#f5f8fc',
   },
+  dhc: {
+    key: 'dhc',
+    factoryCn: '德·哈维兰加拿大 · 多伦多工厂',
+    factoryEn: 'DE HAVILLAND CANADA TORONTO',
+    logoUrl: 'assets/logos/oem-dhc.png',
+    primary: '#12395c', panelBg: '#f5f8fc',
+  },
 };
 
 /** 注册自定义品牌(P2:航司涂装 → 机库品牌联动)。重复 key 覆盖。 */
