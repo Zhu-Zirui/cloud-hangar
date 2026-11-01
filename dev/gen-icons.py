@@ -126,6 +126,21 @@ def load_font(size, bold=False):
     return ImageFont.load_default()
 
 
+def load_wordmark_font(size):
+    """品牌字标:Bahnschrift(DIN 1451 系,Windows 自带,变量字重取 700)。
+    仅本机渲染 PNG 输出,字体文件不入库;失败回退 Arial Bold。"""
+    p = os.path.join(r'C:\Windows\Fonts', 'bahnschrift.ttf')
+    try:
+        f = ImageFont.truetype(p, size)
+        try:
+            f.set_variation_by_axes([700])
+        except Exception:
+            pass
+        return f
+    except Exception:
+        return load_font(size, bold=True)
+
+
 def make_og():
     W, H = 1200, 630
     img = vgrad(W, NAVY_TOP, NAVY_BOT).convert('RGBA')
@@ -135,7 +150,7 @@ def make_og():
     img.alpha_composite(glyph, (W - 620, (H - 560) // 2))
     for y in (86, H - 86):
         d.line([(64, y), (W - 64, y)], fill=SKY + (60,), width=2)
-    f1 = load_font(96, bold=True)
+    f1 = load_wordmark_font(96)
     f2 = load_font(44)
     f3 = load_font(34)
     d.text((72, 150), 'AeroAtlas', font=f1, fill=WHITE)
@@ -155,7 +170,7 @@ def make_brand():
     glyph = Image.new('RGBA', (280, 280), (0, 0, 0, 0))
     draw_glyph(glyph, 280, 0.94)
     img.alpha_composite(glyph, (36, (H - 280) // 2))
-    f1 = load_font(104, bold=True)
+    f1 = load_wordmark_font(104)
     f2 = load_font(32)
     d.text((350, 96), 'AeroAtlas', font=f1, fill=WHITE)
     d.text((356, 228), '中国民航 3D 图鉴 · China Civil Aviation 3D', font=f2, fill=SKY)

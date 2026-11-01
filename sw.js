@@ -7,7 +7,7 @@
  *  - jsdelivr 的 three 版本锁死,同样缓存优先 → 断网后 3D 仍可渲染。
  * 版本号 CACHE_VER:代码/预缓存清单变更时手动 +1;旧缓存在 activate 清除。
  */
-const CACHE_VER = 'ch-aero-1';
+const CACHE_VER = 'ch-aero-2';
 const PRECACHE = [
   './',
   'index.html',
@@ -16,6 +16,8 @@ const PRECACHE = [
   'assets/icons/icon-192.png',
   'assets/icons/icon-512.png',
   'assets/icons/icon-maskable-512.png',
+  // P14 品牌展示字体 Saira(DIN 系,OFL,版本锁死;与 css/main.css @font-face 同 URL)
+  'https://cdn.jsdelivr.net/fontsource/fonts/saira@5.3.0/latin-700-normal.woff2',
 ];
 
 self.addEventListener('install', (e) => {
@@ -36,7 +38,7 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
   // 版本锁死的 three CDN:路径含 three@0.160.0 / three-mesh-bvh@0.7.6 才缓存
-  const cdnLocked = url.hostname === 'cdn.jsdelivr.net' && /three(-mesh-bvh)?@0\.(160\.0|7\.6)/.test(url.pathname);
+  const cdnLocked = url.hostname === 'cdn.jsdelivr.net' && /three(-mesh-bvh)?@0\.(160\.0|7\.6)|saira@5\.3\.0/.test(url.pathname);
   if (!sameOrigin && !cdnLocked) return; // 其他跨域(geojs 探测等)不拦截
 
   // 二进制资源:缓存优先(命中即回,未命中拉网并入库)

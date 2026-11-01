@@ -45,6 +45,19 @@
 
 ## 会话记录
 
+### 2026-11-01 · P14(二) 品牌字体:Bahnschrift 字标 + Saira 网页接入
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:「AeroAtlas 能用艺术字体吗」→ 给出方案后拍板「按建议来」:PNG 字标用本机 Bahnschrift,网页品牌名/hero 大标题接入同族开源字体 Saira(jsDelivr + SW 预缓存)。
+- **本次完成项**:
+  - `dev/gen-icons.py`:新增 `load_wordmark_font()`——Bahnschrift(Windows 自带 DIN 1451 系)`set_variation_by_axes([700])` 取粗体,失败回退 Arial Bold;brand.png 与 og-image 的 AeroAtlas 字标重渲染(字体文件不入库,PNG 输出无许可问题);图标图形本身无文字未变;
+  - `css/main.css`:末尾追加 §P14 品牌字体段(遵守"只允许末尾追加"纪律,不改既有规则)——@font-face 引入 `saira@5.3.0/latin-700-normal.woff2`(13.7KB,OFL 许可,font-display: swap),`.brand-name` 与 `.hero-copy h1` 字体链 `Saira → Bahnschrift(本机) → var(--font)`;正文与中文 UI 不动;文件头注释旧站名顺手清理;
+  - `sw.js`:PRECACHE += 字体 woff2;`cdnLocked` 正则扩为 `three…|saira@5\.3\.0`(跨域拦截才可缓存优先);CACHE_VER → **ch-aero-2**;版本经 jsDelivr data API 查定 5.3.0 并 curl 验证 200。
+- **本地实测(8211,IAB)**:document.fonts.check('700 19px Saira') = true;brand/h1 computedStyle 字体链生效;SW controller 接管,预缓存桶 ch-aero-2 含 latin-700-normal.woff2(离线首屏可用);控制台零报错;目检 header/hero 呈现 DIN 风格字形。
+- **坑(复用)**:IAB 新标签 goto 偶发落 chrome-error(加载竞态),reload/重新 goto 即恢复,勿误判为站点故障。
+- **改动文件**:`dev/gen-icons.py`、`css/main.css`、`sw.js`、`assets/icons/`(og-image 等重产)、`assets/logos/brand.png`、`PROGRESS.md`。
+- **给下一会话**:换字体版本时 css @font-face、sw.js PRECACHE/cdnLocked 三处 URL 要同步改;中文 UI 字体未动,若要中文展示字体需另选 OFL 中文字体(体积大,建议只做 PNG 渲染不做网页加载)。
+
 ### 2026-11-01 · P14 品牌改版:更名 AeroAtlas +「AA 双翼编队」LOGO + README 重写
 
 - **所用模型**:GLM-5.3Flash

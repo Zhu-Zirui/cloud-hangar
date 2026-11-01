@@ -1,5 +1,5 @@
 /* ============================================================
-   云端机库 · 全站唯一样式文件(总纲 §4 设计系统)
+   AeroAtlas · 全站唯一样式文件(总纲 §4 设计系统)
    深空蓝底 + 云白文字 + 天蓝点缀;玻璃拟态 + 航空 HUD 风格
    后续阶段只允许在此文件末尾追加,不改动既有规则
    ============================================================ */
@@ -1443,3 +1443,18 @@ button { font-family: inherit; }
 .friend-apply p { margin: 0 0 14px; font-size: 13px; line-height: 1.8; color: var(--ink-dim); }
 /* RTL:域名/英文站名保持从左向右 */
 [dir="rtl"] .fc-host, [dir="rtl"] .footer-friends a[target="_blank"] { direction: ltr; unicode-bidi: embed; }
+
+/* ---------- P14 品牌展示字体:Saira(DIN 系,SIL OFL) ----------
+   仅品牌名与 hero 大标题;jsDelivr Fontsource 版本锁死,SW 预缓存(ch-aero-2),离线可用。
+   回退:本机 Bahnschrift(Windows 自带 DIN 系,气质同族)→ 既有 sans 栈;正文与中文 UI 不受影响。 */
+@font-face {
+  font-family: 'Saira';
+  src: url('https://cdn.jsdelivr.net/fontsource/fonts/saira@5.3.0/latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.brand-name,
+.hero-copy h1 {
+  font-family: 'Saira', 'Bahnschrift', var(--font);
+}
