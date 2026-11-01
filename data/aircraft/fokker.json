@@ -1,0 +1,22 @@
+{
+  "family": "fokker",
+  "familyCn": "福克 Fokker 100 家族",
+  "variants": [
+    {
+      "id": "f100",
+      "name": "Fokker 100",
+      "cnName": "福克 Fokker 100",
+      "length": 35.5,
+      "span": 28.1,
+      "height": 8.5,
+      "engines": "罗·罗 Tay 650",
+      "engineCount": 2,
+      "seats": 97,
+      "cruise": "845 km/h",
+      "range": 3170,
+      "mtow": 45.8,
+      "doors": 2,
+      "notes": "荷兰福克公司旗舰支线,1997 年公司破产后停产;国内无客运运营。"
+    }
+  ]
+}

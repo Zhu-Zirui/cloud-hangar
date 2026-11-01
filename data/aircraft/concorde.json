@@ -1,0 +1,22 @@
+{
+  "family": "concorde",
+  "familyCn": "协和号超音速客机",
+  "variants": [
+    {
+      "id": "conc",
+      "name": "Concorde",
+      "cnName": "协和号超音速客机",
+      "length": 62.1,
+      "span": 25.6,
+      "height": 12.2,
+      "engines": "奥林帕斯 593(加力)",
+      "engineCount": 4,
+      "seats": 100,
+      "cruise": "M2.04",
+      "range": 7250,
+      "mtow": 185.1,
+      "doors": 4,
+      "notes": "英法联合研制的超音速客机,2003 年全部退役;可载 100 名乘客以两倍音速巡航。"
+    }
+  ]
+}

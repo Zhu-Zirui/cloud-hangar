@@ -151,3 +151,14 @@ sf/jg/cao/ck/fx/baw/ana.png(顺丰航空、京东航空、中国国际货运航�
 图源附带水印(头条号/socologo/品牌星球)已裁除;替换 2026-10-26 下载失败的
 baw.png/ana.png 坏文件。来源图片为各航司注册商标,本项目为非商业爱好者
 图鉴的标识性引用,不再分发。
+
+### P13(四) FGMEMBERS .ac 转换 2 变体(2026-11-01)
+
+来源仓库:**[FGMEMBERS](https://github.com/FGMEMBERS)**(FlightGear 官方机型镜像组织):
+Fokker 100(`fokker100` 仓库 Models/f100/fokker100.ac + fokker100.rgb,FGPL v2+)、
+Concorde(`Concorde` 仓库 Models/concorde.ac + concorde.png,GPL-2.0)。
+经 **dev/ac2glb.py(自研 AC3D→glTF2 转换器,kids 层级/loc/rot 累积、UV v 翻转、
+缺贴图内部件丢弃)** 转换;FG 惯例机身沿源 X 轴,机鼻 −X,归一化 yaw +90°
+(页内顶点高度分布实测定案)。座舱贴图缺失的 15 个内部件已按先例丢弃。
+oem-fokker.png(File:Fokker 70 logo.png 裁取 FOKKER 字标)、oem-concorde.png
+(File:Concorde logó.png 裁除 © 符号)。

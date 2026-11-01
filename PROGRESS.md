@@ -45,6 +45,21 @@
 
 ## 会话记录
 
+### 2026-11-01 · P13(四) 自研 AC3D 转换器解锁 FGMEMBERS:conc + f100 上线(32→34)+ 全列表侦察
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:协和号/福克 100 那两个 .ac 仓库"你试一下"。
+- **本次完成项(变体 32→34)**:
+  - **`dev/ac2glb.py`(自研 AC3D→glTF2 转换器,入库)**:AC3Db 文本解析(MATERIAL token 化解析/numvert/numsurf/SURF/mat/refs)、**kids 层级栈**(OBJECT 时弹出耗尽子帧再继承父帧——初版弹栈时机错误致对象飞出 88m,已修)、loc/rot 累积、行向量约定 v'=v·R、UV v 翻转、按(纹理,材质)分组合并、缺贴图 poly 丢弃(P2 先例)、PBR(roughness 随 shi);
+  - conc(协和号,△64,765,ext 61.8×24.6×11.6 与权威 62.1/25.6/12.2 吻合)+ f100(福克 100,△6,019,35.4×28.1×8.6 ✓);FG 惯例机身沿源 X 轴、机鼻 −X → **yaw +90°**(初判 -90° 垂尾落到 +Z,页内顶点高度分布推翻,定案 +90°);
+  - 接入:GLB_VARIANTS/fokker+concorde 家族/数据 JSON/CARD_DESC/VARIANT_OEM/HANGAR_BRANDS(fokker 阿姆斯特丹厂、concorde 布里斯托尔/图卢兹);LOGO:FOKKER 字标(Fokker 70 logo 裁数字)、CONCORDE(裁 ©);
+  - **FGMEMBERS 全列表侦察(886 仓库翻完)**:目录缺的机型里还有 **9 款可转**——a306(A300-600)/a310/an24b(≈a24r)/b39e(737-900ER)/b712(717)/b722(727-200)/b777 系(777/777-200/777-300)/dc10(DC-10-30)/t154(tu154b),另有 dhc8 系(dh8a/c 可补)。转换器已就绪,下轮为纯机械活;
+  - 未找到:il62/il86/il96/ssj/md82/an148/a35k/a330neo/a19n/xlr/c9x。
+- **改动文件**:`dev/ac2glb.py`(新)、`assets/models/conc|f100`、`assets/logos/oem-fokker|oem-concorde.png`、`js/engine/gltfModel.js`、`js/engine/aircraft.js`、`js/engine/families/fokker|concorde`(新)、`js/ui/hangar.js`、`js/ui/viewer.js`、`js/engine/hangarEnv.js`、`data/aircraft/fokker|concorde.json`(新)、`assets/CREDITS.md`、`PROGRESS.md`。
+- **坑(复用)**:①AC3D kids 栈要在 OBJECT 时弹出耗尽帧(不是只减计数);②初版漏吸收 numvert 顶点行(0 对象);③MATERIAL 正则分组下标 vs token 解析(改 token 化);④FG .ac 机身沿 X、机鼻 −X(与 FlightAirMap 相反)。
+
+
+
 ### 2026-11-01 · P13(三) FR24 源补 6 变体(26→32)+ FGMEMBERS 侦察(Concorde/fokker100 可转,需 AC3D 转换器)
 
 - **所用模型**:GLM-5.3Flash

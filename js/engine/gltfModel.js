@@ -49,6 +49,9 @@ export const GLB_VARIANTS = {
   b753: 'b753',   // source/b753/757-300.zip
   b764: 'b764',   // source/b764/764.zip
   dh8d: 'dh8d',   // source/q400/q400.zip(DHC-8-402 Q400)
+  /* P13(四)FGMEMBERS .ac 转换(dev/ac2glb.py 自研 AC3D 转换器) */
+  f100: 'f100',   // FGMEMBERS/fokker100 Models/f100/fokker100.ac
+  conc: 'conc',   // FGMEMBERS/Concorde Models/concorde.ac
 };
 /* 仍舍弃(上游无免费可分发真实模型,含 .ac 格式需转换器):b38m/c919/a35k 及
    目录其余约 50 款(737 系/777/A330neo/787-10/CRJ/Q400/福克/协和等)。 */
@@ -66,6 +69,9 @@ const SOURCE_NOSE_YAW = {
   /* P13(二)批量:页内 matrixWorld 命名网格证据实测(离线 trimesh 场景图变换方向
      易反,不可作为定案依据;a388/a223/e145/e170/e175/e190/md11/t134 均源机鼻 +Z) */
   b752: -Math.PI / 2,
+  /* FG 系 .ac:机身沿源 X 轴(FG 惯例),机鼻源 −X → yaw +90°(页内顶点高度分布实测定案) */
+  f100: Math.PI / 2,
+  conc: Math.PI / 2,
 };
 
 function sourceNoseYaw(assetId) {

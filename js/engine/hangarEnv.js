@@ -68,6 +68,20 @@ export const HANGAR_BRANDS = {
     logoUrl: 'assets/logos/oem-dhc.png',
     primary: '#12395c', panelBg: '#f5f8fc',
   },
+  fokker: {
+    key: 'fokker',
+    factoryCn: '福克 · 阿姆斯特丹工厂',
+    factoryEn: 'FOKKER AMSTERDAM',
+    logoUrl: 'assets/logos/oem-fokker.png',
+    primary: '#1a3a6b', panelBg: '#f5f8fc',
+  },
+  concorde: {
+    key: 'concorde',
+    factoryCn: '英法协和 · 布里斯托尔/图卢兹',
+    factoryEn: 'BAC-AÉROSPATIALE CONCORDE',
+    logoUrl: 'assets/logos/oem-concorde.png',
+    primary: '#0b2d5c', panelBg: '#f5f8fc',
+  },
 };
 
 /** 注册自定义品牌(P2:航司涂装 → 机库品牌联动)。重复 key 覆盖。 */
