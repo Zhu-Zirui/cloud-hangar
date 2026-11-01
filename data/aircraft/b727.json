@@ -1,0 +1,22 @@
+{
+  "family": "b727",
+  "familyCn": "波音 727 家族(三发尾置)",
+  "variants": [
+    {
+      "id": "b722",
+      "name": "727-200Adv",
+      "cnName": "波音 727-200(先进型)",
+      "length": 46.7,
+      "span": 32.9,
+      "height": 10.4,
+      "engines": "JT8D",
+      "engineCount": 3,
+      "seats": 145,
+      "cruise": "M0.82",
+      "range": 4400,
+      "mtow": 95.0,
+      "doors": 4,
+      "notes": "三发尾置经典,曾是 1960-70 年代全球干线主力;中国民航曾运营。"
+    }
+  ]
+}

@@ -5,8 +5,8 @@
  */
 export const tupolevFamily = {
   id: 'tupolev',
-  cn: '图波列夫 图-134 家族',
-  variants: ['t134'],
+  cn: '图波列夫 家族',
+  variants: ['t154', 't134'],
 };
 
 export function tuneTupolev() {

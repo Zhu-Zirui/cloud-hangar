@@ -9,7 +9,7 @@
 export const b737Family = {
   id: 'b737',
   cn: '波音 737 家族',
-  variants: ['b738', 'b38m'],
+  variants: ['b39e', 'b738', 'b38m'],
 };
 
 /**

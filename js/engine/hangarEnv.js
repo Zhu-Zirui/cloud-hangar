@@ -82,6 +82,13 @@ export const HANGAR_BRANDS = {
     logoUrl: 'assets/logos/oem-concorde.png',
     primary: '#0b2d5c', panelBg: '#f5f8fc',
   },
+  antonov: {
+    key: 'antonov',
+    factoryCn: '安东诺夫 · 基辅设计局',
+    factoryEn: 'ANTONOV KYIV',
+    logoUrl: 'assets/logos/oem-antonov.png',
+    primary: '#1f4d3a', panelBg: '#f5f8fc',
+  },
 };
 
 /** 注册自定义品牌(P2:航司涂装 → 机库品牌联动)。重复 key 覆盖。 */

@@ -31,6 +31,9 @@ const VARIANT_OEM = {
   a346: 'airbus', a318: 'airbus', a319: 'airbus',
   b753: 'boeing', b764: 'boeing', dh8d: 'dhc',
   f100: 'fokker', conc: 'concorde',
+  a306: 'airbus', a310: 'airbus', a24r: 'antonov',
+  b39e: 'boeing', b712: 'boeing', b722: 'boeing', b77w: 'boeing',
+  dc10: 'mdc', t154: 'tupolev',
 };
 
 function toast(msg, type = '') {

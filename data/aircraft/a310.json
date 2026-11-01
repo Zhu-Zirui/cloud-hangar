@@ -1,0 +1,22 @@
+{
+  "family": "a310",
+  "familyCn": "空客 A310(A300 缩短型)",
+  "variants": [
+    {
+      "id": "a310",
+      "name": "A310-300",
+      "cnName": "空客 A310-300",
+      "length": 46.7,
+      "span": 43.9,
+      "height": 15.8,
+      "engines": "CF6-80C2 / PW4000",
+      "engineCount": 2,
+      "seats": 220,
+      "cruise": "M0.78",
+      "range": 9600,
+      "mtow": 150.7,
+      "doors": 4,
+      "notes": "A300 缩短改进型,首次采用翼梢小翼;国内曾由东航/西北航运营。"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "family": "b777",
+  "familyCn": "波音 777 家族",
+  "variants": [
+    {
+      "id": "b77w",
+      "name": "777-300ER",
+      "cnName": "波音 777-300ER",
+      "length": 73.9,
+      "span": 64.8,
+      "height": 18.5,
+      "engines": "GE90-115B",
+      "engineCount": 2,
+      "seats": 365,
+      "cruise": "M0.84",
+      "range": 13650,
+      "mtow": 351.5,
+      "doors": 4,
+      "notes": "777 家族销量旗舰,全球最大双发客机;国内由国航/东航/南航等用于洲际航线。"
+    }
+  ]
+}

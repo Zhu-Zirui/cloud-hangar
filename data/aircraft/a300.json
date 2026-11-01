@@ -1,0 +1,22 @@
+{
+  "family": "a300",
+  "familyCn": "空客 A300 家族(世界首款双发宽体)",
+  "variants": [
+    {
+      "id": "a306",
+      "name": "A300-600R",
+      "cnName": "空客 A300-600R",
+      "length": 54.1,
+      "span": 44.8,
+      "height": 16.5,
+      "engines": "CF6-80C2 / PW4000",
+      "engineCount": 2,
+      "seats": 266,
+      "cruise": "M0.78",
+      "range": 7500,
+      "mtow": 170.5,
+      "doors": 4,
+      "notes": "世界首款双发宽体客机的最终改进型;中国曾由东航等大量运营。"
+    }
+  ]
+}

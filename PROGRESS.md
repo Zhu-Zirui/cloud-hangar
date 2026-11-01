@@ -45,6 +45,23 @@
 
 ## 会话记录
 
+### 2026-11-01 · P13(五) FGMEMBERS 批量二:9 变体上线(34→43)+ SW 旧缓存喂旧 GLB 之坑
+
+- **所用模型**:GLM-5.3Flash
+- **用户要求**:"再跑一批"。
+- **本次完成项(变体 34→43)**:
+  - ac2glb.py 升级**多文件装配合并**(A300-600 五部件/A310 五部件/DC-10 七部件,部件顶点已在整机坐标系,材质索引跨文件重映射);
+  - **9 款上线**:a306(A300-600R)/a310/a24r(安-24,模型为 B 型)/b39e(737-900ER)/b712(717)/b722(727-200Adv)/b77w(777-300ER)/dc10(DC-10-30)/t154(图-154M);尺寸全部与权威数据吻合(如 777-300ER 74.4×64.8×18.1、图-154 47.9×37.6);
+  - **两个转换坑修复**:①b722 贴图被 jsDelivr 50MB 仓限截断(返回 HTML 错误页)→ 换 raw 源;②b77w 灯光贴片挂在离体 50m 处 → 转换器加**离群剔除(任一顶点 >45m 丢弃)**;
+  - **重大坑:SW 旧缓存喂旧 GLB**——重转换后的 GLB 被本机 SW 的缓存优先(bin 桶)旧条目盖住,页面仍显示残缺模型(a310 只剩 2 网格/scale 1.665),清缓存+卸载 SW 后即完美(146,836/18,444/23,406 面全量、scale 全 1.0)。**教训:重转换 GLB/改资产后必须 bump CACHE_VER**,本次升 ch-p13-2;
+  - **ac2glb 两处修复(本会话早期)**:kids 栈弹出时机(对象飞 88m)、trimesh 导出**节点名冲突丢网格**(同纹理不同材质组)+ 补算顶点法线(否则 three.js 光照异常)——这两项修复波及此前全部 FG 系 GLB,已全部重转并页内复核(网格数=组数、面数=离线统计);
+  - 接入:GLB_VARIANTS +9、新家族 ×7(a300/a310/antonov/b717/b727/b777/dc10)、b737 += b39e、tupolev += t154(家族名改通用)、数据 JSON ×9、CARD_DESC ×9、VARIANT_OEM(antonov 新品牌 + oem-antonov.png)。
+- **IAB 实测**:9 款逐款验证 GLB 通道/标题/网格数=组数/面数与离线一致/朝向(垂尾顶点法,全部 -Z ✓)/scale 0.994~1.043 ✓。
+- **改动文件**:`assets/models/`×9、`assets/logos/oem-antonov.png`、`dev/ac2glb.py`(多文件/离群剔除/法线/节点名)、`sw.js`(ch-p13-2)、`js/engine/gltfModel.js`、`js/engine/aircraft.js`、`js/engine/families/`(7 新 + b737/tupolev 改)、`js/ui/hangar.js`、`js/ui/viewer.js`、`js/engine/hangarEnv.js`、`data/aircraft/`(7 新 + b737/tupolev 改)、`assets/CREDITS.md`、`PROGRESS.md`。
+- **给下一会话**:变体总数 43;A380/a346 等重转换机型如遇线上显示残缺,先查 SW 缓存版本;727 repo 超 jsDelivr 50MB 限,大仓库贴图要走 raw 源。
+
+
+
 ### 2026-11-01 · P13(四) 自研 AC3D 转换器解锁 FGMEMBERS:conc + f100 上线(32→34)+ 全列表侦察
 
 - **所用模型**:GLM-5.3Flash

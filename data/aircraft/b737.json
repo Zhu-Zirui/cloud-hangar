@@ -18,7 +18,31 @@
       "mtow": 79.0,
       "doors": 6,
       "notes": "",
-      "operators": ["CA", "CZ", "HU", "MF", "ZH", "SC", "FU"]
+      "operators": [
+        "CA",
+        "CZ",
+        "HU",
+        "MF",
+        "ZH",
+        "SC",
+        "FU"
+      ]
+    },
+    {
+      "id": "b39e",
+      "name": "737-900ER",
+      "cnName": "波音 737-900ER",
+      "length": 42.1,
+      "span": 35.8,
+      "height": 12.5,
+      "engines": "CFM56-7B",
+      "engineCount": 2,
+      "seats": 178,
+      "cruise": "M0.785",
+      "range": 5280,
+      "mtow": 85.1,
+      "doors": 4,
+      "notes": "737NG 最长型号,单通道大容量;国内由山航等少量运营。"
     },
     {
       "id": "b38m",
@@ -36,7 +60,13 @@
       "mtow": 82.2,
       "doors": 6,
       "notes": "",
-      "operators": ["CA", "MU", "CZ", "MF", "ZH"]
+      "operators": [
+        "CA",
+        "MU",
+        "CZ",
+        "MF",
+        "ZH"
+      ]
     }
   ]
 }

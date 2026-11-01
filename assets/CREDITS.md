@@ -162,3 +162,14 @@ Concorde(`Concorde` 仓库 Models/concorde.ac + concorde.png,GPL-2.0)。
 (页内顶点高度分布实测定案)。座舱贴图缺失的 15 个内部件已按先例丢弃。
 oem-fokker.png(File:Fokker 70 logo.png 裁取 FOKKER 字标)、oem-concorde.png
 (File:Concorde logó.png 裁除 © 符号)。
+
+### P13(五) FGMEMBERS 批量二 9 变体(2026-11-01)
+
+来源:FGMEMBERS(FlightGear 官方镜像,GPL-2.0/.ac 格式,经 dev/ac2glb.py 转换,
+多文件装配机型合并部件):a306(A300-600:Fuselage+Wings+Gears+GE-CF6+Tail)、
+a310(A310:Fuselage+Wings-300+Gears+Tail+PW-4156A)、dc10(DC-10-30:7 部件合并)、
+t154(tu154b exterior.ac)、a24r(an24b Exterior/an24-model.ac,模型为 An-24B 型)、
+b39e(737-900ER)、b712(717-200)、b722(727-200)、b77w(777-300ER)。
+oem-antonov.png(File:ANTONOV logo.svg)。**重要修复**:ac2glb 节点名冲突导致
+trimesh 导出丢网格(同纹理不同材质组共用节点名),已改唯一名并补算法线;
+777-300 仓库灯光贴片经离群剔除(顶点超 45m 丢弃)。

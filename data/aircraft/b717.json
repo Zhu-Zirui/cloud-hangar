@@ -1,0 +1,22 @@
+{
+  "family": "b717",
+  "familyCn": "波音 717(MD-95)",
+  "variants": [
+    {
+      "id": "b712",
+      "name": "717-200",
+      "cnName": "波音 717-200",
+      "length": 38.1,
+      "span": 32.9,
+      "height": 8.9,
+      "engines": "BR715",
+      "engineCount": 2,
+      "seats": 106,
+      "cruise": "M0.77",
+      "range": 2650,
+      "mtow": 49.9,
+      "doors": 2,
+      "notes": "原麦道 MD-95,麦道并入波音后更名 717,尾置双发 T 尾布局。"
+    }
+  ]
+}

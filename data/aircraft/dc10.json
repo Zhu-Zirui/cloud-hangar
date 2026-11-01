@@ -1,0 +1,22 @@
+{
+  "family": "dc10",
+  "familyCn": "麦道 DC-10 家族(三发宽体)",
+  "variants": [
+    {
+      "id": "dc10",
+      "name": "DC-10-30",
+      "cnName": "麦道 DC-10-30",
+      "length": 55.2,
+      "span": 50.4,
+      "height": 17.7,
+      "engines": "CF6-50C2",
+      "engineCount": 3,
+      "seats": 270,
+      "cruise": "M0.82",
+      "range": 9250,
+      "mtow": 259.5,
+      "doors": 4,
+      "notes": "麦道三发宽体,翼根上置 2 发 + 垂尾根 1 发;中国曾由中国国际航空运营。"
+    }
+  ]
+}

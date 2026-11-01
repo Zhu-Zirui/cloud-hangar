@@ -141,8 +141,18 @@ def parse_ac(path):
     return materials, objs
 
 
-def convert(ac_path, tex_dirs, out_id):
-    materials, objs = parse_ac(ac_path)
+def convert(ac_paths, tex_dirs, out_id):
+    """ac_paths:一个或多个 .ac(多文件装配,部件顶点假定已在整机坐标系)"""
+    materials = []
+    objs = []
+    for p in ac_paths:
+        m, o = parse_ac(p)
+        offset = len(materials)
+        materials.extend(m)
+        for x in o:
+            x['mat'] = x.get('mat', 0) + offset  # 各文件材质索引重映射
+        objs.extend(o)
+        print(f'  parsed {os.path.basename(p)}: {len(o)} 对象')
     tex_cache = {}
 
     def load_tex(name):
@@ -158,10 +168,16 @@ def convert(ac_path, tex_dirs, out_id):
 
     groups = {}
     dropped = 0
+    dropped_far = 0
     for o in objs:
         img = load_tex(o['texture']) if o.get('texture') else None
         if o.get('texture') and img is None:
             dropped += 1
+            continue
+        # 离群剔除:机体几何顶点不会离原点 >45m(FG 灯光贴片/特效挂在远端坐标;
+        # 现役最大客机 A380 半展长/半机长也 <45m)
+        if np.abs(o['verts']).max() > 45.0:
+            dropped_far += 1
             continue
         mat = materials[o['mat']] if o['mat'] < len(materials) else {'rgb': [0.8]*3, 'trans': 0}
         key = (o.get('texture') or ('__mat%d__' % o['mat']), o['mat'])
@@ -184,6 +200,7 @@ def convert(ac_path, tex_dirs, out_id):
         if not g['faces'] or len(g['verts']) < 3:
             continue
         mesh = trimesh.Trimesh(vertices=np.array(g['verts']), faces=np.array(g['faces']), process=True)
+        _ = mesh.vertex_normals  # 触发顶点法线计算(GLB 必须带法线,否则 three.js 光照异常)
         mat = g['mat']
         if g['img'] is not None:
             alpha_mode = 'OPAQUE'
@@ -203,7 +220,9 @@ def convert(ac_path, tex_dirs, out_id):
                               alphaMode='BLEND' if trans > 0.01 else 'OPAQUE',
                               doubleSided=True)
             mesh.visual = TextureVisuals(material=pbr)
-        scene.add_geometry(mesh, node_name=str(key[0]))
+        # 节点名必须唯一:同纹理不同材质的组共用 key[0] 会导致 trimesh 导出丢节点
+        gi = list(groups.keys()).index(key)
+        scene.add_geometry(mesh, node_name=f'part{gi}_{key[0]}'.replace('.', '_'))
 
     out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'assets', 'models', out_id)
     os.makedirs(out_dir, exist_ok=True)
@@ -215,11 +234,11 @@ def convert(ac_path, tex_dirs, out_id):
     for g in scene.geometry.values():
         lo = np.minimum(lo, g.vertices.min(0))
         hi = np.maximum(hi, g.vertices.max(0))
-    print(f'OK {out_id}: {os.path.getsize(out_path):,} bytes, {tri:,} 三角形, ext=[{hi[0]-lo[0]:.1f} {hi[1]-lo[1]:.1f} {hi[2]-lo[2]:.1f}], 丢弃(缺贴图)={dropped}, 组={len(scene.geometry)}')
+    print(f'OK {out_id}: {os.path.getsize(out_path):,} bytes, {tri:,} 三角形, ext=[{hi[0]-lo[0]:.1f} {hi[1]-lo[1]:.1f} {hi[2]-lo[2]:.1f}], 丢弃(缺贴图)={dropped}, 丢弃(离群)={dropped_far}, 组={len(scene.geometry)}')
 
 
 if __name__ == '__main__':
-    ac_path = sys.argv[1]
-    out_id = sys.argv[-1]
-    tex_dirs = sys.argv[2:-1]
-    convert(ac_path, tex_dirs, out_id)
+    out_id = sys.argv[1]
+    ac_paths = [a for a in sys.argv[2:] if a.lower().endswith('.ac')]
+    tex_dirs = sorted(set(os.path.dirname(os.path.abspath(a)) for a in ac_paths))
+    convert(ac_paths, tex_dirs, out_id)

@@ -7,7 +7,7 @@
  *  - jsdelivr 的 three 版本锁死,同样缓存优先 → 断网后 3D 仍可渲染。
  * 版本号 CACHE_VER:代码/预缓存清单变更时手动 +1;旧缓存在 activate 清除。
  */
-const CACHE_VER = 'ch-p13-1';
+const CACHE_VER = 'ch-p13-2';
 const PRECACHE = [
   './',
   'index.html',

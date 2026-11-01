@@ -1,0 +1,22 @@
+{
+  "family": "antonov",
+  "familyCn": "安东诺夫 安-24 家族",
+  "variants": [
+    {
+      "id": "a24r",
+      "name": "An-24RV",
+      "cnName": "安东诺夫 安-24RV",
+      "length": 23.5,
+      "span": 29.2,
+      "height": 8.3,
+      "engines": "AI-24T",
+      "engineCount": 2,
+      "seats": 48,
+      "cruise": "450 km/h",
+      "range": 1200,
+      "mtow": 21.8,
+      "doors": 2,
+      "notes": "苏联支线涡桨;模型为安-24B 型(RV 为其加协调螺旋桨改型,几何差异细微);中国曾仿制为运-7。"
+    }
+  ]
+}

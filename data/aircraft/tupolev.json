@@ -17,6 +17,22 @@
       "mtow": 47.7,
       "doors": 2,
       "notes": "苏联短程双发,发动机后置机身两侧;模型含机头空速管。"
+    },
+    {
+      "id": "t154",
+      "name": "Tu-154M",
+      "cnName": "图波列夫 图-154M",
+      "length": 47.9,
+      "span": 37.6,
+      "height": 11.4,
+      "engines": "D-30KU",
+      "engineCount": 3,
+      "seats": 158,
+      "cruise": "900 km/h",
+      "range": 3900,
+      "mtow": 100.0,
+      "doors": 2,
+      "notes": "苏联干线三发主力(尾置三发),中国民航曾大量运营至 2000 年代。"
     }
   ]
 }

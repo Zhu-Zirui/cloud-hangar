@@ -52,6 +52,16 @@ export const GLB_VARIANTS = {
   /* P13(四)FGMEMBERS .ac 转换(dev/ac2glb.py 自研 AC3D 转换器) */
   f100: 'f100',   // FGMEMBERS/fokker100 Models/f100/fokker100.ac
   conc: 'conc',   // FGMEMBERS/Concorde Models/concorde.ac
+  /* P13(五)FGMEMBERS 批量二(多文件装配经 ac2glb 合并) */
+  a306: 'a306',   // A300-600 Fuselage+Wings+Gears+GE-CF6+Tail
+  a310: 'a310',   // A310 Fuselage+Wings-300+Gears+Tail+PW-4156A
+  dc10: 'dc10',   // DC-10-30 fuselage+wings+gear+vstab+hstab+nacelle+GE-CF6-50
+  t154: 't154',   // tu154b Model/exterior.ac
+  a24r: 'a24r',   // an24b Exterior/an24-model.ac(An-24B,RV≈同型)
+  b39e: 'b39e',   // 737-900ER 737-900.ac
+  b712: 'b712',   // 717 717-200.ac
+  b722: 'b722',   // 727-200 727-200.ac
+  b77w: 'b77w',   // 777-300 777-300ER.ac
 };
 /* 仍舍弃(上游无免费可分发真实模型,含 .ac 格式需转换器):b38m/c919/a35k 及
    目录其余约 50 款(737 系/777/A330neo/787-10/CRJ/Q400/福克/协和等)。 */
@@ -72,6 +82,10 @@ const SOURCE_NOSE_YAW = {
   /* FG 系 .ac:机身沿源 X 轴(FG 惯例),机鼻源 −X → yaw +90°(页内顶点高度分布实测定案) */
   f100: Math.PI / 2,
   conc: Math.PI / 2,
+  /* P13(五)批量:FG 惯例机鼻 −X → +90°(页内逐款复核) */
+  a306: Math.PI / 2, a310: Math.PI / 2, a24r: Math.PI / 2,
+  b39e: Math.PI / 2, b712: Math.PI / 2, b722: Math.PI / 2,
+  b77w: Math.PI / 2, dc10: Math.PI / 2, t154: Math.PI / 2,
 };
 
 function sourceNoseYaw(assetId) {

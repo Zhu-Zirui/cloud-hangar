@@ -31,6 +31,13 @@ import { tupolevFamily, tuneTupolev } from './families/tupolev.js';
 import { dhcFamily, tuneDhc } from './families/dhc.js';
 import { fokkerFamily, tuneFokker } from './families/fokker.js';
 import { concordeFamily, tuneConcorde } from './families/concorde.js';
+import { a300Family, tuneA300 } from './families/a300.js';
+import { a310Family, tuneA310 } from './families/a310.js';
+import { antonovFamily, tuneAntonov } from './families/antonov.js';
+import { b717Family, tuneB717 } from './families/b717.js';
+import { b727Family, tuneB727 } from './families/b727.js';
+import { b777Family, tuneB777 } from './families/b777.js';
+import { dc10Family, tuneDc10 } from './families/dc10.js';
 
 import { GLB_VARIANTS } from './gltfModel.js';
 
@@ -55,6 +62,13 @@ const FAMILIES = [
   { meta: dhcFamily, tune: tuneDhc },
   { meta: fokkerFamily, tune: tuneFokker },
   { meta: concordeFamily, tune: tuneConcorde },
+  { meta: a300Family, tune: tuneA300 },
+  { meta: a310Family, tune: tuneA310 },
+  { meta: antonovFamily, tune: tuneAntonov },
+  { meta: b717Family, tune: tuneB717 },
+  { meta: b727Family, tune: tuneB727 },
+  { meta: b777Family, tune: tuneB777 },
+  { meta: dc10Family, tune: tuneDc10 },
 ];
 
 /** 展示变体顺序:以真实 GLB 模型为准(无真实模型的机型已舍弃,经用户批准) */
