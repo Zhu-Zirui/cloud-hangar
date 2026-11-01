@@ -1,0 +1,22 @@
+{
+  "family": "mdc",
+  "familyCn": "麦道 MD-11",
+  "variants": [
+    {
+      "id": "md11",
+      "name": "MD-11",
+      "cnName": "麦道 MD-11",
+      "length": 61.2,
+      "span": 51.7,
+      "height": 17.6,
+      "engines": "CF6-80C2D / PW4460",
+      "engineCount": 3,
+      "seats": 293,
+      "cruise": "M0.825",
+      "range": 12670,
+      "mtow": 286.0,
+      "doors": 4,
+      "notes": "DC-10 的现代化三发宽体;联邦快递 MD-11F 货机仍在役。"
+    }
+  ]
+}

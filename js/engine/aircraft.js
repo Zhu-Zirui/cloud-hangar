@@ -18,6 +18,16 @@ import { a330Family, tuneA330 } from './families/a330.js';
 import { b787Family, tuneB787 } from './families/b787.js';
 import { a350Family, tuneA350 } from './families/a350.js';
 import { b747Family, tuneB747 } from './families/b747.js';
+/* P13(二):真实 GLB 批量补注册家族(tune 为占位,参数化通道不覆盖) */
+import { a340Family, tuneA340 } from './families/a340.js';
+import { a380Family, tuneA380 } from './families/a380.js';
+import { a220Family, tuneA220 } from './families/a220.js';
+import { atrFamily, tuneAtr } from './families/atr.js';
+import { b757Family, tuneB757 } from './families/b757.js';
+import { b767Family, tuneB767 } from './families/b767.js';
+import { embraerFamily, tuneEmbraer } from './families/embraer.js';
+import { mdcFamily, tuneMdc } from './families/mdc.js';
+import { tupolevFamily, tuneTupolev } from './families/tupolev.js';
 
 import { GLB_VARIANTS } from './gltfModel.js';
 
@@ -30,6 +40,15 @@ const FAMILIES = [
   { meta: b787Family, tune: tuneB787 },
   { meta: a350Family, tune: tuneA350 },
   { meta: b747Family, tune: tuneB747 },
+  { meta: a340Family, tune: tuneA340 },
+  { meta: a380Family, tune: tuneA380 },
+  { meta: a220Family, tune: tuneA220 },
+  { meta: atrFamily, tune: tuneAtr },
+  { meta: b757Family, tune: tuneB757 },
+  { meta: b767Family, tune: tuneB767 },
+  { meta: embraerFamily, tune: tuneEmbraer },
+  { meta: mdcFamily, tune: tuneMdc },
+  { meta: tupolevFamily, tune: tuneTupolev },
 ];
 
 /** 展示变体顺序:以真实 GLB 模型为准(无真实模型的机型已舍弃,经用户批准) */

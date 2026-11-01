@@ -19,21 +19,47 @@ export const GLB_VARIANTS = {
   b789: 'b789',   // FlightGear 787-900 源(dae)转换
   a20n: 'a20n',   // FlightAirMap glTF2 A320(空客屋涂装)
   a21n: 'a21n',
+  a320: 'a320',   // FlightAirMap glTF2 再导出版 A320ceo(P13 补注册;P7 时入库但为 glTF1 不可用)
+  a321: 'a321',
   a332: 'a332',
   a333: 'a333',
   b788: 'b788',
   a359: 'a359',
   b748: 'b748',
+  /* P13(二)2026-11-01:上游 glTF2 再导出版批量补注册(目录 78 款中可直接落地的全部机型) */
+  a343: 'a343',   // FlightAirMap a340/glTF2/A343.glb
+  a388: 'a388',   // a380/glTF2/A380.glb
+  at42: 'at42',   // atr42/glTF2/AT45.glb(ATR 42-500 世代)
+  at72: 'at72',   // atr72/glTF2/AT75.glb
+  b744: 'b744',   // b744/glTF2/B747.glb
+  b752: 'b752',   // b752/glTF2/B752.glb
+  b763: 'b763',   // b767/glTF2/B763.glb
+  a221: 'a221',   // bcs1/glTF2/BCS1.glb(原庞巴迪 CS100)
+  a223: 'a223',   // bcs1/glTF2/BCS3.glb(CS300)
+  e145: 'e145',   // e145/glTF2/E145.glb
+  e170: 'e170',   // e190/glTF2/E170.glb
+  e175: 'e175',   // e190/glTF2/E75L.glb
+  e190: 'e190',   // e190/glTF2/E190.glb
+  md11: 'md11',   // md11/glTF2/MD11.glb
+  t134: 't134',   // t134/glTF2/T134.glb
 };
-/* 已舍弃(无免费可分发真实模型):b38m 737 MAX 8 / c919 / a35k A350-1000 */
+/* 仍舍弃(上游无免费可分发真实模型,含 .ac 格式需转换器):b38m/c919/a35k 及
+   目录其余约 50 款(737 系/777/A330neo/787-10/CRJ/Q400/福克/协和等)。 */
 
 const cache = new Map(); // assetId → Promise<THREE.Group>(克隆模板)
 
 /* 源模型机鼻朝向表(key = GLB 文件名主名,涂装变体如 b788-cz 共用主型号值)。
    实测方法:解包 GLB,按名字定位机鼻证据(鼻锥/前起舱门/皮托管)与机尾证据
-   (方向舵/垂尾/APU 排气)比较 z。其余 8 变体机鼻 +Z → yaw 0;a20n 机鼻 +X → −90°。
+   (方向舵/垂尾/APU 排气)比较 z。其余 9 变体机鼻 +Z → yaw 0;
+   a20n/a320/a321 机鼻 +X → −90°(a320/a321 的"端均高度"启发式曾误判为 −X,
+   2026-11-01 以页内世界坐标逐网格实测定案:试 +90° 后机鼻落 −Z,故取 −90°)。
    新增变体必须先实测后补表,勿再引入全局盲翻转。 */
-const SOURCE_NOSE_YAW = { a20n: -Math.PI / 2 };
+const SOURCE_NOSE_YAW = {
+  a20n: -Math.PI / 2, a320: -Math.PI / 2,
+  /* P13(二)批量:页内 matrixWorld 命名网格证据实测(离线 trimesh 场景图变换方向
+     易反,不可作为定案依据;a388/a223/e145/e170/e175/e190/md11/t134 均源机鼻 +Z) */
+  b752: -Math.PI / 2,
+};
 
 function sourceNoseYaw(assetId) {
   const base = String(assetId).split('/').pop().replace(/\.glb$/i, '').split('-')[0];

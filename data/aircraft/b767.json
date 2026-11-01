@@ -1,0 +1,22 @@
+{
+  "family": "b767",
+  "familyCn": "波音 767 家族",
+  "variants": [
+    {
+      "id": "b763",
+      "name": "767-300ER",
+      "cnName": "波音 767-300ER",
+      "length": 54.9,
+      "span": 47.6,
+      "height": 15.8,
+      "engines": "CF6-80C2",
+      "engineCount": 2,
+      "seats": 261,
+      "cruise": "M0.80",
+      "range": 11065,
+      "mtow": 186.9,
+      "doors": 4,
+      "notes": "国内曾由上海航空等运营;现多为货机与洲际租赁市场主力。"
+    }
+  ]
+}

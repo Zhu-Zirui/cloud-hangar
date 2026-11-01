@@ -1,0 +1,22 @@
+{
+  "family": "tupolev",
+  "familyCn": "图波列夫 图-134 家族",
+  "variants": [
+    {
+      "id": "t134",
+      "name": "Tu-134A",
+      "cnName": "图波列夫 图-134A",
+      "length": 37.9,
+      "span": 29.0,
+      "height": 9.0,
+      "engines": "D-30 索洛维耶夫",
+      "engineCount": 2,
+      "seats": 80,
+      "cruise": "880 km/h",
+      "range": 1900,
+      "mtow": 47.7,
+      "doors": 2,
+      "notes": "苏联短程双发,发动机后置机身两侧;模型含机头空速管。"
+    }
+  ]
+}

@@ -45,6 +45,28 @@
 
 ## 会话记录
 
+### 2026-11-01 · P13 机型大扩容:9→26 变体(a320/a321 + 上游 glTF2 批量 15 款)+ 机库厂商品牌
+
+- **所用模型**:GLM-5.3Flash
+- **用户指示(两轮)**:①按上轮建议清单逐项做;②"先别整涂装,把机型对比目录里那些模型源站点有现成模型的机型都放进机库;机库背景公司 LOGO 与机型生产商对应,LOGO 去网上搜"。
+- **重大发现**:P7 资产入库时 `assets/models/a320|a321/*.glb` 已存在但为 **glTF1 旧格式**(r160 拒载)而未注册;上游 Ysurac/FlightAirMap-3dmodels 的各机型目录现已有 **glTF2 再导出版**(blend 工程,A318/A319/A320/A321/A343/A350/A380/ATR42/ATR72/B707/B744/B752/B767/BCS1/BCS3/E145/E170/E175/E190/MD11/T134),GPL-2.0。
+- **本次完成项(变体 9→26)**:
+  - **下载注册 17 款**(jsDelivr 镜像,raw.githubusercontent 通道超时):a320/a321 + a343/a388/at42/at72/b744/b752/b763/a221(CS100)/a223(CS300)/e145/e170/e175(E75L)/e190/md11/t134;目录 78 款中上游可直接落地者全部入库(b777 仅 blend、b707 不在目录、a350 疑与已有 a359 重复故跳过);
+  - **朝向定案(核心踩坑)**:离线 trimesh 场景图变换方向易反 + 端点均高启发式不可靠,定案一律以**页内 matrixWorld 命名网格证据**为准(nosecone/nosegrdoor/wiper/Rudder/vstab/windshield/noze/顶点高度分布):a20n/a320/b752 机鼻 +X → yaw −90°,**其余全部源机鼻 +Z → yaw 0**(含 t134:页内 noze2_1 前起在 +Z,推翻离线误判;md11 垂尾网格 16.6m 在 −Z);全部 17 款 scale/朝向逐一页内复核(如 a388 scale 0.911→1.000、at42 0.820→0.997);
+  - `js/engine/gltfModel.js`:GLB_VARIANTS 26 项 + SOURCE_NOSE_YAW(实测警示注释);
+  - **9 个新家族模块**(js/engine/families/:a340/a380/a220/atr/b757/b767/embraer/mdc/tupolev,meta + 占位 tune)+ aircraft.js FAMILIES 注册;**b747/a320 家族补 variants 列表**(漏改 → 机库卡片少一张,本轮两次踩到);
+  - **10 个数据 JSON**(新建 9 个 + b747.json 补 b744):参数取自目录单一数据源,航程等补充值按公开资料,notes 记录模型世代差异(ATR 为 -500 世代、A220 原庞巴迪 C 系等)与国内运营史;
+  - `js/ui/hangar.js`:CARD_DESC 17 条;
+  - **机库厂商品牌**:`viewer.js` VARIANT_OEM 映射(26 变体→6 厂商,A220 归空客)+ 两处 setBrand 改造;`hangarEnv.js` HANGAR_BRANDS 新增 atr/embraer/mdc/tupolev 四品牌(中英文厂名/品牌色/LOGO);
+  - **厂商 LOGO ×4**(assets/logos/oem-*.png,Wikimedia Commons SVG,≤800px 白底):ATR(源文件 viewBox 画歪 → 修 viewBox 后经 `dev/upload_receiver.py`(新,本地栅格化上传工具)浏览器 canvas 栅格化)、Embraer、McDonnell Douglas、Tupolev(历史版);来源与商标口径记入 CREDITS.md;
+  - `js/locales/names.js` 无需改动:目录名生成时已含全部 15 款机型名(含 TW 转换);
+  - C919 侦察结论(GitHub 无可用模型;Sketchfab CC-BY 需登录下载)与涂装扩充(用户指示暂停;CES 需 ac2glb.py,D 盘未挂载)挂账;A318/A319 上游有成品,未来低成本可加。
+- **IAB 实测(8192 端口)**:机库 26 卡全渲染 ✓;17 款逐一巡检:标题/三角数(△13,318~61,184,全部 ≤15 万)/zLen 与权威机长一致/scale 0.82~1.03 合理/朝向端点证据 ✓;a20n 回归 ✓;OEM 资源 HTTP 200、控制台零报错 ✓。
+- **测试坑(复用)**:①IAB hash 幽灵导航频发(载入后自动跳历史条目),巡检用 `goto(about:blank) → goto(url) → 单 cell 内完成读取`模式;②ES 模块改码后必须整页 reload;③截图通道偶发失败/残帧,数值证据优先;④工具单次调用 120s 上限,批量巡检分批。
+- **改动文件**:`js/engine/gltfModel.js`、`js/engine/aircraft.js`、`js/engine/families/`(a320/b747 修改 + 9 新)、`js/engine/hangarEnv.js`、`js/ui/hangar.js`、`js/ui/viewer.js`、`data/aircraft/`(9 新 JSON + b747.json)、`assets/models/`×17 GLB、`assets/logos/oem-*.png`×4、`assets/CREDITS.md`、`dev/upload_receiver.py`(新)、`PROGRESS.md`。
+
+
+
 ### 2026-11-01 · P12 PWA + SEO/分享卡片(可安装/离线/社交分享)+ 国内可达性方案挂账
 
 - **所用模型**:GLM-5.3Flash

@@ -1,0 +1,22 @@
+{
+  "family": "a340",
+  "familyCn": "空客 A340 家族",
+  "variants": [
+    {
+      "id": "a343",
+      "name": "A340-300",
+      "cnName": "空客 A340-300",
+      "length": 63.7,
+      "span": 60.3,
+      "height": 16.9,
+      "engines": "CFM56-5C",
+      "engineCount": 4,
+      "seats": 262,
+      "cruise": "M0.82",
+      "range": 13700,
+      "mtow": 276.5,
+      "doors": 4,
+      "notes": "东航曾于 2000 年代运营 A340 系列后退出;航程为远航型参考值。"
+    }
+  ]
+}

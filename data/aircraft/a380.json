@@ -1,0 +1,22 @@
+{
+  "family": "a380",
+  "familyCn": "空客 A380 家族",
+  "variants": [
+    {
+      "id": "a388",
+      "name": "A380-800",
+      "cnName": "空客 A380-800",
+      "length": 72.7,
+      "span": 79.8,
+      "height": 24.1,
+      "engines": "遄达 900 / GP7200",
+      "engineCount": 4,
+      "seats": 555,
+      "cruise": "M0.85",
+      "range": 15200,
+      "mtow": 575.0,
+      "doors": 4,
+      "notes": "全球最大双层客机;南航曾运营 5 架 A380,2022 年退役转售。"
+    }
+  ]
+}

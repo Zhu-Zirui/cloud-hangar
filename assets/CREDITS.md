@@ -21,11 +21,40 @@
 | b789.glb | b789 787-9 | 真实模型通道 | 由原仓库 source/b789/789.zip 的 787-900.dae + 4 张贴图转换(2026-10-25) |
 | a359.glb | a359 A350-900 | 真实模型通道 | 原生变体 |
 | b748.glb | b748 747-8 | 真实模型通道 | 原生变体 |
+| a320.glb | a320 A320-200 | 真实模型通道 | 见下方 P13 补录(2026-11-01,glTF2 版替换注册) |
+| a321.glb | a321 A321-200 | 真实模型通道 | 见下方 P13 补录(2026-11-01,glTF2 版替换注册) |
 | (已舍弃) | b38m / c919 / a35k | — | 无免费可分发真实模型,经批准从图鉴中舍弃(2026-10-25) |
 
 注:全部真实模型均为静态(无动画数据),起落架为停放姿态并贴地;默认涂装为波音/空客原厂牌示涂装,发动机为真实对应型号(如 747-8 的 GEnx 带 GE 标志)。
 
 下载日期:2026-10-25。
+
+### P13 补录 `a320.glb` / `a321.glb`(2026-11-01)
+
+来源仓库:**[Ysurac/FlightAirMap-3dmodels](https://github.com/Ysurac/FlightAirMap-3dmodels)**
+(`a320/glTF2/A320.glb`、`A321.glb`,A320 家族 blend 工程的 glTF2 再导出版)。
+许可:**GPL-2.0**(原仓库 COPYING)。P7 时入库的两个旧文件为 glTF1 格式(r160 加载器
+不支持)故一直未注册变体;本次下载同仓库 glTF2 版替换,并注册为
+a320(A320-200ceo)/ a321(A321-200ceo)。机鼻朝向经页内世界坐标逐网格实测:机鼻 +X
+(与 a20n 同),归一化 yaw −90°(SOURCE_NOSE_YAW 已记)。
+
+### P13(二) 批量补录 15 变体 `models/<id>/<id>.glb`(2026-11-01)
+
+来源仓库同上(Ysurac/FlightAirMap-3dmodels),各目录 `glTF2/` 再导出版,许可 **GPL-2.0**:
+a343(A340-300)、a388(A380-800)、at42(ATR 42-500 世代)、at72(ATR 72)、b744(747-400)、
+b752(757-200)、b763(767-300ER)、a221(原庞巴迪 CS100)、a223(CS300)、e145(ERJ-145)、
+e170/e175(文件名 E75L)/e190(E 喷气)、md11(MD-11)、t134(Tu-134A)。
+经目录(data/aircraft-catalog.json)ID 对应注册;机鼻朝向以**页内 matrixWorld 命名网格
+证据**(nosecone/nosegrdoor/wiper/Rudder/vstab/noze/顶点高度分布)逐一实测后接入。
+
+### 厂商标志 `logos/oem-*.png`(P13,2026-11-01)
+
+来源:**Wikimedia Commons**(SVG 矢量原文件 Special:FilePath 渲染 PNG,≤800px):
+oem-atr.png(File:ATR Logo (French-Italian).svg,源文件 viewBox 画歪,已修正后经浏览器
+canvas 栅格化)、oem-embraer.png(File:Embraer logo.svg)、oem-mdc.png
+(File:McDonnell Douglas logo.svg)、oem-tupolev.png(File:Tupolev Logo historisch.svg,
+历史版与 Tu-134 年代匹配)。白色剪影用于机库柱幅。各字标为各自公司注册商标,
+本项目为非商业爱好者图鉴的标识性引用,不再分发;如需商用须取得权利人授权。
 
 ## 厂商标志 `logos/`(机库内景品牌面板用)
 

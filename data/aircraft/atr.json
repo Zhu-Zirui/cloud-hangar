@@ -1,0 +1,38 @@
+{
+  "family": "atr",
+  "familyCn": "ATR 支线涡桨家族",
+  "variants": [
+    {
+      "id": "at42",
+      "name": "ATR 42-600",
+      "cnName": "ATR 42-600",
+      "length": 22.7,
+      "span": 24.6,
+      "height": 7.6,
+      "engines": "PW127E",
+      "engineCount": 2,
+      "seats": 48,
+      "cruise": "556 km/h",
+      "range": 1350,
+      "mtow": 18.6,
+      "doors": 2,
+      "notes": "模型为 ATR 42-500 世代,几何差异细微;尺寸含螺旋桨直径。"
+    },
+    {
+      "id": "at72",
+      "name": "ATR 72-600",
+      "cnName": "ATR 72-600",
+      "length": 27.2,
+      "span": 27.0,
+      "height": 7.7,
+      "engines": "PW127M",
+      "engineCount": 2,
+      "seats": 70,
+      "cruise": "510 km/h",
+      "range": 1530,
+      "mtow": 23.0,
+      "doors": 2,
+      "notes": "模型源为 72-500 世代(与 -600 差异细微);国内曾由奥凯等运营。"
+    }
+  ]
+}

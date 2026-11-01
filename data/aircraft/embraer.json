@@ -1,0 +1,70 @@
+{
+  "family": "embraer",
+  "familyCn": "巴航工业喷气家族",
+  "variants": [
+    {
+      "id": "e145",
+      "name": "ERJ-145",
+      "cnName": "巴航工业 ERJ-145",
+      "length": 29.9,
+      "span": 20.0,
+      "height": 6.8,
+      "engines": "AE3007A",
+      "engineCount": 2,
+      "seats": 50,
+      "cruise": "M0.78",
+      "range": 2870,
+      "mtow": 22.0,
+      "doors": 2,
+      "notes": "50 座 T 尾支线喷气;哈飞安博威曾在国内组装,已退役。"
+    },
+    {
+      "id": "e170",
+      "name": "E170",
+      "cnName": "巴航工业 E170",
+      "length": 29.9,
+      "span": 26.0,
+      "height": 9.7,
+      "engines": "CF34-8E",
+      "engineCount": 2,
+      "seats": 72,
+      "cruise": "M0.82",
+      "range": 3890,
+      "mtow": 38.8,
+      "doors": 2,
+      "notes": ""
+    },
+    {
+      "id": "e175",
+      "name": "E175",
+      "cnName": "巴航工业 E175",
+      "length": 31.7,
+      "span": 26.0,
+      "height": 9.7,
+      "engines": "CF34-8E",
+      "engineCount": 2,
+      "seats": 78,
+      "cruise": "M0.82",
+      "range": 3330,
+      "mtow": 40.4,
+      "doors": 2,
+      "notes": "E170 加长型,北美支线市场保有量最大。"
+    },
+    {
+      "id": "e190",
+      "name": "E190",
+      "cnName": "巴航工业 E190",
+      "length": 36.2,
+      "span": 28.7,
+      "height": 10.6,
+      "engines": "CF34-10E",
+      "engineCount": 2,
+      "seats": 100,
+      "cruise": "M0.82",
+      "range": 4450,
+      "mtow": 47.8,
+      "doors": 2,
+      "notes": "百座级 E 喷气;天津航空等曾批量运营。"
+    }
+  ]
+}

@@ -18,7 +18,14 @@
       "mtow": 79.0,
       "doors": 4,
       "notes": "",
-      "operators": ["CA", "MU", "CZ", "3U", "HO", "9C"]
+      "operators": [
+        "CA",
+        "MU",
+        "CZ",
+        "3U",
+        "HO",
+        "9C"
+      ]
     },
     {
       "id": "a21n",
@@ -36,7 +43,64 @@
       "mtow": 97.0,
       "doors": 4,
       "notes": "",
-      "operators": ["CA", "MU", "CZ", "3U", "HO", "9C"]
+      "operators": [
+        "CA",
+        "MU",
+        "CZ",
+        "3U",
+        "HO",
+        "9C"
+      ]
+    },
+    {
+      "id": "a320",
+      "name": "A320-200",
+      "cnName": "空客 A320-200",
+      "length": 37.57,
+      "span": 34.1,
+      "height": 11.76,
+      "winglet": "fence",
+      "engines": "CFM56-5B",
+      "engineCount": 2,
+      "seats": 150,
+      "cruise": "M0.78",
+      "range": 6100,
+      "mtow": 78.0,
+      "doors": 4,
+      "notes": "ceo 世代原型机龄机型,模型为经典翼尖小翼(非鲨鳍);国内早期空客机队主力。",
+      "operators": [
+        "CA",
+        "MU",
+        "CZ",
+        "3U",
+        "HO",
+        "9C"
+      ]
+    },
+    {
+      "id": "a321",
+      "name": "A321-200",
+      "cnName": "空客 A321-200",
+      "length": 44.51,
+      "span": 34.1,
+      "height": 11.76,
+      "winglet": "fence",
+      "engines": "CFM56-5B",
+      "engineCount": 2,
+      "seats": 185,
+      "cruise": "M0.78",
+      "range": 5950,
+      "mtow": 93.5,
+      "doors": 4,
+      "notes": "",
+      "operators": [
+        "CA",
+        "MU",
+        "CZ",
+        "3U",
+        "HO",
+        "9C"
+      ]
     }
   ]
 }

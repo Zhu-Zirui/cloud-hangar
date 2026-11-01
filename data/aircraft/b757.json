@@ -1,0 +1,22 @@
+{
+  "family": "b757",
+  "familyCn": "波音 757 家族",
+  "variants": [
+    {
+      "id": "b752",
+      "name": "757-200",
+      "cnName": "波音 757-200",
+      "length": 47.3,
+      "span": 38.0,
+      "height": 13.6,
+      "engines": "PW2000 / RB211-535",
+      "engineCount": 2,
+      "seats": 200,
+      "cruise": "M0.80",
+      "range": 7222,
+      "mtow": 115.7,
+      "doors": 4,
+      "notes": "上海航空等曾执飞国内干线,已全部退役。"
+    }
+  ]
+}

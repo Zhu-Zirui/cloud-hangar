@@ -2,12 +2,12 @@
  * engine/families/a320.js — 空客 A320 家族(含 C919 同级尺寸参照)
  * 特征:机鼻圆钝少下压(A320 经典"微笑鼻")、风挡大而立、
  * 鲨鳍小翼、LEAP-1A 大短舱前伸、机腹天线罩鼓包。
- * 变体:a20n / a21n(a321 机身加长,门位与舷窗列随之拉开)。
+ * 变体:a20n / a21n(neo)/ a320 / a321(ceo,真实 GLB,P13 补注册)。
  */
 export const a320Family = {
   id: 'a320',
   cn: '空客 A320 家族',
-  variants: ['a20n', 'a21n'],
+  variants: ['a20n', 'a21n', 'a320', 'a321'],
 };
 
 export function tuneA320(v) {

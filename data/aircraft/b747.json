@@ -3,6 +3,22 @@
   "familyCn": "波音 747 家族",
   "variants": [
     {
+      "id": "b744",
+      "name": "747-400",
+      "cnName": "波音 747-400",
+      "length": 70.6,
+      "span": 64.4,
+      "height": 19.4,
+      "engines": "CF6-80C2 / PW4056",
+      "engineCount": 4,
+      "seats": 416,
+      "cruise": "M0.855",
+      "range": 13450,
+      "mtow": 396.9,
+      "doors": 4,
+      "notes": "国内以国航 747-400 客机与货机为代表,曾是国内洲际航线图腾。"
+    },
+    {
       "id": "b748",
       "name": "747-8",
       "cnName": "波音 747-8 洲际客机",
@@ -18,7 +34,9 @@
       "mtow": 447.0,
       "doors": 6,
       "notes": "国内航司实际两级布局约 365 座。",
-      "operators": ["CA"]
+      "operators": [
+        "CA"
+      ]
     }
   ]
 }

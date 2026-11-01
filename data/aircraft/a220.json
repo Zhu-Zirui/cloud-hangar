@@ -1,0 +1,38 @@
+{
+  "family": "a220",
+  "familyCn": "空客 A220 家族(原庞巴迪 C 系)",
+  "variants": [
+    {
+      "id": "a221",
+      "name": "A220-100",
+      "cnName": "空客 A220-100",
+      "length": 35.0,
+      "span": 35.1,
+      "height": 11.5,
+      "engines": "PW1500G",
+      "engineCount": 2,
+      "seats": 125,
+      "cruise": "M0.78",
+      "range": 6300,
+      "mtow": 63.1,
+      "doors": 4,
+      "notes": "原庞巴迪 CS100,2019 年归入空客产品线更名。"
+    },
+    {
+      "id": "a223",
+      "name": "A220-300",
+      "cnName": "空客 A220-300",
+      "length": 38.7,
+      "span": 35.1,
+      "height": 11.5,
+      "engines": "PW1500G",
+      "engineCount": 2,
+      "seats": 145,
+      "cruise": "M0.78",
+      "range": 6200,
+      "mtow": 67.4,
+      "doors": 4,
+      "notes": "原庞巴迪 CS300,A220 系列加长型。"
+    }
+  ]
+}

@@ -32,6 +32,35 @@ export const HANGAR_BRANDS = {
     logoUrl: 'assets/logos/airbus.png',
     primary: '#00205b', panelBg: '#f4f6fa',
   },
+  /* P13:生产商品牌(机库厂房随机型厂商联动) */
+  atr: {
+    key: 'atr',
+    factoryCn: 'ATR · 图卢兹总装线',
+    factoryEn: 'ATR TOULOUSE ASSEMBLY LINE',
+    logoUrl: 'assets/logos/oem-atr.png',
+    primary: '#005587', panelBg: '#f5f8fc',
+  },
+  embraer: {
+    key: 'embraer',
+    factoryCn: '巴航工业 · 圣若泽杜斯坎普斯总装厂',
+    factoryEn: 'EMBRAER SÃO JOSÉ DOS CAMPOS',
+    logoUrl: 'assets/logos/oem-embraer.png',
+    primary: '#12284c', panelBg: '#f5f8fc',
+  },
+  mdc: {
+    key: 'mdc',
+    factoryCn: '麦道 · 长滩总装厂',
+    factoryEn: 'McDONNELL DOUGLAS LONG BEACH',
+    logoUrl: 'assets/logos/oem-mdc.png',
+    primary: '#0b3263', panelBg: '#f5f8fc',
+  },
+  tupolev: {
+    key: 'tupolev',
+    factoryCn: '图波列夫 · 莫斯科',
+    factoryEn: 'TUPOLEV MOSCOW',
+    logoUrl: 'assets/logos/oem-tupolev.png',
+    primary: '#1d3a6d', panelBg: '#f5f8fc',
+  },
 };
 
 /** 注册自定义品牌(P2:航司涂装 → 机库品牌联动)。重复 key 覆盖。 */

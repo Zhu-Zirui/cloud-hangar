@@ -17,6 +17,19 @@ import { createPartsLayer } from './parts.js';
 import { favChipHTML, bindFavChips } from '../core/favs.js';
 import { drawShareCard, downloadCanvas, copyText } from '../core/share.js';
 
+/* 变体 → 厂商品牌(机库厂房品牌面板/柱幅随生产商联动,P13)
+   A220 归空客品牌(2019 年起为空客产品线);默认波音。 */
+const VARIANT_OEM = {
+  a20n: 'airbus', a21n: 'airbus', a320: 'airbus', a321: 'airbus',
+  a332: 'airbus', a333: 'airbus', a343: 'airbus', a388: 'airbus',
+  a221: 'airbus', a223: 'airbus', a359: 'airbus',
+  b738: 'boeing', b789: 'boeing', b788: 'boeing', b748: 'boeing',
+  b744: 'boeing', b752: 'boeing', b763: 'boeing',
+  at42: 'atr', at72: 'atr',
+  e145: 'embraer', e170: 'embraer', e175: 'embraer', e190: 'embraer',
+  md11: 'mdc', t134: 'tupolev',
+};
+
 function toast(msg, type = '') {
   let wrap = document.querySelector('.toast-wrap');
   if (!wrap) {
@@ -177,7 +190,7 @@ export function render(container, params) {
 
     /* 机库内景:默认按机型厂商挂波音/空客厂房品牌(P2 涂装切换时改为 hangar.setBrand(航司)) */
     const hangar = buildHangarEnv(base.scene, base.renderer);
-    hangar.setBrand(variantId.startsWith('a') ? 'airbus' : 'boeing');
+    hangar.setBrand(VARIANT_OEM[variantId] || 'boeing');
     run(() => hangar.dispose());
 
     /* P2 涂装库:航司品牌注册进机库环境(切换涂装时机库厂房品牌联动) */
@@ -264,7 +277,7 @@ export function render(container, params) {
         const tri = acRef.ac.triCount();
         const triEl = container.querySelector('#v-tri');
         if (triEl) triEl.textContent = `△ ${tri.toLocaleString()}`;
-        hangar.setBrand(def.airline || (variantId.startsWith('a') ? 'airbus' : 'boeing'));
+        hangar.setBrand(def.airline || VARIANT_OEM[variantId] || 'boeing');
         storeUpdate('seenLiveries', (arr) => { const set = new Set(arr || []); set.add(def.id); return [...set]; }, []);
         checkAchievements().catch(() => {}); // P6:涂装收藏家等徽章补检
         toast(`涂装:${def.name}`);
